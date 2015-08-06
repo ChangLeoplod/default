@@ -1,0 +1,53 @@
+<?php
+require_once(dirname(__FILE__) . "/include/common.inc.php");
+//require_once(dirname(__FILE__)."/include/file.class.php");
+$dsql->safeCheck = false; //关闭安全检查
+
+
+
+
+
+
+if(!checkTable('sline_email_msg'))
+{
+    $result=$dsql->ExecNoneQuery("CREATE TABLE `sline_email_msg` (
+  `id` int(11) NOT NULL auto_increment,
+  `msgtype` char(30) default NULL,
+  `msg` varchar(255) default NULL,
+  `isopen` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+  ) ENGINE=InnoDB  DEFAULT CHARSET=utf8");
+
+
+}
+
+
+$isregArr=$dsql->GetOne("select * from sline_sysconfig where varname='cfg_mail_isregcode'");
+$regmsgArr=$dsql->GetOne("select * from sline_sysconfig where varname='cfg_mail_regmsg'");
+if(!empty($isregArr)) {
+    $isreg = $isregArr['value']?$isregArr['value']:0;
+    $dsql->ExecNoneQuery("insert into sline_email_msg(msgtype,msg,isopen) values('reg_msgcode','{$regmsgArr['value']}',$isreg)");
+
+}
+
+
+function checkTable($table)
+{
+    global $dsql;
+    $sql = "SHOW TABLES LIKE '$table'";
+    $row = $dsql->getAll($sql);
+    return count($row) ? 1 : 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

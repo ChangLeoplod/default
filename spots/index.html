@@ -1,0 +1,447 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>成都出发旅游景点大全_旅游景点介绍_旅游景图片-思途旅游</title>
+<meta name="keywords" content="成都出发旅游景点大全"/>
+<meta name="description" content="四川省中国青年旅行社少城分社网景点频道为您提供国内，同外旅游景点大全，著名旅游景点介绍，旅游景点推荐，旅游景点图片等信息。告诉你有哪些好玩的景点！"/>
+<meta name="author" content="思途旅游" />
+<link href="/templets/smore/css/base.css?v=2014.02" rel="stylesheet" media="screen" type="text/css" />
+<link href="/templets/smore/css/ticket.css?v=2014.02" rel="stylesheet" media="screen" type="text/css" />
+
+<script type="text/javascript">
+document.write("<scr"+"ipt src=\"/templets/smore/js/jquery-1.8.3.min.js\"></sc"+"ript>") ;
+document.write("<scr"+"ipt src=\"/templets/smore/js/common.js\"></sc"+"ript>") ;
+document.write("<scr"+"ipt src=\"/templets/smore/js/spot.index.js\"></sc"+"ript>") ;
+</script>
+</head>
+
+<body>
+	<script language="javascript">
+  var siteUrl = 'http://test1.jisha.com/';
+  $(function(){
+      
+	  //导航的选中状态
+		 $(".nav a").each(function(){
+                        var url= window.location.href;
+
+
+                        url=url.replace('index.php','');
+                        url=url.replace('index.html','');
+                        var ulink=$(this).attr("href");
+                        if(url==ulink)
+                        {
+                           $(this).addClass('hover');
+                           $(this).removeClass('hover');
+                        }
+		  })
+	   
+	  //用户登陆状态
+	   $.ajax({
+		type: "POST",
+		url: "/ajax/ajax_login.php",
+		data: "dopost=LoginStatus",
+		success: function(data){
+			$('#userLogin').html(data);
+		}
+	   });
+	  
+   
+    
+
+
+  });
+
+function loginWin(){
+	$(".login-win").show();
+	};
+function loginClose(){
+	$(".login-win").hide();
+	};
+
+  
+  
+</script>	<!-- header 开始 -->
+		<div class="header">
+			<div class="container">
+				
+				<a href="/" class="logo"><img src="/images/logo.png" /></a>
+				
+				<div class="nav">
+     
+      <a href="http://test1.jisha.com/">首页</a>
+      
+        <a href="http://test1.jisha.com/lines/"
+         
+         title="旅游线路">
+         <s class="ico_hot"></s>
+       海岛目的地</a>
+      
+        <a href="http://test1.jisha.com/destination/"
+         
+         title="精选爆款">
+         
+       自由行爆款组合</a>
+      
+        <a href="http://test1.jisha.com/hotels/"
+         
+         title="关于我们">
+         
+       关于我们</a>
+      
+ 
+				</div>
+				
+                                <div id="userLogin">
+
+                                </div>
+				
+			</div>
+		</div>
+		<div class="header_zw"></div>
+	<!-- header 结束 -->	
+
+  
+  <!-- 中间内容开始 -->
+  <div class="big">
+  	<div class="width_1210">
+    	<!-- 面包屑and订单开始 -->
+    	<div class="top_first">
+      	<div class="crumbs"><a href="http://test1.jisha.com">首页</a> &raquo; <a href="/spots/">旅游景点</a> </div>
+         <div class="scrollDiv" id="s1">
+          <ul>
+           <li><span>13659***</span>3小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li><li><span>13659***</span>3小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li><li><span>匿名</span>3小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li>
+           
+            
+            
+          </ul>
+</div><!--scrollDiv end-->
+<script type="text/javascript">
+function AutoScroll(obj){
+  $(obj).find("ul:first").animate({
+	marginTop:"-25px"
+  },500,function(){
+	$(this).css({marginTop:"0px"}).find("li:first").appendTo(this);
+  });
+}
+$(document).ready(function(){
+  setInterval('AutoScroll("#s1")',3000);
+});
+</script>
+      </div>
+      <!-- 面包屑and订单结束 -->
+    
+    	<!--顶部搜索导航开始-->
+      <div class="top_ser_menu">
+      	<div class="ser_t">我计划去</div>
+        <div class="ser_b">
+
+        	<input type="text" class="mdd_box" id="mdd_box" name="keyword" value="请输入目的或景点名称" datadef="请输入目的或景点名称"/>
+            <input type="button" class="mdd_btn" value="搜 索" />
+
+        </div>
+        <div class="ser_l">
+          <span>热门目的地：</span>
+           
+        </div>
+      </div>
+      <!--顶部搜索导航结束-->
+
+      
+      <!--门票内容开始-->
+      <div class="ticket_con">
+      
+      	<!--左侧内容开始-->
+        <div class="ticket_index_left">
+          
+          <script>
+							$(function(){
+									var $str_tit = $('.list_img')
+									$str_tit.hover(function(){
+										var $height_a = $('.list_img p a').height()
+										$(this).children('p').children('a').css('height','auto');
+										if($height_a>30){
+												$(this).children('p').children('a').animate({height:'60px'},500)
+											}
+									},function(){
+										$(this).children('p').children('a').animate({height:'30px'},300)
+										})
+							})
+					</script>
+          
+        </div>
+        <!--左侧内容结束-->
+        
+        <!--右侧内容开始-->
+        <div class="ticket_index_rig">
+          <!--客户评论开始-->
+          <div class="discuss">
+            <h3>客户评论</h3>
+            <div class="dis_list">
+              
+            </div>
+          </div>
+          <!--客户评论结束-->
+          
+          <div class="shortcut_cz">
+            <h3>不知道去哪儿？试试小助手吧！</h3>
+            <div class="side_st">
+              <div class="diy_select">
+                <div class="diy_tit">景区等级</div>
+                <input type="hidden" name="" class="diy_select_input">
+                <div class="diy_select_txt">AAAAA</div>
+                <div class="diy_select_btn"></div>
+                <ul class="diy_select_list">
+                  <li data-value="20" data-field="attrid">A</li><li data-value="21" data-field="attrid">AA</li><li data-value="22" data-field="attrid">AAA</li><li data-value="23" data-field="attrid">AAAA</li><li data-value="24" data-field="attrid">AAAAA</li>
+                </ul>
+              </div>
+              <div class="diy_select">
+                <div class="diy_tit">景区类型</div>
+                <input type="hidden" name="" class="diy_select_input">
+                <div class="diy_select_txt">国内游</div>
+                <div class="diy_select_btn"></div>
+                <ul class="diy_select_list">
+                  <li data-value="1" data-field="destid">普吉岛</li><li data-value="2" data-field="destid">苏梅岛</li><li data-value="3" data-field="destid">巴厘岛</li><li data-value="4" data-field="destid">马尔代夫</li>
+                
+                </ul>
+              </div>
+              <div class="diy_select">
+                <div class="diy_tit">价格区间</div>
+                <input type="hidden" name="" class="diy_select_input">
+                <div class="diy_select_txt">不限</div>
+                <div class="diy_select_btn"></div>
+                <ul class="diy_select_list">
+                  <li data-value="1" data-field="priceid">100元以下</li><li data-value="2" data-field="priceid">101元~200元</li><li data-value="3" data-field="priceid">201元~300元</li><li data-value="4" data-field="priceid">301元~400元</li><li data-value="5" data-field="priceid">401元~500元</li><li data-value="6" data-field="priceid">501元~600元</li><li data-value="125" data-field="priceid">701元~800元</li><li data-value="136" data-field="priceid">801元以上</li>
+                 
+                </ul>
+              </div>
+              <div class="side_st_btn"><a href="javascript:;" class="btn_search">立即查询</a></div>
+            </div>
+          </div>
+                  <!--热卖线路产品开始-->
+    <div class="hot_pro">
+      <h3>热卖产品</h3>
+      <div class="side_plb_list line_hot_list">
+         <dl class="dl_list">
+            	<dt><a class="fl" href="http://test1.jisha.com/lines/show_1.html" target="_blank"><img class="fl" src="http://test1.jisha.com/uploads/main/allimg/20150805/20150805151157.jpg" width="218" height="130" alt="武汉——泰国甲米爆款套餐" /></a></dt>
+              <dd class="dd1"><a href="http://test1.jisha.com/lines/show_1.html" target="_blank">武汉——泰国甲米爆款套餐</a></dd>
+            </dl><dl class="dl_list">
+            	<dt><a class="fl" href="http://test1.jisha.com/lines/show_2.html" target="_blank"><img class="fl" src="http://test1.jisha.com/uploads/main/allimg/20150805/20150805150931.jpg" width="218" height="130" alt="芭提雅金宫（斗兽场）人妖歌舞秀" /></a></dt>
+              <dd class="dd1"><a href="http://test1.jisha.com/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀</a></dd>
+            </dl> 
+      </div>
+        <script language="javascript">
+         $(function(){
+		     $(".line_hot_list").find('.dl_list').last().addClass('bor_bot_0');
+		 })
+      </script>
+    </div>
+    <!--热卖线路产品结束--> <!--推荐景点开始-->
+    <div class="rig_side_list">
+      <h3>推荐景点</h3>
+      <div class="list_all">
+        
+       
+      </div>
+    </div>
+    <!--推荐景点结束-->  <!--产品好评开始-->
+      <div class="hot_pro">
+      <h3>好评产品排行</h3>
+      <div class="side_plb_list good_list">
+       
+       <script language="javascript">
+         $(function(){
+		     $(".good_list").find('dl').last().addClass('bor_bot_0');
+		 })
+        </script>
+       
+      </div>
+    </div>
+    <!--产品好评结束--><!--推荐团购产品开始-->                                 
+        <div class="hot_pro">
+      <h3>推荐团购产品</h3>
+      <div class="side_plb_list tuan_list">
+        
+   
+      </div>
+      <script language="javascript">
+         $(function(){
+		     $(".tuan_list").find('.dl_list').last().addClass('bor_bot_0');
+		 })
+      </script>
+    </div>
+    <!--推荐团购产品结束-->
+
+        </div>
+        <!--搜索隐藏域-->
+        <input type="hidden" id="attrid" value="0"/>
+        <input type="hidden" id="priceid" value="0"/>
+        <input type="hidden" id="destid" value="0"/>
+        
+        <!--右侧内容结束-->
+      
+      </div>
+      <!--门票内容结束-->
+      
+    </div>
+  </div>
+  <!-- 中间内容结束 -->
+    
+  <!--帮助流程开始-->
+  <div class="wh_auto">
+    <div class="help">
+     <dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_9.html">预订常见问题</a></dt>
+        
+      </dl><dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_10.html">付款方式</a></dt>
+        
+      </dl><dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_11.html">签订合同</a></dt>
+        
+      </dl><dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_12.html">其它问题</a></dt>
+        
+      </dl>
+      
+      
+    </div>
+  </div>
+  <!--帮助流程结束-->
+  
+  <!--footer 底部开始-->
+		<div class="footer">	
+			
+			<div class="footer_copy">
+				<p>
+					<a href="about.html">关于积沙旅游</a>
+					<a href="join.html">加入我们</a>
+					<a href="contact.html">联系我们</a>
+					<a href="#">帮助中心</a>
+					<a href="contact.html">商务合作</a>
+				</p>	
+				<p>鄂ICP备14009743  © 积沙旅行 2015</p>
+			</div>
+			
+		</div>
+	<!--footer 底部结束-->
+	<!--login 开始-->
+            <div class="login-win">
+                 <div class="login-frame">
+                      <div class="title">积沙旅行 <i onClick="loginClose();">&nbsp;</i></div>
+                      <div class="content">
+                           <div class="reg">
+                                <h2>账号注册</h2>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                       <th align="right" width="140px">手机号：</th>
+                                       <td width="226px">
+                                          <input type="text" name="mobile" id="p_mobile" class="text">
+                                          <div class="info reg_info" style="display: none">账号或密码错误</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">短信验证：</th>
+                                       <td width="226px">
+                                           <input type="text" name="msgcode" id="p_msgcode" class="text" style="width: 110px; float:left">
+                                           <input type="button" value="发送验证码" id="MobileInvCode" style=" width:106px; float:right; text-indent:0em"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">密码：</th>
+                                       <td width="226px">
+                                          <input type="password" name="password" id="p_password" class="text valid">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">确认密码：</th>
+                                       <td width="226px">
+                                          <input type="password" name="repassword" id="p_repassword" class="text error">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">&nbsp;</th>
+                                       <td width="226px"><input type="button" class="input-button" id="reg" value="注&nbsp;册"></td>
+                                    </tr>
+                                </table>
+                           </div>
+                           <div class="log">
+                                <h2>登陆帐号</h2>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                       <th align="left"  width="140px">手机号：</th>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px" style="padding-top:5px;">
+                                          <input type="text" name="loginname" id="loginname"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="left"  width="140px">密码：</th>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px" style="padding-top:5px;">
+                                          <input type="password" name="password" id="password"/>
+                                          <div class="info login_info" style="display: none">账号或密码错误</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px"><input type="button" id="login" class="input-button" value="登&nbsp;录" /></td>
+                                    </tr>
+                                </table>
+                           </div>
+                      </div>
+                 </div>
+            </div>
+<script>
+
+$('#MobileInvCode').click(function(){
+            if(!checkPhoneSend())
+                return;
+             var sendnum = $.cookie('sendnum') ? $.cookie('sendnum') : 0;
+            if(sendnum!=0){
+                $.cookie('sendnum', sendnum++);
+            }else{
+                $.cookie('sendnum', 1,{ expires: 1/96 });
+            }
+            var mobile = $("#p_mobile").val();
+
+            var url = "/member/reg.php?dopost=sendmsgcode&mobile="+mobile+"&firstcode=&k="+"";
+            $.post(url,true,function(data) {
+                if(data.status)
+                {
+                    CodeTimeout(60);
+                    return false;
+                }
+                else
+                {
+                   alert(data.msg);
+                   return false;
+                }
+            },'json');
+
+        });            
+            
+</script>
+</body>
+</html>
+
+  
+  <!-- 友情链接开始 -->
+  <div class="big">
+  	<div class="width_1210">
+      <div class="link">
+        <dl>
+          <dt>友情链接</dt>
+          <dd>
+            
+          </dd>
+        </dl>
+      </div>
+    </div>
+	</div>
+  <!-- 友情链接结束 -->
+  <script language="javascript" src="/templets/smore/js/list_box.js"></script>
+
+</body>
+</html>
