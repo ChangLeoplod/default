@@ -1,0 +1,487 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>热门旅游目的地-思途旅游</title>
+    
+    
+    <meta name="author" content="思途旅游" />
+<link href="/templets/smore/css/base.css?v=2014.02.24" rel="stylesheet" media="screen" type="text/css" />
+<link href="/templets/smore/css/destination.css?v=2014.02.24" rel="stylesheet" media="screen" type="text/css" />
+
+<script type="text/javascript">
+document.write("<scr"+"ipt src=\"/templets/smore/js/jquery-1.8.3.min.js\"></sc"+"ript>") ;
+document.write("<scr"+"ipt src=\"/templets/smore/js/common.js\"></sc"+"ript>") ;
+</script>
+</head>
+
+<body>
+	<script language="javascript">
+  var siteUrl = 'http://test1.jisha.com/';
+  $(function(){
+      
+	  //导航的选中状态
+		 $(".nav a").each(function(){
+                        var url= window.location.href;
+
+
+                        url=url.replace('index.php','');
+                        url=url.replace('index.html','');
+                        var ulink=$(this).attr("href");
+                        if(url==ulink)
+                        {
+                           $(this).addClass('hover');
+                           $(this).removeClass('hover');
+                        }
+		  })
+	   
+	  //用户登陆状态
+	   $.ajax({
+		type: "POST",
+		url: "/ajax/ajax_login.php",
+		data: "dopost=LoginStatus",
+		success: function(data){
+			$('#userLogin').html(data);
+		}
+	   });
+	  
+   
+    
+
+
+  });
+
+function loginWin(){
+	$(".login-win").show();
+	};
+function loginClose(){
+	$(".login-win").hide();
+	};
+
+  
+  
+</script>	<!-- header 开始 -->
+		<div class="header">
+			<div class="container">
+				
+				<a href="/" class="logo"><img src="/images/logo.png" /></a>
+				
+				<div class="nav">
+     
+      <a href="http://test1.jisha.com/">首页</a>
+      
+        <a href="http://test1.jisha.com/lines/"
+         
+         title="旅游线路">
+         <s class="ico_hot"></s>
+       海岛目的地</a>
+      
+        <a href="http://test1.jisha.com/destination/"
+         
+         title="精选爆款">
+         
+       自由行爆款组合</a>
+      
+        <a href="http://test1.jisha.com/hotels/"
+         
+         title="关于我们">
+         
+       关于我们</a>
+      
+ 
+				</div>
+				
+                                <div id="userLogin">
+
+                                </div>
+				
+			</div>
+		</div>
+		<div class="header_zw"></div>
+	<!-- header 结束 -->	
+
+  
+  <!-- 中间内容开始 -->
+  <div class="big">
+  	<div class="width_1210">
+    	<!-- 面包屑and订单开始 -->
+    	<div class="top_first">
+      	<!-- 面包屑and订单开始 -->
+    	<div class="crumbs"><a href="http://test1.jisha.com">首页</a> &raquo; <a href="/destination/">精选爆款</a> </div>
+         <div class="scrollDiv" id="s1">
+          <ul>
+           <li><span>13659***</span>8分钟前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li><li><span>13659***</span>3小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li><li><span>匿名</span>2小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li>
+           
+            
+            
+          </ul>
+</div><!--scrollDiv end-->
+<script type="text/javascript">
+function AutoScroll(obj){
+  $(obj).find("ul:first").animate({
+	marginTop:"-25px"
+  },500,function(){
+	$(this).css({marginTop:"0px"}).find("li:first").appendTo(this);
+  });
+}
+$(document).ready(function(){
+  setInterval('AutoScroll("#s1")',3000);
+});
+</script>
+
+      </div>
+      <!-- 面包屑and订单结束 -->
+
+      <div class="mdd_con_left">
+        <div class="mdd_top">
+        	<div class="m_t_left">
+          	<div class="m_t_search">
+            	<h3>你好，世界！</h3>
+              <div class="s1"><input type="text" id="destname" class="search_txt" value="请输入目的地拼音" datadef="请输入目的地拼音" /><input type="button" class="search_btn mdd_btn" value="GO" /></div>
+              <div class="s2">
+                <span class="fl">热门目的地：</span>
+                
+              </div>
+            </div>
+            <div class="dw_pic_1">
+              <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152756.gif" width="190" height="401" alt="" /></a><a class="tit_1" href="http://#"></a>
+              
+            </div>
+            <div class="dw_pic_2">
+              <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152808.gif" width="379" height="195" alt="" /></a><a class="tit_2" href="http://#"></a>
+             
+            </div>
+            <div class="dw_pic_3">
+               <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152817.gif" width="188" height="202" alt="" /></a><a class="tit_3" href="http://#"></a>
+            </div>
+            <div class="dw_pic_4">
+               <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152828.gif" width="187" height="202" alt="" /></a><a class="tit_4" href="http://#"></a>
+              
+            </div>
+          </div>
+          <div class="m_t_rig">
+          	<div class="dw_pic_5">
+              <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152845.gif" width="189" height="394" alt="" /></a><a class="tit_5" href="http://#"></a>
+             </div>
+            <div class="dw_pic_6">
+               <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152901.gif" width="190" height="195" alt="" /></a><a class="tit_6" href="http://#"></a>
+              
+            </div>
+            <div class="dw_pic_7">
+               <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152915.gif" width="190" height="195" alt="" /></a><a class="tit_7" href="http://#"></a>
+             
+            </div>
+            <div class="dw_pic_8">
+             <a href="http://#" target="_blank"><img class="fl" src="/uploads/main/adimg/20140303/20140303152928.gif" width="383" height="203" alt="" /></a><a class="tit_8" href="http://#"></a>
+            </div>
+          </div>
+        </div>
+        <div class="mdd_list_con">
+          <div class="mdd_title">
+            <h3>快捷目的地</h3>
+            <div class="mdd_menu">
+              <a class="active" href="javascript:;" data-id="0">全部地区</a>
+              <a href="http://test1.jisha.com/pujidao/" target="_blank" data-id="1">普吉岛</a><a href="http://test1.jisha.com/sumeidao/" target="_blank" data-id="2">苏梅岛</a><a href="http://test1.jisha.com/balidao/" target="_blank" data-id="3">巴厘岛</a><a href="http://test1.jisha.com/maerdaifu/" target="_blank" data-id="4">马尔代夫</a>
+            </div>
+          </div>
+          <div class="list_on" id="mdd_3">
+              <h3>巴厘岛旅游目的地</h3>
+              
+              
+            </div><div class="list_on" id="mdd_4">
+              <h3>马尔代夫旅游目的地</h3>
+              
+              
+            </div><div class="list_on" id="mdd_1">
+              <h3>普吉岛旅游目的地</h3>
+              
+              
+            </div><div class="list_on" id="mdd_2">
+              <h3>苏梅岛旅游目的地</h3>
+              
+              
+            </div>
+          
+         
+          
+          
+        </div>
+      </div>
+
+      
+      <!--边栏开始-->
+    	<div class="mdd_con_rig">
+
+         <!--热卖线路产品开始-->
+    <div class="hot_pro">
+      <h3>热卖产品</h3>
+      <div class="side_plb_list line_hot_list">
+         <dl class="dl_list">
+            	<dt><a class="fl" href="http://test1.jisha.com/lines/show_1.html" target="_blank"><img class="fl" src="http://test1.jisha.com/uploads/main/allimg/20150805/20150805151157.jpg" width="218" height="130" alt="武汉——泰国甲米爆款套餐" /></a></dt>
+              <dd class="dd1"><a href="http://test1.jisha.com/lines/show_1.html" target="_blank">武汉——泰国甲米爆款套餐</a></dd>
+            </dl><dl class="dl_list">
+            	<dt><a class="fl" href="http://test1.jisha.com/lines/show_2.html" target="_blank"><img class="fl" src="http://test1.jisha.com/uploads/main/allimg/20150805/20150805150931.jpg" width="218" height="130" alt="芭提雅金宫（斗兽场）人妖歌舞秀" /></a></dt>
+              <dd class="dd1"><a href="http://test1.jisha.com/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀</a></dd>
+            </dl> 
+      </div>
+        <script language="javascript">
+         $(function(){
+		     $(".line_hot_list").find('.dl_list').last().addClass('bor_bot_0');
+		 })
+      </script>
+    </div>
+    <!--热卖线路产品结束--><!--推荐团购产品开始-->                                 
+        <div class="hot_pro">
+      <h3>推荐团购产品</h3>
+      <div class="side_plb_list tuan_list">
+        
+   
+      </div>
+      <script language="javascript">
+         $(function(){
+		     $(".tuan_list").find('.dl_list').last().addClass('bor_bot_0');
+		 })
+      </script>
+    </div>
+    <!--推荐团购产品结束--> <!--客户咨询蓝色开始-->
+    <div class="k_side_list">
+      <h3>客户提问</h3>
+      <div class="k_side_con">
+        
+      </div>
+    </div>
+    <!--客户咨询蓝色结束-->
+        
+      </div>
+      <!--边栏结束-->
+
+    </div>
+  </div>
+  <!-- 中间内容结束 -->
+  
+  
+  <!--帮助流程开始-->
+  <div class="wh_auto">
+    <div class="help">
+     <dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_9.html">预订常见问题</a></dt>
+        
+      </dl><dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_10.html">付款方式</a></dt>
+        
+      </dl><dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_11.html">签订合同</a></dt>
+        
+      </dl><dl class="border_lf_none">
+        <dt><a rel="nofollow" href="/help/index_12.html">其它问题</a></dt>
+        
+      </dl>
+      
+      
+    </div>
+  </div>
+  <!--帮助流程结束-->
+  
+  <!--footer 底部开始-->
+		<div class="footer">	
+			
+			<div class="footer_copy">
+				<p>
+					<a href="about.html">关于积沙旅游</a>
+					<a href="join.html">加入我们</a>
+					<a href="contact.html">联系我们</a>
+					<a href="#">帮助中心</a>
+					<a href="contact.html">商务合作</a>
+				</p>	
+				<p>鄂ICP备14009743  © 积沙旅行 2015</p>
+			</div>
+			
+		</div>
+	<!--footer 底部结束-->
+	<!--login 开始-->
+            <div class="login-win">
+                 <div class="login-frame">
+                      <div class="title">积沙旅行 <i onClick="loginClose();">&nbsp;</i></div>
+                      <div class="content">
+                           <div class="reg">
+                                <h2>账号注册</h2>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                       <th align="right" width="140px">手机号：</th>
+                                       <td width="226px">
+                                          <input type="text" name="mobile" id="p_mobile" class="text">
+                                          <div class="info reg_info" style="display: none">账号或密码错误</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">短信验证：</th>
+                                       <td width="226px">
+                                           <input type="text" name="msgcode" id="p_msgcode" class="text" style="width: 110px; float:left">
+                                           <input type="button" value="发送验证码" id="MobileInvCode" style=" width:106px; float:right; text-indent:0em"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">密码：</th>
+                                       <td width="226px">
+                                          <input type="password" name="password" id="p_password" class="text valid">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">确认密码：</th>
+                                       <td width="226px">
+                                          <input type="password" name="repassword" id="p_repassword" class="text error">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">&nbsp;</th>
+                                       <td width="226px"><input type="button" class="input-button" id="reg" value="注&nbsp;册"></td>
+                                    </tr>
+                                </table>
+                           </div>
+                           <div class="log">
+                                <h2>登陆帐号</h2>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                       <th align="left"  width="140px">手机号：</th>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px" style="padding-top:5px;">
+                                          <input type="text" name="loginname" id="loginname"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="left"  width="140px">密码：</th>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px" style="padding-top:5px;">
+                                          <input type="password" name="password" id="password"/>
+                                          <div class="info login_info" style="display: none">账号或密码错误</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px"><input type="button" id="login" class="input-button" value="登&nbsp;录" /></td>
+                                    </tr>
+                                </table>
+                           </div>
+                      </div>
+                 </div>
+            </div>
+<script>
+
+$('#MobileInvCode').click(function(){
+            if(!checkPhoneSend())
+                return;
+             var sendnum = $.cookie('sendnum') ? $.cookie('sendnum') : 0;
+            if(sendnum!=0){
+                $.cookie('sendnum', sendnum++);
+            }else{
+                $.cookie('sendnum', 1,{ expires: 1/96 });
+            }
+            var mobile = $("#p_mobile").val();
+
+            var url = "/member/reg.php?dopost=sendmsgcode&mobile="+mobile+"&firstcode=&k="+"";
+            $.post(url,true,function(data) {
+                if(data.status)
+                {
+                    CodeTimeout(60);
+                    return false;
+                }
+                else
+                {
+                   alert(data.msg);
+                   return false;
+                }
+            },'json');
+
+        });            
+            
+</script>
+</body>
+</html>
+
+  <script language="javascript">
+  
+   $(function(){
+	   
+	 //动态目的地
+    var FilesArray=['./powerfloat/jquery-powerFloat.js','./powerfloat/powerFloat.css']
+    Loader.loadFileList(FilesArray,function(){
+         $(".haschild").powerFloat({
+				   
+				    targetMode:"ajax",
+					eventType:"hover",
+					target:function(){
+						     var mddid = $(this).attr('data-id');
+							 var url = siteUrl+"ajax/ajax.php?dopost=getMddChild&dest_id="+mddid;
+							 return url;
+						},
+					showCall: function() { }
+
+				});
+	   
+    });
+	//目的地切换
+	$(".mdd_menu a").hover(function(){
+		var contain = "mdd_"+$(this).attr('data-id');
+		$(this).addClass('active').siblings().removeClass('active');
+		
+		$(".list_on").each(function(){
+		   var c = $(this).attr('id');
+		   
+		   if(c == contain){
+		      $(this).show();
+		   }
+		   else if(contain == 'mdd_0')
+		   {
+			  $(this).show();   
+		   }
+		   else{
+		      $(this).hide();
+		   }
+		})
+		
+	},function(){})
+	//目的城市选择
+		 var FilesArray=['./result/result.js','./result/result.css']
+			Loader.loadFileList(FilesArray,function(){
+
+			  $('#destname').Result({url:'../ajax/ajax.php',data:'getDest'});
+		   });
+	 //目的地搜索框
+	 $('#destname').focusEffect();
+	 //按目的地搜索
+	   $(".mdd_btn").click(function(){
+	       var destname = $("#destname").val();
+		   var pinyin = getDestPinYin(destname);
+		   if(pinyin!='')
+		   {
+			   var url = siteUrl+pinyin;
+		       window.open(url,'_self');
+		   }
+		   else{
+		      $("#destname").focus();
+		   }
+		   
+		   
+		   
+	   
+	   })
+	 //获取目的地id
+	  function getDestPinYin(destname)
+	  {
+		  var destid = 0;
+		  $.ajax({type:'POST',url:'/ajax/ajax.php',async:false,data:'dopost=getDestPinYin&destname='+destname,success:function(data){
+		     
+			 destid=data;
+		  
+		  }})
+		  return destid;
+		  
+	  }
+      
+   
+   })
+  </script>
+
+</body>
+</html>
