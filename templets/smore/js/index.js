@@ -15,7 +15,7 @@ $(function(){
 
   
    $('#login').click(function(){
-    var uname = $("#loginname").val();console.log(uname);
+    var uname = $("#loginname").val();
     var pwd = $("#password").val();
     if (uname.length<1) {
         $("#loginname").focus();

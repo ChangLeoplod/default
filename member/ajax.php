@@ -641,7 +641,7 @@ function setPageInfo($currentpage,$totalpage)
 		}
 		else
 		{
-		  $out.='<a title="'.$totalpage.'" href="javascript:$.AjaxSearch.page('.$totalpage.');">'.$totalpage.'</a>&nbsp;';
+		  $out.='<a title="'.$totalpage.'" href="javascript:$.AjaxSearch.page('.$totalpage.');">'.末页.'</a>&nbsp;';
 		}
 	}
 	//下一页
@@ -674,10 +674,8 @@ if ($do=='insert') {
         $name = $_POST['name'];
         $mobile = $_POST['mobile'];
         $email = $_POST['email'];
-        $idno = $_POST['idno'];
-        $ppno = $_POST['ppno'];
         $time = time();
-        $sql="insert into #@__member_set(`mid`,`name`,`mobile`,`email`,`idno`,`ppno`,`intime`) values('$uid','$name','$mobile','$email','$idno','$ppno','$time')";
+        $sql="insert into #@__member_set(`mid`,`name`,`mobile`,`email`,`intime`) values('$uid','$name','$mobile','$email','$time')";
 	if ($dsql->ExecuteNoneQuery($sql)) {
             $arr['result'] =2;
         }
@@ -693,9 +691,7 @@ if ($do=='edit') {
         $name = $_POST['name'];
         $mobile = $_POST['mobile'];
         $email = $_POST['email'];
-        $idno = $_POST['idno'];
-        $ppno = $_POST['ppno'];
-        $sql="update #@__member_set  set `name`='$name',`mobile`='$mobile',`email`='$email', `idno`='$idno', `ppno`='$ppno' where id='$id'";
+        $sql="update #@__member_set  set `name`='$name',`mobile`='$mobile',`email`='$email' where id='$id'";
 	if ($dsql->ExecuteNoneQuery($sql)) {
             $arr['result'] =2;
         }

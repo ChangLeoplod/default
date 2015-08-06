@@ -2,10 +2,10 @@
 $cfg_medias_dir = '/uploads';
 $cfg_cmspath = '';
 $cfg_cli_time = '8';
-$cfg_webname = '思途旅游';
+$cfg_webname = '积沙旅游';
 $cfg_keywords = '';
 $cfg_description = '';
-$cfg_indextitle = '思途旅游CMS';
+$cfg_indextitle = '积沙旅游CMS';
 $cfg_index_zhuti = '';
 $cfg_indexcode = '';
 $cfg_gonggao = '<p><span style="color: #808080">四川门户电子商务网站系统，用于快速建设旅游网站：订购网站<a href="http://www.stourweb.com">www.stourweb.com</a>，电话：4006-0999-27</span></p>';

@@ -38,8 +38,11 @@ if(!$User->isLogin())
   $lineinfo['childprice'] =  $priceinfo['childprice']; //小孩价格
   $lineinfo['oldprice'] =  $priceinfo['oldprice']; //老人价格
 
-  $lineinfo['dingnum'] = intval($adultnum) ? intval($adultnum) : 1;//数量
+  $lineinfo['dingnum'] = intval($adultnum) ? intval($adultnum) : 0;//数量
   $lineinfo['childnum'] = intval($childnum) ? intval($childnum) : 0;
+  if ( $lineinfo['dingnum']<1&&$lineinfo['childnum']<1) {
+      $lineinfo['dingnum']=1;
+  }
   $lineinfo['oldnum'] = intval($oldnum) ? intval($oldnum) : 0;
   $group = explode(',',$suitinfo['propgroup']);//人群
 

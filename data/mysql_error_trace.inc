@@ -9736,3 +9736,303 @@ Page: /lines/
 Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
 */
 ?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=2
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=2
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=1
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=1
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=3
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=3
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=155&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=155&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=153&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=153&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=155&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=155&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=154&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=154&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=153&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=153&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=152&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=152&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=159&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=159&id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?id=4
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=1
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=1
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=2
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/?attr_id=0&id=2
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>

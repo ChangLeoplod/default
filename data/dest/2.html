@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>苏梅岛-思途旅游</title>
-    <meta name="author" content="思途旅游" />
+    <title>苏梅岛-积沙旅游</title>
+    <meta name="author" content="积沙旅游" />
     
     
     <link href="/templets/smore/css/base.css?v=2014.02.24" rel="stylesheet" media="screen" type="text/css" />
@@ -31,16 +31,17 @@ $(function($){
 		 $(".nav a").each(function(){
                         var url= window.location.href;
 
-
+                        
                         url=url.replace('index.php','');
                         url=url.replace('index.html','');
                         var ulink=$(this).attr("href");
                         if(url==ulink)
                         {
                            $(this).addClass('hover');
-                           $(this).removeClass('hover');
+                        } else{
+                             $(this).removeClass('hover');
                         }
-		  })
+		  });
 	   
 	  //用户登陆状态
 	   $.ajax({
@@ -116,7 +117,7 @@ function loginClose(){
             <div class="crumbs"><a href="http://test1.jisha.com">首页</a> &raquo; <a href="/destination/">精选爆款</a> &raquo; <a href="/sumeidao">苏梅岛</a> </div>
              <div class="scrollDiv" id="s1">
           <ul>
-           <li><span>13659***</span>2小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li><li><span>13659***</span>2小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li><li><span>匿名</span>3小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li>
+           <li><span>13080***</span>2小时前预订了<a href="/lines/show_2.html" target="_blank">芭提雅金宫（斗兽场）人妖歌舞秀(VIP专车接送)</a></li><li><span>18602***</span>52分钟前预订了<a href="/lines/show_1.html" target="_blank">武汉——泰国甲米爆款套餐(豪华双人床)</a></li><li><span>18618***</span>3小时前预订了<a href="/lines/show_1.html" target="_blank">武汉——泰国甲米爆款套餐(豪华双人床)</a></li>
            
             
             
@@ -142,7 +143,7 @@ $(document).ready(function(){
       	<div class="main_menu">
         	<div class="m_tit">
           	<h1>苏梅岛</h1>
-            <p>已有<span>830</span>人关注</p>
+            <p>已有<span>370</span>人关注</p>
           </div>
           <ul>
           	<li>
@@ -404,32 +405,32 @@ $(document).ready(function(){
                                     <tr>
                                        <th align="right" width="140px">手机号：</th>
                                        <td width="226px">
-                                          <input type="text" />
-                                          <div class="info">账号或密码错误</div>
+                                          <input type="text" name="mobile" id="p_mobile" class="text">
+                                          <div class="info reg_info" style="display: none">账号或密码错误</div>
                                        </td>
                                     </tr>
                                     <tr>
                                        <th align="right" width="140px">短信验证：</th>
                                        <td width="226px">
-                                           <input type="text" style="width:120px; float:left"/>
-                                           <input type="button" value="发送验证码" style=" width:96px; float:right; text-indent:0em"/>
+                                           <input type="text" name="msgcode" id="p_msgcode" class="text" style="width: 110px; float:left">
+                                           <input type="button" value="发送验证码" id="MobileInvCode" style=" width:106px; float:right; text-indent:0em"/>
                                        </td>
                                     </tr>
                                     <tr>
                                        <th align="right" width="140px">密码：</th>
                                        <td width="226px">
-                                          <input type="text" />
+                                          <input type="password" name="password" id="p_password" class="text valid">
                                        </td>
                                     </tr>
                                     <tr>
                                        <th align="right" width="140px">确认密码：</th>
                                        <td width="226px">
-                                          <input type="text" />
+                                          <input type="password" name="repassword" id="p_repassword" class="text error">
                                        </td>
                                     </tr>
                                     <tr>
                                        <th align="right" width="140px">&nbsp;</th>
-                                       <td width="226px"><input type="button" class="input-button" id="reg" value="注&nbsp;册" /></td>
+                                       <td width="226px"><input type="button" class="input-button" id="reg" value="注&nbsp;册"></td>
                                     </tr>
                                 </table>
                            </div>
@@ -461,7 +462,36 @@ $(document).ready(function(){
                       </div>
                  </div>
             </div>
-        <!--login 结束-->
+<script>
+
+$('#MobileInvCode').click(function(){
+            if(!checkPhoneSend())
+                return;
+             var sendnum = $.cookie('sendnum') ? $.cookie('sendnum') : 0;
+            if(sendnum!=0){
+                $.cookie('sendnum', sendnum++);
+            }else{
+                $.cookie('sendnum', 1,{ expires: 1/96 });
+            }
+            var mobile = $("#p_mobile").val();
+
+            var url = "/member/reg.php?dopost=sendmsgcode&mobile="+mobile+"&firstcode=&k="+"";
+            $.post(url,true,function(data) {
+                if(data.status)
+                {
+                    CodeTimeout(60);
+                    return false;
+                }
+                else
+                {
+                   alert(data.msg);
+                   return false;
+                }
+            },'json');
+
+        });            
+            
+</script>
 </body>
 </html>
 

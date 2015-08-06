@@ -103,13 +103,13 @@
 								<span class="adultcontain" style="display: none">
                                                                     <strong><s style=" color:#f50">*</s>成人：</strong>
                                                                     <span class="order_number">
-                                                                      <input type="text" id="adultnum" name="adult" value="1">
+                                                                      <input type="text" id="adultnum" name="adult" value="1" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
                                                                     </span>
                                                                 </span>
                                                                  <span class="childcontain" style="display: none;padding-left:5px">
                                                                     <strong>儿童：</strong>
                                                                     <span class="order_number">
-                                                                      <input type="text" id="childnum" name="child" value="0">
+                                                                      <input type="text" id="childnum" name="child" value="0" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
                                                                     </span>
                                                                  </span>
 								
@@ -127,7 +127,7 @@
 						</div>
 						
 						<dl class="total_price">
-							<dt>总价：<span id="totalprice">￥41220.08</span></dt>	
+							<dt>总价：<span id="totalprice">￥0</span></dt>	
                                                         <dd>房价差：<span id="roomblance">￥0</span></dd>
 						</dl>
 						
@@ -220,10 +220,13 @@
      
       $(".btn_book").click(function(){
           
-
-          
-          
-      var datevalue = $("#date_list").val();//当前选择的日期
+          $.ajax({
+		type: "POST",
+		url: "/ajax/ajax_login.php",
+		data: "dopost=checkLogin",
+		success: function(data){
+			if(data==1) {
+                           var datevalue = $("#date_list").val();//当前选择的日期
 	  var price = $("#date_list").find("option:selected").attr("data-price"); //成人价格
 	  var childprice = $("#date_list").find("option:selected").attr("data-childprice");//儿童价格
 	  var suitid = $(".tc_class a.on").attr('data-suitid');
@@ -237,6 +240,10 @@
               alert('库存不足!');
               return false;
           }
+          if(adultnum<1&&childnum<1) {
+              alert('请输入出行人数');
+              return false;
+          }
 	  if(datevalue == null || suitid==undefined){
 	     alert('当前产品不可预订');
 		 return false;
@@ -245,8 +252,20 @@
 
 		   var url = 'booking.php?usedate='+datevalue+"&lineid="+lineid+"&price="+price+"&childprice="+childprice+"&suitid="+suitid+"&oldnum="+oldnum;
 		   url = url+"&adultnum="+adultnum+"&childnum="+childnum;
-		   window.open(url);
-	  }
+		   //window.open(url);
+                   location.href = url; 
+	  } 
+                        } else {
+                            $(".login-win").show();
+                            return false;
+                        }
+		}
+	   });
+
+          
+          
+          
+      
   
   });
   

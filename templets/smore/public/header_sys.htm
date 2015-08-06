@@ -6,16 +6,17 @@
 		 $(".nav a").each(function(){
                         var url= window.location.href;
 
-
+                        
                         url=url.replace('index.php','');
                         url=url.replace('index.html','');
                         var ulink=$(this).attr("href");
                         if(url==ulink)
                         {
                            $(this).addClass('hover');
-                           $(this).removeClass('hover');
+                        } else{
+                             $(this).removeClass('hover');
                         }
-		  })
+		  });
 	   
 	  //用户登陆状态
 	   $.ajax({
