@@ -16,8 +16,13 @@ $uid=empty($uid)? "" : RemoveXSS($uid);
 
 $pv = new View(0);
 global $dsql;
-
-
+ $userinfo = $User->getInfoByMid($uid);
+		
+		foreach($userinfo as $key=>$value)
+		{
+		  $pv->Fields[$key] = $value;  
+		}
+$pv->Fields['litpic'] = empty($pv->Fields['litpic']) ? $GLOBALS['cfg_templets_skin'].'/images/member_default.gif' : $pv->Fields['litpic'];
 $pv->Fields['list'] = $arr;
 $pv->Fields['ordername'] = $ordername;
 

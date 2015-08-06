@@ -220,6 +220,9 @@
      
       $(".btn_book").click(function(){
           
+
+          
+          
       var datevalue = $("#date_list").val();//当前选择的日期
 	  var price = $("#date_list").find("option:selected").attr("data-price"); //成人价格
 	  var childprice = $("#date_list").find("option:selected").attr("data-childprice");//儿童价格
@@ -245,7 +248,7 @@
 		   window.open(url);
 	  }
   
-  })
+  });
   
     //根据套餐获取报价列表
  function getOptionList(suitid) {

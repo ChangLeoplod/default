@@ -9724,3 +9724,15 @@ Page: /lines/?id=4
 Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
 */
 ?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where `tagname`='线路' and webid='0' LIMIT 0,1;</font>
+*/
+?>
+<?php  exit();
+/*
+Page: /lines/
+Error: Table 'jishatestdb.sline_tmptag' doesn't exist <br />Error sql: <font color='red'>select id from sline_tmptag where tagname like '%线路%' and webid='0' LIMIT 0,1;</font>
+*/
+?>
