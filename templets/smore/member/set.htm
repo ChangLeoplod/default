@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>	
+	
+	{sline:include file='public/header.htm'/}
+	
+	<div class="main">
+		
+		<!--aside 左侧导航开始-->
+			<div class="aside">
+				
+				<div class="as_face">
+					<dl>
+						<dt><a href="#"><img src="{sline:field.litpic/}" /></a></dt>	
+						<dd><a href="#">{sline:field.nickname/}</a></dd>
+					</dl>	
+				</div>
+				
+				<div class="as_nav">
+					<a href="index.php">我的订单</a>
+					<a href="set.php" class="hover">联系人信息</a>
+					<a href="javascript:alert('即将开放，敬请期待喔~')">账号设置</a>
+				</div>
+					
+			</div> 
+		<!--aside 左侧导航开始-->
+		
+		<!--section 右侧内容开始-->
+			<div class="section">
+				
+				<div class="travel_add">
+					<a href="#" class="add_btn">新增联系人</a>	
+				</div>
+				
+				<table class="base_tab">
+					<tr>
+						<th>姓名</th>	
+						<th>联系电话</th>							
+						<th>Email</th>		
+                                                <th>身份证号</th>
+                                                <th>护照号</th>
+						<th>操作</th>	
+					</tr>
+                                    
+                                    {sline:setlist}
+                                    
+                                    <tr>
+						<td>
+							<span class="txt" id="nameval[field:id/]">[field:name/]</span>
+							<input type="text" name="name" id ="name[field:id/]" class="tval" value="[field:name/]" />	
+						</td>	
+						<td>
+							<span class="txt" id="mobileval[field:id/]">[field:mobile/]</span>
+							<input type="text" name="mobile" id="mobile[field:id/]" class="tval" value="[field:mobile/]" />	
+						</td>						
+						<td>
+							<span class="txt" id="emailval[field:id/]">[field:email/]</span>
+							<input type="text" name="email" id="email[field:id/]" class="tval" value="[field:email/]" />	
+                                                </td>
+                                                <td>
+							<span class="txt" id="idnoeval[field:id/]">[field:idno/]</span>
+							<input type="text" name="idno" id="idno[field:id/]" class="tval" value="[field:idno/]" />	
+						</td>						
+						<td>
+							<span class="txt" id="ppnoeval[field:id/]">[field:ppno/]</span>
+							<input type="text" name="ppno" id="ppno[field:id/]" class="tval" value="[field:ppno/]" />	
+                                                </td>
+						<td class="tab_mof">
+							<a href="javascript:;" class="edit_a">编辑</a>
+							<a href="#" class="save_a" data="[field:id/]">保存</a>
+							<a href="#" class="esc_a">取消</a>
+						</td>
+						<td></td>
+					</tr>	
+                                    {/sline:setlist}
+                                    <tr id="add_input" style="display: none">
+						<td>
+							<input type="text" name="name" id ="name0" class="tval2" style="width: 84px" />	
+						</td>	
+						<td>
+							<input type="text" name="mobile" id="mobile0" class="tval2"  style="width: 84px" />	
+						</td>						
+						<td>
+							<input type="text" name="email" id="email0" class="tval2" style="width: 84px"  />	
+                                                </td>
+                                                <td>
+							<input type="text" name="idno" id="idno0" class="tval2" style="width: 84px"  />	
+                                                </td>
+                                                <td>
+							<input type="text" name="ppno" id="ppno0" class="tval2" style="width: 84px"  />	
+                                                </td>
+						<td class="tab_mof">
+							<a href="#" class="save_i" >保存</a>
+							<a href="#" class="esc_i">取消</a>
+						</td>
+						<td></td>
+					</tr>	
+				</table>
+					
+			</div>
+		<!--section 右侧内容结束-->
+		
+		<div class="clear"></div>	
+	</div>
+        <input type="hidden" id="currentpage" value="1" />
+<script type="text/javascript">
+  
+$(document).ready(function() {
+	$(".save_a").click(function(){
+        var id = $(this).attr('data');
+        var name = $("#name"+id).val();
+        var mobile = $("#mobile"+id).val();
+        var email = $("#email"+id).val();
+        var idno = $("#idno"+id).val();
+        var ppno = $("#ppno"+id).val();
+        if (name.length<1) {
+            $("#name0").focus();
+            alert("请输入姓名");
+            return false;
+        }
+        if (mobile.length<1) {
+            $("#mobile0").focus();
+            alert("请输入手机号");
+            return false;
+        }
+        var _parTr = $(this).parent().parent();
+        $.ajax({ 
+        type: "POST", 
+        url: "/member/ajax.php?do=edit", 
+        dataType: "json", 
+        data: {"id":id,"name":name,"mobile":mobile,"email":email,"idno":idno,"ppno":ppno}, 
+        success: function(json){ 
+                if(json.result==2){
+                    $("#nameval"+id).val(name);
+                    $("#mobileval"+id).val(mobile);
+                    $("#emailval"+id).val(email);
+                    $("#idnoval"+id).val(idno);
+                    $("#ppnoval"+id).val(ppno);
+                    
+                    
+                    $("td",_parTr).each(function(){
+                            $(".txt",this).html($(".tval",this).val());	
+                    });	
+                    $(".txt",_parTr).show();
+                    $(".tval",_parTr).hide();
+                    $(".edit_a",_parTr).show();
+                    $(".save_a",_parTr).hide();
+                    $(".esc_a",_parTr).hide();
+                }
+        }
+    });
+    });
+    
+    $(".add_btn").click(function(){$("#add_input").show();});
+    $(".esc_i").click(function(){$("#add_input").hide();});
+    $(".save_i").click(function(){
+        var name = $("#name0").val();
+        var mobile = $("#mobile0").val();
+        var email = $("#email0").val();
+        var idno = $("#idno0").val();
+        var ppno = $("#ppno0").val();
+        if (name.length<1) {
+            $("#name0").focus();
+            alert("请输入姓名");
+            return false;
+        }
+        if (mobile.length<1) {
+            $("#mobile0").focus();
+            alert("请输入手机号");
+            return false;
+        }
+        $.ajax({ 
+        type: "POST", 
+        url: "/member/ajax.php?do=insert", 
+        dataType: "json", 
+        data: {"name":name,"mobile":mobile,"email":email,"idno":idno,"ppno":ppno}, 
+        success: function(json){ 
+                if(json.result==2){
+                    location.reload();
+                } else {
+                    alert('已超过保存条数限制，可修改现在信息保存哦~');
+                }
+
+        }
+    });
+    });
+});
+
+        </script>
+{sline:include file='public/footer.htm'/}

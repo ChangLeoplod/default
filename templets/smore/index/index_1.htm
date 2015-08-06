@@ -1,0 +1,252 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,lazy.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>	
+	
+	{sline:include file='public/header.htm'/}
+	
+	<!--hm_banner 首页轮播图-->
+		<div class="hm_banner">
+			<div class="c_btn pre"></div>
+			<div class="c_btn next"></div>
+			<ul class="pics">
+                    {sline:rollingAd name='IndexRollingAd'}
+                    <li style="background-image:url([field:picurl/]);"><a href="[field:linkurl/]" target="_blank"></a></li>	
+                    {/sline:rollingAd}    
+			</ul>	
+			<div class="btns">
+				<span class="hover"></span>	
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	<!--hm_banner 首页轮播图-->
+	
+	<!--hm_super 我们的优势-->
+		<div class="hm_super">
+			<div class="container">
+				
+				<dl class="su1">
+					<dt>专注海岛自由行</dt>	
+					<dd>酒店、签证、攻略、海岛游安排<br />都一一为您搞定！</dd>
+				</dl>
+				
+				<dl class="su2">
+					<dt>旅行管家保障服务</dt>	
+					<dd>互联网式旅行管家服务<br />让您全程无忧，更有保障</dd>
+				</dl>
+				
+				<dl class="su3">
+					<dt>100%用心服务</dt>	
+					<dd>超赞酒店、全程接送机<br />私属旅行攻略册，高品质性价比</dd>
+				</dl>				
+					
+			</div>	
+		</div>
+		<div class="clear"></div>
+	<!--hm_super 我们的优势-->
+	
+	<!--hm_limit 限量-->
+		<div class="hm_limit">
+			<div class="container">
+				
+				<span class="limit_tip">限量自由行爆款组合</span>
+				
+				<dl class="limit_code">
+					<dt>关注公众号，更多惊喜</dt>	
+					<dd><img src="images/limit_code.png" /></dd>
+				</dl>
+				
+				<div class="limit_txt">
+					<p>每周三15点至每周日22点，积沙旅行旗下限量自由行爆款开放抢购。</p>
+					<p>这些产品均是您用尽全力DIY自订的4至7折，性价比奇高，数量有限，先抢先得，抢完即止。</p>	
+					
+					<div class="limit_time">2015-07-08 15:00 开抢</div>
+				</div>
+					
+			</div>	
+		</div>
+		<div class="clear"></div>
+	<!--hm_limit 限量-->
+	
+	<div class="container">
+		
+		<!--hm_hotsale 热销-->
+			<div class="hm_hotsale">
+				
+				<div class="hotsale_head">
+					<span>海岛自由行爆款组合</span>	
+				</div>
+				
+                            
+                            
+                            
+				<div class="sale_area">
+					{sline:getlinelist row=1 type='top' flag='attribute' attrid=162}
+  <a href='[field:url/]'>[field:linename/]</a>
+
+					<div class="pic">
+						<a href="[field:url/]" target="_blank"><img src="[field:bigpic/]" /></a>
+						<span><a href="[field:url/]" target="_blank">[field:linename/]</a></span>
+					</div>
+					
+					<div class="sa_txt">
+						[field:sellpoint/]	
+					</div>
+					
+					<dl class="sa_buy">
+						<dt><span>[field:lineprice/]元</span><em>/人</em></dt>	
+						<dd><a href="[field:url/]" target="_blank" class="buy">立即购买 </a></dd>
+					</dl>
+					{/sline:getlinelist}
+					<div class="clear"></div>
+				</div>
+					
+			</div>
+			<div class="clear"></div>
+		<!--hm_hotsale 热销-->
+		
+		<!--hm_service 服务列表-->
+			<div class="hm_service">
+				
+				<dl class="ser_head">
+					<dt>甲米目的地服务</dt>
+					<dd>一起来一场，说走就走的旅行</dd>	
+				</dl>
+				
+				<div class="ser_list">
+                                    
+                                    {sline:getlinelist row=8 type='top' flag='attribute' attrid=161}
+                                    
+					<a href="[field:url/]" target="_blank" class="ser_li">
+						<img src="[field:packpic/]" />
+						<dl>
+							<dt>[field:linetitle/]</dt>	
+							<dd>[field:linesubtitle/]</dd>
+							<dd><strong>价格[field:lineprice/]</strong></dd>
+						</dl>	
+					</a>
+                                    {/sline:getlinelist}
+					
+					
+					<div class="clear"></div>
+				</div>
+				
+				<a href="/lines" target="_blank" class="more">更多线路 </a>
+				 
+				<div class="clear"></div>	
+			</div>
+			
+		<!--hm_service 服务列表-->
+		
+		<!--hm_help 帮你做什么-->
+			<div class="hm_help">
+				
+				<dl class="help_head">
+					<dt>积沙旅行能帮你做什么</dt>	
+					<dd>我们的核心价值：为您全程提供周到的一站式旅游服务，给你独一无二的旅行体验</dd>
+				</dl>
+				
+				<div class="help_list">
+					
+					<div class="help_li">
+						<img src="/images/hm_help1.png" />
+						<dl>
+							<dt>一站式自由行服务</dt>	
+							<dd>无论机票、酒店、签证、攻略、目的地安排</dd>
+							<dd>通通都为您搞定。</dd>
+						</dl>	
+					</div>
+					
+					<div class="help_li">
+						<img src="/images/hm_help2.png" />
+						<dl>
+							<dt>7x24小时管家服务</dt>	
+							<dd>互联网式旅行管家服务，微信旅行管家</dd>
+							<dd>让您的出行更有保障！</dd>
+						</dl>	
+					</div>
+					
+					<div class="help_li">
+						<img src="images/hm_help3.png" />
+						<dl>
+							<dt>全程超赞酒店</dt>	
+							<dd>超低价享受当地超赞精品酒店</dd>
+							<dd>专业酒店管家服务，让你有更好的入住体验</dd>
+						</dl>	
+					</div>
+					
+					<div class="help_li">
+						<img src="/images/hm_help4.png" />
+						<dl>
+							<dt>精美旅行攻略</dt>	
+							<dd>赠送积沙旅行私属攻略小册子，助你</dd>
+							<dd>深度体验当地生活、风情、文化</dd>
+						</dl>	
+					</div>
+					
+					<div class="clear"></div>	
+				</div>
+					
+			</div>
+		<!--hm_help 帮你做什么-->
+		
+		<div class="clear"></div>	
+	</div>
+	
+<div class="clear"></div>
+		<div class="footer">
+			
+			<div class="footer_contact">
+				<div class="container">
+					
+					<div class="footer_code">
+						<dl>
+							<dt><img src="/images/footer_code.png" /></dt>	
+							<dd>关注微信</dd>
+							<dd>抢购限量特价套餐</dd>
+						</dl>	
+					</div>
+					
+					<div class="footer_way">
+						<img src="/images/footer_logo.png" />	
+						<dl>
+							<dt>联系旅行管家定制你的出行计划</dt>	
+							<dd>7x24小时专心服务,请通过任意方式联系我们</dd>
+						</dl>
+						<a href="#" class="ico"><img src="images/footer_wx.png" /></a>
+						<a href="#" class="ico"><img src="images/footer_tel.png" /></a>
+						<a href="#" class="ico"><img src="images/footer_qq.png" /></a>
+						<div class="clear"></div>
+						<p>4006-123-666(9:00-22:00)</p>
+						
+					</div>
+					
+					<div class="footer_txt">
+						<p>如果人生的旅途方向一致，</p>	
+						<p>我愿为同行的你背负行囊。</p>	
+						<p>Just  for  you！</p>
+					</div>
+						
+				</div>	
+			</div>
+			<div class="clear"></div>
+                </div>
+	{sline:include file='public/footer.htm'/}

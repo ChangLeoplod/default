@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,ajax.member.search.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>	
+	
+	{sline:include file='public/header.htm'/}
+	
+	<div class="main">
+		
+		<!--aside 左侧导航开始-->
+			<div class="aside">
+				
+				<div class="as_face">
+					<dl>
+						<dt><a href="#"><img src="{sline:field.litpic/}" /></a></dt>	
+						<dd><a href="#">{sline:field.nickname/}</a></dd>
+					</dl>	
+				</div>
+				
+				<div class="as_nav">
+					<a href="index.php" class="hover">我的订单</a>
+					<a href="set.php">联系人信息</a>
+					<a href="javascript:alert('即将开放，敬请期待喔~')">账号设置</a>
+				</div>
+					
+			</div>
+		<!--aside 左侧导航开始-->
+		
+		<!--section 右侧内容开始-->
+			<div class="section">
+				
+				<div id="clicktab" class="order_nav">
+					<a href="#" class="hover" id="allorder_list" href="javascript:void(0)" data-id="0" data-dopost="allorder">全部（{sline:field.all/}）</a>	
+					<a href="#" id="unpay_list" href="javascript:void(0)" data-id="2" data-dopost="unpay">待付款({sline:field.unpay/})</a>
+					<a href="#" id="wancheng_list" href="javascript:void(0)" data-id="4" data-dopost="wancheng">已完成（{sline:field.complete/}）</a>
+				</div>
+                            <div class="st_order_con">
+
+                            
+				
+				
+                            </div>
+				<div class="page" id="pageinfo">	</div>
+				
+			</div>
+		<!--section 右侧内容结束-->
+		
+		<div class="clear"></div>	
+	</div>
+        <input type="hidden" id="currentpage" value="1" />
+<script type="text/javascript">
+  
+$(document).ready(function() {
+        getdata('allorder');
+	$(".order_nav a").click(function(){
+		$("#currentpage").val(1);//设置当前页
+		var action = $(this).attr('data-dopost');
+		$(this).addClass('hover').siblings().removeClass('hover');
+                getdata(action);
+        
+	});
+});
+function getdata(action) {
+    $(".st_order_con").empty();
+    $(".st_order_con").html('<img src="{sline:global.cfg_templets_skin/}/images/loading.gif" style="display:block;width:28px;height:28px;margin:160px auto 157px auto;">');
+		    var config={
+					  pageSize:6,
+					  ajaxUrl:'member/ajax.php',
+					  dopost:action
+				  };
+		     $.AjaxSearch(
+				   config,
+				   function(data){
+					   $(".st_order_con").html(data.list);
+					   $("#pageinfo").html(data.pageinfo);
+				   }
+				 );
+}
+       
+
+        </script>
+{sline:include file='public/footer.htm'/}

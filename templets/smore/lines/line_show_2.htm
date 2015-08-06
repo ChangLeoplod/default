@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,sale.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>	
+	
+	{sline:include file='public/header.htm'/}
+	
+	<div class="sale_banner" style="background:url('{sline:field.litpic/}') no-repeat top center"></div>
+	
+	<div class="sale_page">
+		
+		<!--sale_base 商品基本情况-->
+			<div class="sale_base">
+				<div class="base_in">
+					
+					<div class="sba_left">
+						
+						<dl class="sba_name">
+							<dt>{sline:field.linename/}{sline:field.iconlist function=Helper_Archive::getLineIcon(@me)/}</dt>	
+							<dd>{sline:field.sellpoint/}</dd>
+						</dl>
+						
+						<div class="sba_tags">
+							{sline:field.features/}
+						</div>
+						
+						<div class="sba_super">
+							
+							<span class="super_tip">积沙优势</span>	
+							<div class="clear"></div>
+							
+							<dl class="sup1">
+								<dt>全程超赞酒店</dt>
+								<dd>入住五星哈利瓦酒店</dd>	
+							</dl>
+							<dl class="sup2">
+								<dt>定制攻略</dt>
+								<dd>专业旅行攻略定制</dd>	
+							</dl>
+							<dl class="sup3">
+								<dt>7x24小时旅行管家</dt>
+								<dd>专业旅行管家服务</dd>	
+							</dl>
+							
+						</div>
+							
+					</div>
+					
+					<div class="sba_right">
+						
+						<div class="sba_price">
+							<span><strong>{sline:field.lineprice/}</strong>/人起</span>
+							<em> 自订价:{sline:field.storeprice runphp='yes'}
+                   if(!is_numeric(@me))
+                     @me='';
+                   else
+                     @me=@me;
+                {/sline:field.storeprice}</em>
+						</div>
+						
+						<div class="sba_from">出发城市：{sline:field.startcity/}</div>
+						
+						<div class="sba_num">
+							<div class="num_in">
+								<span class="tit">套餐类型</span>		
+								
+								<div class="radio">
+									<span class="ra ra_hover" title="VIP+海鲜晚餐">VIP+海鲜晚餐<input type="radio" class="rak" name="type" checked="checked" /></span>	
+									<span class="ra" title="VIP座+接送">VIP座+接送<input type="radio" class="rak" name="type" /></span>	
+									<span class="ra" title="VIP座+接送+海鲜晚餐">VIP座+接送+海鲜晚餐<input type="radio" class="rak" name="type" /></span>	
+									<span class="ra" title="普通座">普通座<input type="radio" class="rak" name="type" /></span>	
+									<span class="ra" title="普通座">普通座<input type="radio" class="rak" name="type" /></span>	
+								</div>
+						<div class="num_in">
+								<span class="tit">出行日期</span>	
+								<input type="text" class="sba_time" value="2015-08-22" />
+							</div>
+		
+								<div class="clear"></div>
+							</div>
+							
+							<div class="num_in">
+								<span class="tit">出行人数</span>	
+								<select>
+									<option>成人1</option>	
+									<option>成人2</option>	
+									<option>成人3</option>	
+								</select>
+								<select>
+									<option>儿童0</option>	
+									<option>成人1</option>	
+									<option>成人2</option>	
+								</select>
+							</div>
+
+
+							
+								
+						</div>
+						
+						<div class="sba_tip">
+							<p>· 此产品为爆款产品，确认后不接受任何退改变更.。</p>
+							<p>· 本起价是按2位成人参加 2015-08-12 出发的产品，</p>
+							<p>　并入住同一间房间所核算的单人价格。</p>	
+						</div>
+						
+						<dl class="total_price">
+							<dt>总价：<span>￥41220.08</span></dt>	
+							<dd>房价差：￥0</dd>
+						</dl>
+						
+						<a href="pay.html" class="buy_btn">立即购买</a>
+							
+					</div>
+					
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		<!--sale_base 商品基本情况-->
+		
+		<!--sale_help 抢购须知-->
+			<div class="sale_help">
+				
+				<h2>抢购须知</h2>
+				
+				<p>◆ 为保障您下单顺畅，请在下单时将护照放在手边，若护照在申请中，请在下单时选择“护照申请中”目录，并填写护照的领取日期，因您个人护照原因造成的出行问题，责任自负。</p>
+				<p>◆ 下单后，请您在1小时内付款，否则订单会被取消。</p>
+				<p>◆ 最快的支付方式是提前给支付宝余额充值，同时发现旅行还支持支付宝快捷支付、支付宝网银支付以及微信支付等支付方式。</p>
+				
+				<div class="clear"></div>	
+			</div>
+		<!--sale_help 抢购须知-->
+		
+		<!--sale_content 主体区-->
+			<div class="sale_nav">
+                {sline:field.reserved1 runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<a href="#floor1" class="hover">行程介绍</a>';
+                {/sline:field.reserved1}
+                {sline:field.feeinclude runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<a href="#floor2">费用说明</a>';
+                {/sline:field.feeinclude}
+                {sline:field.reserved3 runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<a href="#floor3">签证须知</a>';
+                {/sline:field.reserved3}
+                {sline:field.beizu runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<a href="#floor4">预订须知</a>';
+                {/sline:field.beizu}
+                                
+                                
+				
+			</div>
+			<div class="clear"></div>
+			
+			<div class="sale_content">
+				
+                {sline:field.reserved1 runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<div class="sc_head" id="floor1"><span>行程介绍</span></div>'.@me;
+                {/sline:field.reserved1}
+				
+                {sline:field.feeinclude runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<div class="sc_head" id="floor2"><span>费用说明</span></div>'.@me;
+                {/sline:field.feeinclude}
+                
+                {sline:field.reserved3 runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<div class="sc_head" id="floor3"><span>签证须知</span></div>'.@me;
+                {/sline:field.reserved3}
+                {sline:field.beizu runphp='yes'}
+                   if(empty(@me))
+                     @me='';
+                   else
+                     @me='<div class="sc_head" id="floor3"><span>预订须知</span></div>'.@me;
+                {/sline:field.beizu}
+					
+				
+				
+				
+				
+					
+			</div>
+		<!--sale_content 主体区-->
+		
+		
+		<div class="clear"></div>	
+	</div>
+	
+	{sline:include file='public/footer.htm'/}

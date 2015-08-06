@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,order.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>	
+	
+	{sline:include file='public/header.htm'/}
+	
+	<div class="main">
+		
+		<!--aside 左侧导航开始-->
+			<div class="aside">
+				
+				<div class="as_face">
+					<dl>
+						<dt><a href="#"><img src="{sline:field.packpic/}" /></a></dt>	
+						<dd><a href="#">{sline:field.nickname/}</a></dd>
+					</dl>	
+				</div>
+				
+				<div class="as_nav">
+					<a href="index.php" class="hover">我的订单</a>
+					<a href="set.php">联系人信息</a>
+					<a href="javascript:alert('即将开放，敬请期待喔~')">账号设置</a>
+				</div>
+					
+			</div>
+		<!--aside 左侧导航开始-->
+		
+		<!--section 右侧内容开始-->
+			<div class="section order_detail">
+				
+				<div class="order_num">订单流水号:{sline:field.ordersn/}</div>
+				
+				<div class="od_info">
+					
+					<a href="/lines/show_{sline:field.productaid/}.html" target="_blank" class="pic"><img src="{sline:field.packpic/}" /></a>
+					
+					<div class="name">
+						<a href="/lines/show_{sline:field.productaid/}.html" target="_blank">{sline:field.productname/}</a>	
+					</div>
+					<div class="price">&yen;{sline:field.price/}</div>
+					{sline:if var='_has_dingjin'}(可支付定金:{sline:field.dingjin/}){/sline:if}
+                                        {sline:field.ispay runphp='yes'}
+                   if(@me==3)
+                      @me='<div class="type">订单取消</div><a href="#" class="pay_out">订单取消</a>';                  
+                    elseif(@me==1)
+                     @me='<div class="type">完成支付</div><a href="#" class="pay_over">完成支付</a>';
+                   else
+                   @me='<div class="type">等待支付</div><a href="/lines/booking.php?dopost=payonline&id='.@me.'&paytype=11" class="pay_btn">马上支付</a>';
+                     
+                {/sline:field.ispay}
+					
+					<div class="clear"></div>	
+				</div>
+				
+				<p>购买时间：{sline:field.dingdate/}</p>
+				<p>购买商品：{sline:field.productname/}</p>
+				<p>出行日期：{sline:field.usedate/}</p>
+				<p>出行人数：<span class="w_xt">成人&nbsp;&nbsp;<span class="color_f">{sline:field.dingnum/}</span>&nbsp;&nbsp;名</span>
+                  <span class="w_xt childcontain">儿童&nbsp;&nbsp;<span class="color_f">{sline:field.childnum/}</span>&nbsp;&nbsp;名</span></p>
+				<p>出发城市：{sline:field.startcity/}</p>
+				<p>应付金额：{sline:field.totalprice/}</p>
+				
+				<div class="od_tit">联系人信息</div>				
+				<table class="base_tab">
+					<tr>
+						<th>姓名</th>	
+						<th>联系电话</th>
+						<th>常用邮箱</th>
+					</tr>	
+					<tr>
+						<td>{sline:field.linkman/}</td>	
+						<td>{sline:field.linktel/}</td>
+						<td>{sline:field.linkemail/}</td>
+					</tr>
+				</table>
+				
+				<div class="od_tit">旅客信息</div>				
+				<table class="base_tab">
+					<tr>
+						<th>姓名</th>	
+						<th>性别</th>
+						<th>护照号码</th>
+						<th>身份证号码</th>						
+                                        </tr>
+                                    
+                                    {sline:vlist name="tourer"}
+                                    <tr>
+						<td>[field:tourername/]</td>	
+						<td>[field:sex/]</td>	
+						<td>[field:passportno/]</td>	
+						<td>[field:cardnumber/]</td>	
+					</tr>
+                                    {/sline:vlist}
+				</table>
+				
+				<dl class="od_message">
+					<dt>客户留言：</dt>
+					<dd>我要去坐飞机，安排双人房。坐火箭。</dd>
+				</dl>
+				
+				<dl class="od_message">
+					<dt>管家留言：</dt>
+					<dd>房价差转换为三人房，已完成退款1000元。</dd>
+				</dl>
+				
+				<div class="od_back">
+					<a href="/member/index.php" class="back_btn">回到上一级</a>	
+				</div>
+			
+			</div>
+		<!--section 右侧内容结束-->
+		
+		<div class="clear"></div>	
+	</div>
+	
+	<!--footer 底部开始-->
+		<div class="clear"></div>
+		<div class="footer">			
+			
+			<div class="footer_copy">
+				<p>
+					<a href="#">关于积沙旅游</a>
+					<a href="#">加入我们</a>
+					<a href="#">联系我们</a>
+					<a href="#">帮助中心</a>
+					<a href="#">商务合作</a>
+				</p>	
+				<p>鄂ICP备14009743  ©积沙旅行 2015</p>
+			</div>
+			
+		</div>
+	<!--footer 底部结束-->
+	
+</body>
+</html>

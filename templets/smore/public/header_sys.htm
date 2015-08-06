@@ -1,0 +1,62 @@
+<script language="javascript">
+  var siteUrl = '{sline:global.cfg_basehost/}{sline:global.cfg_cmsurl/}/';
+  $(function(){
+      
+	  //导航的选中状态
+		 $(".nav a").each(function(){
+                        var url= window.location.href;
+
+
+                        url=url.replace('index.php','');
+                        url=url.replace('index.html','');
+                        var ulink=$(this).attr("href");
+                        if(url==ulink)
+                        {
+                           $(this).addClass('hover');
+                           $(this).removeClass('hover');
+                        }
+		  })
+	   
+	  //用户登陆状态
+	   $.ajax({
+		type: "POST",
+		url: "{sline:global.cfg_cmsurl/}/ajax/ajax_login.php",
+		data: "dopost=LoginStatus",
+		success: function(data){
+			$('#userLogin').html(data);
+		}
+	   });
+	  
+   
+    
+
+
+  });
+
+function loginWin(){
+	$(".login-win").show();
+	};
+function loginClose(){
+	$(".login-win").hide();
+	};
+
+  
+  
+</script>	<!-- header 开始 -->
+		<div class="header">
+			<div class="container">
+				
+				<a href="/" class="logo"><img src="/images/logo.png" /></a>
+				
+				<div class="nav">
+     {sline:include file='public/nav_static.htm' if="empty($GLOBALS['destnavid'])"/}
+				</div>
+				
+                                <div id="userLogin">
+
+                                </div>
+				
+			</div>
+		</div>
+		<div class="header_zw"></div>
+	<!-- header 结束 -->	

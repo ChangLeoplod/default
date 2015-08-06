@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>	
+	
+	{sline:include file='public/header.htm'/}
+	
+	<form id="dingfrm" action="?dopost=savebooking" method="post">
+		<div class="pay_page">
+			
+			<div class="pay_step">
+				
+				<div class="step_inner">
+					
+					<dl class="hover">
+						<dt class="ico1"></dt>	
+						<dd>填写信息</dd>
+					</dl>
+					<dl>
+						<dt class="ico2"></dt>	
+						<dd>在线支付</dd>
+					</dl>
+					<dl>
+						<dt class="ico3"></dt>	
+						<dd>确认支付</dd>
+					</dl>
+					<dl>
+						<dt class="ico4"></dt>	
+						<dd>赠送纪念册</dd>
+					</dl>
+					<dl class="end">
+						<dt class="ico5"></dt>	
+						<dd>全程管家服务</dd>
+					</dl>
+					
+					<div class="s_line">
+						<div class="oline s1 line_now"></div>
+						<div class="oline"></div>
+						<div class="oline"></div>
+						<div class="oline"></div>
+						<div class="oline"></div>
+						<div class="oline s6"></div>
+					</div>
+					<div class="step_line"></div>	
+				</div>
+					
+			</div>
+			<div class="clear"></div>
+			
+			<div class="pay_item">
+				
+				<h2>{sline:field.title/}</h2>	
+				
+				<div class="item_left">	
+					<div class="item_li">
+						<span class="tit">套餐名称： </span>	
+						<p>{sline:field.suitname/}</p>
+					</div>	
+					<div class="item_li">
+						<span class="tit">出发日期： </span>	
+						<p>{sline:field.usedate/}</p>
+					</div>	
+					
+					<div class="item_li">
+						<span class="tit">出行人数： </span>	
+						<div class="tit">
+                                                    <span style="float:left;width:40px">成人:</span>	
+                                                    <input type="text" class="num_val" id="adultnum" name="adultnum" readonly value="{sline:field.dingnum/}" />
+						</div>
+                                                {sline:field.childnum  runphp='yes'}
+                                                 if(@me>0)
+                                                        @me='<div class="tit">
+							<span style="float:left;width:40px">儿童:</span>	
+                                                         <input type="text" class="num_val" id="childnum" name="childnum" readonly value="'.@me.'" />
+						</div>';
+						else
+                                                @me='';
+                                                {/sline:field.childnum}
+					</div>
+					
+					
+					
+					<div class="item_li">
+						<span class="tit">单房差价： </span>	
+						<p>{sline:field.roombalance/}元</p>
+					</div>	
+					
+				</div>
+				<textarea class="msg_area" name="remarkinfo" cols="" rows="">如果你有其它需求，在这里留言给我们喔</textarea>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="pay_contact">
+				<h2>联系人信息：</h2>	
+				<div class="cin">
+					<span>姓名：</span>	
+					<input type="text" name="linkman" id="linkman" class="msg_text text" value="{sline:field.linkman/}" />
+				</div>
+				<div class="cin">
+					<span>手机：</span>	
+					<input type="text" class="msg_text text" name="linktel" id="linktel" value="{sline:field.linktel/}" />
+				</div>
+				<div class="cin">
+					<span>邮箱：</span>	
+					<input type="text" class="msg_text text" name="linkemail" id="linkemail" value="{sline:field.linkemail/}" />
+				</div>
+			</div>
+			
+			<div class="pay_more">
+				<h2>付款方式：</h2>	
+				
+				<div class="pay_bank bank_hover">
+				{sline:field.id function="Helper_Archive::getPayTypeList()"/}
+				
+				<div class="clear"></div>	
+			</div>
+			
+			
+				
+			<div class="pay_price">合计: &yen;<span class="totalprice"></span>元</div>
+				
+			</div>
+			
+			<div class="clear"></div>	
+		</div>
+		<input type="hidden" id="adultprice" value="{sline:field.price/}"/>
+              <input type="hidden" id="childprice" value="{sline:field.childprice/}"/>
+              <input type="hidden" id="oldprice" value="{sline:field.oldprice/}"/>
+              <input type="hidden" name="jifentprice" id="jifentprice" value="{sline:field.jifentprice/}"/>
+              <input type="hidden" name="jifenbook" value="{sline:field.jifenbook/}"/>
+              <input type="hidden" name="jifencomment" value="{sline:field.jifencomment/}"/>
+              <input type="hidden" name="dingjin"  id="dingjin_new" value="{sline:field.dingjin/}"/>
+              <input type="hidden" name="productautoid" value="{sline:field.id/}"/>
+              <input type="hidden" name="productaid" value="{sline:field.aid/}"/>
+              <input type="hidden" name="webid" value="{sline:field.webid/}"/>
+              <input type="hidden" name="productname" value="{sline:field.title/}"/>
+              <input type="hidden" name="paytype" value="{sline:field.paytype/}"/>
+              <input type="hidden" name="suitid" id="suitid" value="{sline:global.suitid/}"/>
+              <input type="hidden" name="usedate" value="{sline:field.usedate/}">
+              <input type="hidden" name="lineday" id="lineday_num" value="{sline:field.lineday/}"/>
+              <input type="hidden" name="usejifen" id="usejifen" value="0">
+              <input type="hidden" name="dj" id="dingjin" value="{sline:field.dingjin/}">
+              <input type="hidden" name="roombalance" id="roombalance" value="{sline:field.roombalance/}"/>
+		<div class="pay_sub">
+			<div class="xy chks">
+				<span class="ch ch_hover">我已阅读并接受 《<a href="#" target="_blank">积沙旅行网用户服务条款</a>》<input type="checkbox" class="chk" checked="checked" /></span>				
+			</div>
+		<a href="javascript:;" class="btnsaveorder sub">提交订单</a>
+		</div>
+	</form>
+
+<script>
+   $(function(){
+           
+        var data_price = Number($('#adultprice').val());
+        var data_childprice = Number($('#childprice').val());
+        var data_roombalance = Number($('#roombalance').val());
+        var adultnum = Number($('#adultnum').val());
+        var childnum = $('#childnum').val();
+        if (typeof(childnum) == "undefined") {
+            childnum=0;
+        }
+        var roombalance=0;
+        var price;
+        if (data_roombalance>0 && adultnum%2==1) {
+            roombalance = data_roombalance;
+        }
+        price = data_price*adultnum + data_childprice*childnum + roombalance;
+
+        $(".totalprice").html(price);
+
+      
+       $(".btnsaveorder").click(function(){
+            var linkman = $("#linkman").val();
+            var linktel = $("#linktel").val();
+            var linkemail  = $("#linkemail ").val();
+            if (linkman.length<1) {
+                 $("#linkman").focus();
+                 alert("请输入姓名");
+                 return false;
+             }
+            if (linktel.length<1) {
+                 $("#linktel").focus();
+                 alert("请输入手机");
+                 return false;
+             }
+            if (linkemail.length<1) {
+                 $("#linkemail").focus();
+                 alert("请输入邮箱");
+                 return false;
+             }
+           
+           $("#dingfrm").submit();
+        });
+    });
+
+
+
+
+</script>	
+{sline:include file='public/footer.htm'/}
+
