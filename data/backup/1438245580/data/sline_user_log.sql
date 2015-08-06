@@ -1,0 +1,15 @@
+insert into sline_user_log values('1','1438245563','1','admin','用户admin在2015-07-30 16:39:23执行index->index操作','27.16.171.111');
+insert into sline_user_log values('2','1438245567','1','admin','用户admin在2015-07-30 16:39:27执行index->index2操作','27.16.171.111');
+insert into sline_user_log values('3','1438245568','1','admin','用户admin在2015-07-30 16:39:28执行index->index2操作','27.16.171.111');
+insert into sline_user_log values('4','1438245569','1','admin','用户admin在2015-07-30 16:39:29执行index->ajax_visit_list操作','27.16.171.111');
+insert into sline_user_log values('5','1438245569','1','admin','用户admin在2015-07-30 16:39:29执行index->ajax_order_num操作','27.16.171.111');
+insert into sline_user_log values('6','1438245569','1','admin','用户admin在2015-07-30 16:39:29执行upgrade->ajax_check_update操作','27.16.171.111');
+insert into sline_user_log values('7','1438245570','1','admin','用户admin在2015-07-30 16:39:30执行upgrade->ajax_version操作','27.16.171.111');
+insert into sline_user_log values('8','1438245570','1','admin','用户admin在2015-07-30 16:39:30执行index->ajax_order_num_graph操作','27.16.171.111');
+insert into sline_user_log values('9','1438245570','1','admin','用户admin在2015-07-30 16:39:30执行index->ajax_ippv_num操作','27.16.171.111');
+insert into sline_user_log values('10','1438245570','1','admin','用户admin在2015-07-30 16:39:30执行index->ajax_member_num操作','27.16.171.111');
+insert into sline_user_log values('11','1438245570','1','admin','用户admin在2015-07-30 16:39:30执行index->ajax_get_last_article操作','27.16.171.111');
+insert into sline_user_log values('12','1438245571','1','admin','用户admin在2015-07-30 16:39:31执行upgrade->ajax_check_right操作','27.16.171.111');
+insert into sline_user_log values('13','1438245575','1','admin','用户admin在2015-07-30 16:39:35执行upgrade->index操作','27.16.171.111');
+insert into sline_user_log values('14','1438245576','1','admin','用户admin在2015-07-30 16:39:36执行upgrade->ajax_version操作','27.16.171.111');
+insert into sline_user_log values('15','1438245579','1','admin','用户admin在2015-07-30 16:39:39执行upgrade->ajax_backup_database操作','27.16.171.111');

@@ -1,0 +1,22 @@
+CREATE TABLE `sline_car_booking` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `webid` int(11) DEFAULT NULL COMMENT 'sline对应ID',
+  `carid` int(11) DEFAULT NULL COMMENT '预订车辆编号',
+  `carname` varchar(255) DEFAULT NULL COMMENT '预订的车名',
+  `starttime` date DEFAULT NULL COMMENT '用车开始时间',
+  `days` int(11) DEFAULT NULL COMMENT '用车天数',
+  `num` int(11) DEFAULT NULL COMMENT '租赁车数',
+  `carprice` float(10,0) DEFAULT NULL COMMENT '车报价',
+  `info` mediumtext COMMENT '预订备注',
+  `name` varchar(255) DEFAULT NULL COMMENT '预订人',
+  `sex` varchar(255) DEFAULT NULL COMMENT '预订人性别',
+  `telephone` bigint(20) DEFAULT NULL COMMENT '预订人联系电话',
+  `addtime` int(10) unsigned DEFAULT NULL COMMENT '添加时间',
+  `modtime` int(10) unsigned DEFAULT NULL COMMENT '更新时间',
+  `status` int(11) DEFAULT '0' COMMENT '管理员处理情况',
+  `ordersn` varchar(255) DEFAULT NULL,
+  `bianhao` varchar(255) DEFAULT NULL,
+  `userid` int(5) NOT NULL,
+  `price` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='车务预订'

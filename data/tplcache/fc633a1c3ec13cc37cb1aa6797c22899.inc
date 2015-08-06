@@ -1,0 +1,1 @@
+<li><span [field:global.autoindex runphp='yes']if(@me<7)@me='class="bg"';else @me='';[/field:global.autoindex]>[field:global.autoindex/]</span><a href="[field:url/]">[field:title/]</a></li>

@@ -1,0 +1,1 @@
+<a href="#[field:columnname/]" [field:class/]>[field:chinesename/]</a>

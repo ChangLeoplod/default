@@ -1,0 +1,1 @@
+<li style="background-image:url([field:picurl/]);"><a href="[field:linkurl/]" target="_blank"></a></li>
