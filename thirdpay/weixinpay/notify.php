@@ -32,7 +32,7 @@ class PayNotifyCallBack extends WxPayNotify
     public function NotifyProcess($data, &$msg)
     {
 
-
+        $paySource='微信支付';
          global $dsql;
         $notfiyOutput = array();
 
@@ -51,88 +51,9 @@ class PayNotifyCallBack extends WxPayNotify
         if(empty($ordersn))
             return false;
 
-        $sql="select * from #@__member_order where ordersn='$ordersn'";
-        $arr=$dsql->GetOne($sql);
-        if(empty($arr))
-            return false;
-        if($arr['status']==2)
-            return true;
+        return Helper_Archive::paySuccess($ordersn,$paySource,$data);
 
-
-        //logResult('spotid:'.$arr['spotid']);
-        //	if(!$arr)exit();
-
-        if(substr($ordersn,0,2)=='dz')
-        {
-            $ordertype = 'dz';
-            $updatesql="update sline_dzorder set status=2 where ordersn='$ordersn'";
-        }
-        else
-        {
-            $ordertype = 'sys';
-            $updatesql="update #@__member_order set ispay=1,status=2 where ordersn='$ordersn'"; //付款标志置为1,交易成功
-
-
-        }
-        $dsql->ExecuteNoneQuery($updatesql);
-        //logResult('更新成功');
-
-        //$subject='你成功预订'.$arr['productname'].'产品';
-        //$text="尊敬的{$arr['linkman']},你已经成功在{$GLOBALS['cfg_webname']}预订{$arr['productname']},数量{$arr['dingnum']}.";
-        //sendMsg($subject,$text,$arr['handletel'],$ordersn);
-
-        if($ordertype !='dz')
-        {
-            $msgInfo = Helper_Archive::getDefineMsgInfo($arr['typeid'],3);
-            $memberInfo = Helper_Archive::getMemberInfo($arr['memberid']);
-            $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-            if(isset($msgInfo['isopen'])) //等待客服处理短信
-            {
-                $content = $msgInfo['msg'];
-                $totalprice = $arr['price'] * $arr['dingnum'];
-                $content = str_replace('{#MEMBERNAME#}',$memberInfo['nickname'],$content);
-                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                $content = str_replace('{#PRICE#}',$arr['PRICE'],$content);
-                $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
-                $content = str_replace('{#TOTALPRICE#}',$totalprice,$content);
-                Helper_Archive::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-            }
-
-            $emailInfo=Helper_Archive::getEmailMsgConfig2($arr['typeid'],3);
-            if(!empty($emailInfo)&& $emailInfo['isopen']==1 && !empty($memberInfo['email']))
-            {
-                $title="订单支付成功";
-                $content = $emailInfo['msg'];
-                $totalPrice = $arr['price'] * $arr['dingnum'];
-                $content = str_replace('{#MEMBERNAME#}',$memberInfo['nickname'],$content);
-                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                $content = str_replace('{#PRICE#}',$arr['price'],$content);
-                $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
-                $content = str_replace('{#TOTALPRICE#}',$totalPrice,$content);
-                $content = str_replace('{#EMAIL#}',$memberInfo['email'],$content);
-                ordermaill($memberInfo['email'],$title,$content);
-            }
-            //支付成功后添加预订送积分
-            if(!empty($arr['jifenbook']))
-            {
-                $addjifen = intval($arr['jifenbook']);
-                $sql = "update sline_member set jifen=jifen+{$addjifen} where mid='{$arr['memberid']}'";
-                if($dsql->ExecuteNoneQuery($sql))
-                {
-                    Helper_Archive::addJifenLog($arr['memberid'],"预订线路{$arr['productname']}获取得{$addjifen}",$addjifen,2);
-                }
-            }
-            //如果是酒店订单,则把子订单置为交易成功状态
-            $sql="select typeid,id from sline_member_order where ordersn='$ordersn'";
-            $ar = $dsql->GetOne($sql);
-            if($ar['typeid']==2)
-            {
-                $s = "update sline_member_order set ispay=1 where pid='{$ar['id']}'";
-                $dsql->ExecuteNoneQuery($s);
-            }
-        }
-
-        return true;
+       // return true;
     }
 }
 

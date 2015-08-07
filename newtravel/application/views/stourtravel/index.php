@@ -81,6 +81,7 @@ Ext.onReady(function () {
 
     });
 
+    window.mainTabId='';
     //tabpanel, 放置各种页面
     window.gbl_tabs = Ext.create('Ext.tab.Panel', {
         autoScroll: false,
@@ -104,9 +105,10 @@ Ext.onReady(function () {
 
                 listeners: {
 
-                    show: function () {
+                    show: function (tab) {
                        // $("#indexfrm").show();
                         window.currentTab = 0;
+                        window.mainTabId=tab.getId();
 
                     }
                 }
@@ -134,6 +136,19 @@ Ext.onReady(function () {
                     event.preventDefault();
                     window.barmenu=menu;
                 });
+            },
+            tabchange:function( tabPanel, newCard, oldCard, eOpts ){
+
+                   var newId=newCard.getId();
+
+                   if(newId!=mainTabId)
+                   {
+                       $(".found_box").show();
+                   }
+                   else
+                   {
+                       $(".found_box").hide();
+                   }
             }
 
         },
@@ -463,3 +478,4 @@ $(".manager").mouseleave(function () {
 </body>
 
 </html>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.3102&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

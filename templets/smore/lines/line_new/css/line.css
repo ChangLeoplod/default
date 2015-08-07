@@ -111,6 +111,20 @@
 	-ms-border-radius:3px;
 	-webkit-border-radius:3px;
 	border:1px solid #ff7f00}
+	
+.pro_ul .li_payment{
+	height:auto;
+	margin-top:10px}
+.pro_ul .li_payment span{
+	float:left;
+	height:30px;
+	line-height:30px}
+.pro_ul .li_payment p{
+	float:left;
+	width:480px}
+.pro_ul .li_payment p img{
+	float:left;
+	margin:0 5px 5px 0}
 
 .shortcut{
 	float:left;

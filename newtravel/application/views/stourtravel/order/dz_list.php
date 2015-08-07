@@ -5,6 +5,7 @@
     <title>定制订单管理-思途CMS3.0</title>
     {template 'stourtravel/public/public_js'}
     {php echo Common::getCss('style.css,base.css,base2.css,plist.css'); }
+    {php echo Common::getScript("choose.js"); }
 
 </head>
 <style>
@@ -48,13 +49,7 @@
 window.display_mode = 1;	//默认显示模式
 window.product_kindid = 0;  //默认目的地ID
 
-window.statusmenu=[
-    {"status":"0","name":"未处理"},
-    {"status":"1","name":"处理中"},
-    {"status":"2","name":"交易成功"},
-    {"status":"3","name":"取消订单"},
-    {"status":"4","name":"已退款"}
-];
+window.statusmenu={json_encode($statusnames,true)};
 
 Ext.onReady(
     function () {
@@ -170,7 +165,7 @@ Ext.onReady(
                         var items = this.items;
                        // bar.down('tbfill').hide();
 
-                        bar.insert(0, Ext.create('Ext.panel.Panel', {border: 0, html: '<div class="panel_bar"><a class="abtn" href="javascript:void(0);" onclick="chooseAll()">全选</a><a class="abtn" href="javascript:void(0);" onclick="chooseDiff()">反选</a><a class="abtn" href="javascript:void(0);" onclick="del()">删除</a></div>'}));
+                        bar.insert(0, Ext.create('Ext.panel.Panel', {border: 0, html: '<div class="panel_bar"><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.chooseAll()">全选</a><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.chooseDiff()">反选</a><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.delMore()">删除</a></div>'}));
 
                         bar.insert(1, Ext.create('Ext.toolbar.Fill'));
                         //items.add(Ext.create('Ext.toolbar.Fill'));

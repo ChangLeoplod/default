@@ -54,8 +54,12 @@
       	<h3>选择支付方式：</h3>
         <p>
           <a class="on" data-value="3" href="javascript:;" id="weixin_btn"><em class="hc">微信</em></a>
+		    {if in_array(1,$paytypes)}
         	<a data-value="1" href="javascript:;"><em class="zfb">支付宝</em></a>
+			{/if}
+			{if in_array(2,$paytypes)}
         	<a data-value="2" href="javascript:;"><em class="kq">快钱</em></a>
+			{/if}
             {if $isXianxia}
                <a data-value="0" href="javascript:;"><em class="xianxia">线下</em></a>
             {/if}

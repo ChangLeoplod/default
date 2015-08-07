@@ -858,6 +858,7 @@ class Controller_Attrid extends Stourweb_Controller{
         $model->issystem = 0;
         $model->isopen = 1;
         $model->webid = 0;
+        $model->isrealfield=1;
         $model->displayorder=99;
         if($model->save()) {
             $model->reload();

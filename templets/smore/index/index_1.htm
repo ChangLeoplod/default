@@ -91,17 +91,16 @@
 		<!--hm_hotsale 热销-->
 			<div class="hm_hotsale">
 				
-				<div class="hotsale_head">
-					<span>海岛自由行爆款组合</span>	
-				</div>
+				
 				
                             
                             
-                            
+                            {sline:getlinelist row=10 type='top' flag='attribute' attrid=162}
+                            <div class="hotsale_head">
+					<span>海岛自由行爆款组合</span>	
+				</div>
 				<div class="sale_area">
-					{sline:getlinelist row=1 type='top' flag='attribute' attrid=162}
-  <a href='[field:url/]'>[field:linename/]</a>
-
+					
 					<div class="pic">
 						<a href="[field:url/]" target="_blank"><img src="[field:bigpic/]" /></a>
 						<span><a href="[field:url/]" target="_blank">[field:linename/]</a></span>
@@ -115,10 +114,10 @@
 						<dt><span>[field:lineprice/]元</span><em>/人</em></dt>	
 						<dd><a href="[field:url/]" target="_blank" class="buy">立即购买 </a></dd>
 					</dl>
-					{/sline:getlinelist}
+					
 					<div class="clear"></div>
 				</div>
-					
+                            {/sline:getlinelist}
 			</div>
 			<div class="clear"></div>
 		<!--hm_hotsale 热销-->

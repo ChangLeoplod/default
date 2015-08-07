@@ -2,7 +2,7 @@
 		//MD5私钥
    require  dirname(__FILE__).'/../include/common.inc.php';
 
- 
+   $paySource='汇潮支付';
      $MD5key = $GLOBALS['cfg_huicao_key'];		//MD5私钥
 	//订单号
 	$BillNo = $_POST["BillNo"];
@@ -28,13 +28,8 @@
 	  	 
 		if ($Succeed=="88")
 		{
-			if(substr($_REQUEST['orderId'],0,2)=='dz')
-						{
-						   $updatesql="update sline_dzorder set status=2 where ordersn='{$BillNo}'";	
-						}
-						else
-					       $updatesql="update sline_member_order set status=2 where ordersn='{$BillNo}'"; //付款标志置为1,交易成功
-			           $dsql->ExecuteNoneQuery($updatesql);
+            $ordersn=$BillNo;
+            Helper_Archive::paySuccess($ordersn,$paySource,$_POST);
 		}
 		
 		echo 'ok';

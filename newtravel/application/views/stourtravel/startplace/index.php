@@ -470,11 +470,13 @@ function chooseDiff() {
     //var
 }
 function delattr() {
-    Ext.Msg.confirm("提示", "确定删除", function (buttonId) {
-
-        if (buttonId == 'no')
-            return;
-        var check_cmp = Ext.select('.attr_check:checked');
+    var check_cmp = Ext.select('.attr_check:checked');
+    if(check_cmp.getCount()==0)
+    {
+        ST.Util.showMsg("请选择至少一条数据",5);
+        return;
+    }
+    ST.Util.confirmBox("提示","确定删除？",function(){
         check_cmp.each(
             function (el, c, index) {
                 // alert(el.getValue());
@@ -492,10 +494,7 @@ function delattr() {
 
 }
 function del(id) {
-    Ext.Msg.confirm("提示", "确定删除", function (buttonId) {
-
-        if (buttonId == 'no')
-            return;
+    ST.Util.confirmBox("提示","确定删除？",function(){
         var node = window.attr_store.getNodeById("" + id);
         node.destroy();
     });
@@ -582,4 +581,4 @@ function stopDef(e) {
 </script>
 </body>
 </html>
-<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.1705&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.3102&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

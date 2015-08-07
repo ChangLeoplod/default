@@ -345,7 +345,7 @@ class Controller_Hotel  extends Stourweb_Controller{
      * */
     public function action_add()
     {
-        $columns=ORM::factory('hotel_content')->where("webid=0 and isopen=1")->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('hotel_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
         $this->assign('columns',$columns);
         $this->assign('webid',0);
         $this->assign('position','添加酒店');
@@ -365,7 +365,7 @@ class Controller_Hotel  extends Stourweb_Controller{
 
         $info = ORM::factory('hotel',$productid)->as_array();
 
-        $columns=ORM::factory('hotel_content')->where("webid=0 and isopen=1")->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('hotel_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
 
         $info['kindlist_arr']=Model_Destinations::getKindlistArr($info['kindlist']);
 

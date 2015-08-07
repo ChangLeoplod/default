@@ -2,7 +2,7 @@
 
 class Model_Member_Order extends ORM {
 
-     public static $statusNames=array(0=>'未处理',1=>'处理中',2=>'交易成功',3=>'取消订单');
+     public static $statusNames=array(0=>'未处理',1=>'处理中',2=>'付款成功',3=>'取消订单',4=>'已退款',5=>'交易完成');
     /*
      * 返积分操作
      * */
@@ -34,6 +34,7 @@ class Model_Member_Order extends ORM {
         DB::query(Database::INSERT,$sql)->execute();
 
     }
+
 
     /*
      * 返库存操作
@@ -82,12 +83,30 @@ class Model_Member_Order extends ORM {
             }
             DB::query(2,$sql)->execute();
         }
+
     }
     public static function getStatusName($key)
     {
         return self::$statusNames[$key];
     }
-
-
-
+    public static function getStatusNamesJs()
+    {
+        $jsonArr=array();
+        foreach(self::$statusNames as $k=>$v)
+        {
+            $jsonArr[]=array('status'=>$k,'name'=>$v);
+        }
+        return $jsonArr;
+    }
+    public static function getPaySources()
+    {
+        $sql="select paysource from sline_member_order where paysource is not null group by paysource";
+        $result=DB::query(Database::SELECT,$sql)->execute()->as_array();
+        $arr=array();
+        foreach($result as $k=>$v)
+        {
+            $arr[]=$v['paysource'];
+        }
+        return $arr;
+    }
 }

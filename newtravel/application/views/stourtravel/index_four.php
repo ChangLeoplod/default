@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>思途旅游CMS</title>
-    {php echo Common::getScript('jquery-1.8.3.min.js,common.js,jquery.hotkeys.js,msgbox/msgbox.js,slideTabs.js,hdate/hdate.js,echarts.js,echart-data.js'); }
+    {php echo Common::getScript('jquery-1.8.3.min.js,common.js,jquery.hotkeys.js,msgbox/msgbox.js,slideTabs.js,hdate/hdate.js,,DatePicker/WdatePicker.js,echarts.js,echart-data.js'); }
     {php echo Common::getCss('hdate.css','js/hdate'); }
     {php echo Common::getCss('msgbox.css','js/msgbox'); }
     {php echo Common::getCss('base.css,home.css'); }
@@ -140,9 +140,9 @@
           <span>数据统计</span>
           <div class="time-interval">
           	<em>时间范围</em>
-            <input type="text" class="time-begin" id="starttime" onclick="calendar.show({ id: this })" value="{$starttime}" placeholder="{$starttime}" />
+            <input type="text" class="time-begin" id="starttime" onclick="WdatePicker()" value="{$starttime}" placeholder="{$starttime}" />
             <b></b>
-            <input type="text" class="time-over" id="endtime" onclick="calendar.show({ id: this })" value="{$endtime}" placeholder="{$endtime}" />
+            <input type="text" class="time-over" id="endtime" onclick="WdatePicker({minDate:'#F{$dp.$D(\'starttime\')}'})" value="{$endtime}" placeholder="{$endtime}" />
             <input type="button" class="inquiry-btn query_btn" value="查询" />
           </div>
         </div>
@@ -229,7 +229,7 @@
         <div class="sidle-con">
         	<div class="sidle-menu-a">
                 {loop $menu['system'] $v}
-                <span><a href="javascript:;" data-url="{$v['url']}">{$v['name']}</a></span>
+                <span><a href="javascript:;" data-url="{$v['url']}">{$v['name']}</a><?php if(isset($v['flag'])){echo '<img src="'.$GLOBALS['cfg_public_url'].'images/'.$v['ico'].'"';}?></span>
                 {/loop}
           </div>
         </div>
@@ -669,4 +669,3 @@
 
 
 
-<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.2102&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

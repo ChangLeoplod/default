@@ -38,11 +38,16 @@ if(!is_numeric($dest_id)&&!empty($dest_id)) //如果dest_id不是数字,则用�
    }
  else
  {
-     $destinfo = getTuanDestInfo($dest_id);
-     $pv->Fields['seokeyword']=!empty($destinfo['keyword'])?"<meta name=\"keywords\" content=\"".$destinfo['keyword']."\"/>":"";
-     $pv->Fields['seodescription']=!empty($destinfo['description'])?"<meta name=\"description\" content=\"".$destinfo['description']."\"/>":"";
-     $pv->Fields['seotitle'] = !empty($destinfo['seotitle']) ? $destinfo['seotitle'] : $pv->Fields['seotitle'];
+
  }
+if(is_numeric($dest_id))
+{
+    $destinfo = getTuanDestInfo($dest_id);
+    $pv->Fields['seokeyword']=!empty($destinfo['keyword'])?"<meta name=\"keywords\" content=\"".$destinfo['keyword']."\"/>":"";
+    $pv->Fields['seodescription']=!empty($destinfo['description'])?"<meta name=\"description\" content=\"".$destinfo['description']."\"/>":"";
+    $pv->Fields['seotitle'] = !empty($destinfo['seotitle']) ? $destinfo['seotitle'] : $pv->Fields['seotitle'];
+}
+
 
 
 
@@ -53,7 +58,7 @@ if(!empty($dest_id))
 }
 if(!empty($attrid))
 {   
-    $attrid_arr=explode('_',$attrid);
+    $attrid_arr=explode(',',$attrid);
 	foreach($attrid_arr as $k=>$v)
 	$where.=" and find_in_set($v,a.attrid)";
 }
@@ -67,6 +72,7 @@ getTopNavDest($dest_id);
 $virtual_arr=$dsql->GetOne("select sum(ifnull(virtualnum,0)) as number from #@__tuan");
 $booknum=Helper_Archive::getSellNum(0,13)+$virtual_arr['number'];
 $sql="select a.* from #@__tuan a left join #@__allorderlist b on (a.id=b.aid and b.typeid={$typeid} and a.webid=b.webid) where $where order by ifnull(b.displayorder,9999) asc,a.addtime desc";
+
 $pv->pagesize=16;//分页条数.
 $pv->SetSql($sql);
 $pv->SetParameter('dest_id',$dest_id);

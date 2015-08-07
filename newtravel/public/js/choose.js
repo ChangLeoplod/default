@@ -491,6 +491,7 @@ CHOOSE.delMore=function()
 
     if(check_cmp.getCount()==0)
     {
+        ST.Util.showMsg("请选择至少一条数据",5);
         return;
     }
     ST.Util.confirmBox("提示","确定删除？",function(){

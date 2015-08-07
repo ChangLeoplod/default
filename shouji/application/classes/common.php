@@ -1164,4 +1164,29 @@ class Common {
         }
         return $result;
     }
+    public static function getEmailMsgConfig($msgtype)
+    {
+
+        $model = ORM::factory('email_msg');
+        $row =  $model->where('msgtype','=',$msgtype)->find()->as_array();
+        return $row;
+    }
+    public static function getEmailMsgConfig2($typeid,$num)
+    {
+        $model = ORM::factory('email_msg');
+        $msgtype = self::getMsgType($typeid,$num);
+        $row = $model->where('msgtype','=',$msgtype)->find()->as_array();
+        return $row;
+    }
+    public static function addJifenLog($memberid,$content,$jifen,$type)
+    {
+        $model = ORM::factory('member_jifen_log');
+        $model->memberid=$memberid;
+        $model->content=$content;
+        $model->jifen=$jifen;
+        $model->type=$type;
+        $model->addtime=time();
+        $model->save();
+    }
+
 }

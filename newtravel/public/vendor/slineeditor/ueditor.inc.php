@@ -9,7 +9,7 @@ $toolbar['Basic'] = array(
              'Paragraph','RowSpacing','FontFamily','FontSize','|',
              'DirectionalityLtr','DirectionalityRtl','|','','Indent','|',
              'JustifyLeft','JustifyCenter','JustifyRight','JustifyJustify','|',
-             'Link','Unlink','Anchor','|','lineheight','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
+             'Link','Unlink','Anchor','|','lineheight','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
              'Horizontal','Date','Time','Spechars','|',
              'InsertTable','DeleteTable','InsertParagraphBeforeTable','InsertRow','DeleteRow','InsertCol','DeleteCol','MergeCells','MergeRight','MergeDown','SplittoCells','SplittoRows','SplittoCols','|',
              'SelectAll','ClearDoc','SearchReplace','Print','Preview','CheckImage','Help','Attachment')
@@ -24,7 +24,7 @@ $toolbar['Member'] = array(
              'Paragraph','RowSpacing','FontFamily','FontSize','|',
              'DirectionalityLtr','DirectionalityRtl','|','','Indent','|',
              'JustifyLeft','JustifyCenter','JustifyRight','JustifyJustify','|',
-             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
+             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
              'Horizontal','Date','Time','Spechars','|',
              'InsertTable','DeleteTable','InsertParagraphBeforeTable','InsertRow','DeleteRow','InsertCol','DeleteCol','MergeCells','MergeRight','MergeDown','SplittoCells','SplittoRows','SplittoCols','|',
              'SelectAll','ClearDoc','SearchReplace','Print','Preview','CheckImage','Help')
@@ -39,7 +39,7 @@ $toolbar['Small'] = array(
              'Paragraph','RowSpacing','FontFamily','FontSize','|',
              'DirectionalityLtr','DirectionalityRtl','|','','Indent','|',
              'JustifyLeft','JustifyCenter','JustifyRight','JustifyJustify','|',
-             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
+             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
              'Horizontal','Date','Time','Spechars','|',
              'InsertTable','DeleteTable','InsertParagraphBeforeTable','InsertRow','DeleteRow','InsertCol','DeleteCol','MergeCells','MergeRight','MergeDown','SplittoCells','SplittoRows','SplittoCols','|',
              'SelectAll','ClearDoc','SearchReplace','Print','Preview','CheckImage','Help','Attachment')
@@ -54,7 +54,7 @@ $toolbar['Diy'] = array(
              'Paragraph','RowSpacing','FontFamily','FontSize','|',
              'DirectionalityLtr','DirectionalityRtl','|','','Indent','|',
              'JustifyLeft','JustifyCenter','JustifyRight','JustifyJustify','|',
-             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
+             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
              'Horizontal','Date','Time','Spechars','|',
              'InsertTable','DeleteTable','InsertParagraphBeforeTable','InsertRow','DeleteRow','InsertCol','DeleteCol','MergeCells','MergeRight','MergeDown','SplittoCells','SplittoRows','SplittoCols','|',
              'SelectAll','ClearDoc','SearchReplace','Print','Preview','CheckImage','Help')
@@ -71,7 +71,7 @@ $toolbar['MemberLit'] = array(
              'Paragraph','RowSpacing','FontFamily','FontSize','|',
              'DirectionalityLtr','DirectionalityRtl','|','','Indent','|',
              'JustifyLeft','JustifyCenter','JustifyRight','JustifyJustify','|',
-             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
+             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
              'Horizontal','Date','Time','Spechars','|',
              'InsertTable','DeleteTable','InsertParagraphBeforeTable','InsertRow','DeleteRow','InsertCol','DeleteCol','MergeCells','MergeRight','MergeDown','SplittoCells','SplittoRows','SplittoCols','|',
              'SelectAll','ClearDoc','SearchReplace','Print','Preview','CheckImage','Help')
@@ -87,7 +87,7 @@ $toolbar['Default'] = array(
              'Paragraph','RowSpacing','FontFamily','FontSize','|',
              'DirectionalityLtr','DirectionalityRtl','|','','Indent','|',
              'JustifyLeft','JustifyCenter','JustifyRight','JustifyJustify','|',
-             'Link','Unlink','Anchor','|','lineheight','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
+             'Link','Unlink','Anchor','|','lineheight','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
              'Horizontal','Date','Time','Spechars','|',
              'InsertTable','DeleteTable','InsertParagraphBeforeTable','InsertRow','DeleteRow','InsertCol','DeleteCol','MergeCells','MergeRight','MergeDown','SplittoCells','SplittoRows','SplittoCols','|',
              'SelectAll','ClearDoc','SearchReplace','Print','Preview','CheckImage')
@@ -101,7 +101,7 @@ $toolbar['Sline'] = array(
              'PastePlain','|',
              'DirectionalityLtr','DirectionalityRtl','|','','Indent','|',
              'JustifyLeft','JustifyCenter','JustifyRight','JustifyJustify','|',
-             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
+             'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion','InsertVideo','Map','GMap','InsertFrame', 'PageBreak','HighlightCode','|',
              'Horizontal','Date','Time','Spechars','|',
              'SelectAll','ClearDoc','SearchReplace','Print','Preview','CheckImage')
 );
@@ -109,12 +109,12 @@ $toolbar['Line'] = array(
     array( 'Undo','Redo','|',
              'FontSize','Bold','Italic','Underline','RemoveFormat','FormatMatch','|',
              'ForeColor','BackColor','InsertOrderedList','InsertUnorderedList','|',
-             'Link','Unlink','|','lineheight','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','Emotion'));
+             'Link','Unlink','|','lineheight','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','Emotion'));
 $toolbar['raider'] = array(
     array(
         'Bold','Italic','Underline','RemoveFormat','|',
         'ForeColor','|',
-        'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','InsertImage','|'
+        'Link','Unlink','Anchor','|','ImageNone','ImageLeft','ImageRight','ImageCenter','|','vseem','|'
 
        ,'insertkind','insertsubtitle')
 );

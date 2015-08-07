@@ -28,7 +28,7 @@
 </script>
 
 
-<div class="found_box">
+<div class="found_box" style="display: none;">
     <div class="foud_con_btn"><img src="{$GLOBALS['cfg_public_url']}images/found_ico.png" /></div>
     <div class="found_menu_box">
         <div class="menu_tit"><img src="{$GLOBALS['cfg_public_url']}images/found_ico2.png" /></div>
@@ -146,3 +146,4 @@
 
     </div>
 </div>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.3102&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

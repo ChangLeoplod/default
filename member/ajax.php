@@ -200,7 +200,7 @@ if($dopost == 'allorder')
 		$status = getOrderStatus($row['status'],$row['paytype']);
 		$orderurl = "index.php?dopost=vieworder&typeid={$row['typeid']}&orderid={$row['id']}";
                 $_model2 = new CommonModule('#@__line');
-                $lineinfo = $_model2->getOne("id='{$row['productaid']}'");
+                $lineinfo = $_model2->getOne("aid='{$row['productaid']}'");
 		$out .='<div class="order_li">
                     <div class="od_tit">订单流水号:'.$row['ordersn'].'<span>（下单时间：'.$dingdate.'）</span></div>
                     <a href="/lines/show_'.$row['productaid'].'.html" target="_blank" class="pic"><img src="'.$lineinfo['packpic'].'" /></a>
@@ -328,7 +328,7 @@ if($dopost == 'unpay')
 		$orderurl = "index.php?dopost=vieworder&typeid={$row['typeid']}&orderid={$row['id']}";
 
                 $_model2 = new CommonModule('#@__line');
-                $lineinfo = $_model2->getOne("id='{$row['productaid']}'");
+                $lineinfo = $_model2->getOne("aid='{$row['productaid']}'");
 		$out .='<div class="order_li">
                     <div class="od_tit">订单流水号:'.$row['ordersn'].'<span>（下单时间：'.$dingdate.'）</span></div>
                     <a href="/lines/show_'.$row['productaid'].'.html" target="_blank" class="pic"><img src="'.$lineinfo['packpic'].'" /></a>
@@ -388,7 +388,7 @@ if($dopost == 'wancheng')
         $dingdate = Mydate('Y-m-d H:i:s',$row['addtime']);
         $orderurl = "index.php?dopost=vieworder&typeid={$row['typeid']}&orderid={$row['id']}";
         $_model2 = new CommonModule('#@__line');
-                $lineinfo = $_model2->getOne("id='{$row['productaid']}'");
+                $lineinfo = $_model2->getOne("aid='{$row['productaid']}'");
 		$out .='<div class="order_li">
                     <div class="od_tit">订单流水号:'.$row['ordersn'].'<span>（下单时间：'.$dingdate.'）</span></div>
                     <a href="/lines/show_'.$row['productaid'].'.html" target="_blank" class="pic"><img src="'.$lineinfo['packpic'].'" /></a>

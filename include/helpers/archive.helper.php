@@ -1933,6 +1933,7 @@ public static function getUrl($val=null,$key=null,$exclude=null,$arr,$url,$table
                        $content = str_replace('{#PRICE#}',$arr['price'],$content);
                        $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
                        $content = str_replace('{#TOTALPRICE#}',$totalPrice,$content);
+                       $content = str_replace('{#WEBNAME#}',$GLOBALS['cfg_webname'],$content);
                        Helper_Archive::sendMsg($mobile,$prefix,$content);//发送短信.
                    }
 
@@ -1947,6 +1948,7 @@ public static function getUrl($val=null,$key=null,$exclude=null,$arr,$url,$table
                        $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
                        $content = str_replace('{#TOTALPRICE#}',$totalPrice,$content);
                        $content = str_replace('{#EMAIL#}',$memberinfo['email'],$content);
+                       $content = str_replace('{#WEBNAME#}',$GLOBALS['cfg_webname'],$content);
                        ordermaill($memberinfo['email'],$title,$content);
                    }
 
@@ -1966,6 +1968,7 @@ public static function getUrl($val=null,$key=null,$exclude=null,$arr,$url,$table
                        $content = str_replace('{#PRICE#}',$arr['PRICE'],$content);
                        $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
                        $content = str_replace('{#TOTALPRICE#}',$totalPrice,$content);
+                       $content = str_replace('{#WEBNAME#}',$GLOBALS['cfg_webname'],$content);
 
                        Helper_Archive::sendMsg($mobile,$prefix,$content);//发送短信.
                    }
@@ -1983,8 +1986,8 @@ public static function getUrl($val=null,$key=null,$exclude=null,$arr,$url,$table
                        $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
                        $content = str_replace('{#TOTALPRICE#}',$totalPrice,$content);
                        $content = str_replace('{#EMAIL#}',$memberinfo['email'],$content);
+                       $content = str_replace('{#WEBNAME#}',$GLOBALS['cfg_webname'],$content);
                        $result= ordermaill($memberinfo['email'],$title,$content);
-
                    }
 
 
@@ -2536,8 +2539,7 @@ public static function getUrl($val=null,$key=null,$exclude=null,$arr,$url,$table
      * */
     public static function getPayTypeList($showxianxiadesc=1,$paytype=1)
     {
-
-       $paytypeArr=explode(',',$GLOBALS['cfg_pay_type']);
+$paytypeArr=explode(',',$GLOBALS['cfg_pay_type']);
         if($paytype!=4)
         {
             if(in_array(11,$paytypeArr)&&in_array(1,$paytypeArr))
@@ -3060,6 +3062,84 @@ public static function getUrl($val=null,$key=null,$exclude=null,$arr,$url,$table
         {
             return $code;
         }
+    }
+    public static function  paySuccess($ordersn,$paySource,$params)
+    {
+        global $dsql;
+        $sql="select * from #@__member_order where ordersn='$ordersn'";
+        $arr=$dsql->GetOne($sql);
+        if(empty($arr))
+            return false;
+        if($arr['status']==2)
+            return true;
+
+        if(substr($ordersn,0,2)=='dz')
+        {
+            $ordertype = 'dz';
+            $updatesql="update sline_dzorder set status=2,paysource='$paySource' where ordersn='$ordersn'";
+        }
+        else
+        {
+            $ordertype = 'sys';
+            $updatesql="update #@__member_order set ispay=1,status=2,paysource='$paySource' where ordersn='$ordersn'"; //付款标志置为1,交易成功
+        }
+        $dsql->ExecuteNoneQuery($updatesql);
+
+        if($ordertype !='dz')
+        {
+            $msgInfo = self::getDefineMsgInfo($arr['typeid'],3);
+            $memberInfo = self::getMemberInfo($arr['memberid']);
+            $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
+            if(isset($msgInfo['isopen'])) //等待客服处理短信
+            {
+                $content = $msgInfo['msg'];
+                $totalprice = $arr['price'] * $arr['dingnum'];
+                $content = str_replace('{#MEMBERNAME#}',$memberInfo['nickname'],$content);
+                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
+                $content = str_replace('{#PRICE#}',$arr['price'],$content);
+                $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
+                $content = str_replace('{#TOTALPRICE#}',$totalprice,$content);
+                $content = str_replace('{#WEBNAME#}',$GLOBALS['cfg_webname'],$content);
+                self::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
+            }
+
+            $emailInfo=self::getEmailMsgConfig2($arr['typeid'],3);
+            if($emailInfo['isopen']==1 && !empty($memberInfo['email']))
+            {
+                $title="订单支付成功";
+                $content = $emailInfo['msg'];
+                $totalprice = $arr['price'] * $arr['dingnum'];
+                $content = str_replace('{#MEMBERNAME#}',$memberInfo['nickname'],$content);
+                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
+                $content = str_replace('{#PRICE#}',$arr['price'],$content);
+                $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
+                $content = str_replace('{#TOTALPRICE#}',$totalprice,$content);
+                $content = str_replace('{#EMAIL#}',$memberInfo['email'],$content);
+                $content = str_replace('{#WEBNAME#}',$GLOBALS['cfg_webname'],$content);
+                ordermaill($memberInfo['email'],$title,$content);
+            }
+
+
+            //支付成功后添加预订送积分
+            if(!empty($arr['jifenbook']))
+            {
+                $addjifen = intval($arr['jifenbook']);
+                $sql = "update sline_member set jifen=jifen+{$addjifen} where mid='{$arr['memberid']}'";
+                if($dsql->ExecuteNoneQuery($sql))
+                {
+                    self::addJifenLog($arr['memberid'],"预订{$arr['productname']}获得积分{$addjifen}",$addjifen,2);
+                }
+            }
+            //如果是酒店订单,则把子订单置为交易成功状态
+            $sql="select typeid,id from sline_member_order where ordersn='$ordersn'";
+            $ar = $dsql->GetOne($sql);
+            if($ar['typeid']==2)
+            {
+                $s = "update sline_member_order set ispay=1,paysource='$paySource' where pid='{$ar['id']}'";
+                $dsql->ExecuteNoneQuery($s);
+            }
+        }
+        return true;
     }
 
 

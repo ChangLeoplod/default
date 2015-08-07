@@ -304,6 +304,8 @@ a.tagword,a.kindlist,a.attrid,a.litpic,a.webid,a.piclist,a.themelist,a.iconlist,
         $this->assign('webid',0);
         $this->assign('position','添加景点');
         $this->assign('action','add');
+        $columns=ORM::factory('spot_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
+        $this->assign('columns',$columns);
         $this->display('stourtravel/spot/edit');
     }
     /*
@@ -321,7 +323,7 @@ a.tagword,a.kindlist,a.attrid,a.litpic,a.webid,a.piclist,a.themelist,a.iconlist,
         $info['supplier_arr']=ORM::factory('supplier',$info['supplierlist'])->as_array();
         $info['piclist_arr'] =  json_encode(Common::getUploadPicture($info['piclist']));//图片数组
 
-        $columns=ORM::factory('spot_content')->where("webid=0 and isopen=1")->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('spot_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
 
         $extendinfo = Common::getExtendInfo(5,$info['id']);
         $this->assign('columns',$columns);

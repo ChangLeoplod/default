@@ -90,6 +90,8 @@
                       <label>效果一</label>
                       <input type="radio"  name="cfg_index_templet" value="index_2.htm" {if $config['cfg_index_templet']=='index_2.htm'}checked{/if}>
                       <label>效果二</label>
+                      <input type="radio"  name="cfg_index_templet" value="index_3.htm" {if $config['cfg_index_templet']=='index_3.htm'}checked{/if}>
+                      <label>效果三</label>
 
 
 
@@ -159,4 +161,4 @@
 
 </body>
 </html>
-<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.1501&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201508.0501&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

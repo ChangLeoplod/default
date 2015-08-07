@@ -65,13 +65,16 @@ function getOrderStatus($status,$paytype)
 		 $out = '<span class="color_wfk">等待付款</span>';
 		 break;
 		case '2':
-		 $out = '<span class="color_ywc">交易成功</span>';
+		 $out = '<span class="color_ywc">付款成功</span>';
 		 break;
 		case '3':
-             $out = '<span class="color_yqx">订单取消</span>';
-             break;
+         $out = '<span class="color_yqx">取消订单</span>';
+         break;
         case '4':
 		 $out = '<span class="color_yqx">已退款</span>';
+         break;
+        case '5':
+		 $out = '<span class="color_ywc">交易完成</span>';
 		 break;
 	}
    /* if($paytype == '3')

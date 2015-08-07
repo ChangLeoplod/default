@@ -1,6 +1,7 @@
 <?php
 
  require  dirname(__FILE__).'/../include/common.inc.php';
+$paySource='快钱支付';
 	
 	function kq_ck_null($kq_va,$kq_na){if($kq_va == ""){return $kq_va="";}else{return $kq_va=$kq_na.'='.$kq_va.'&';}}
 	//人民币网关账号，该账号为11位人民币网关商户编号+01,该值与提交时相同。
@@ -66,50 +67,8 @@ if(strtoupper($signMsg)==strtoupper($merchantSignMsg)){
 		switch($_REQUEST['payResult']){
 				case '10':
 						//此处做商户逻辑处理
-						
-						if(substr($_REQUEST['orderId'],0,2)=='dz')
-						{
-						   $updatesql="update sline_dzorder set status=2 where ordersn='{$_REQUEST['orderId']}'";	
-						}
-						else
-                        {
-                            $updatesql="update sline_member_order set status=2 where ordersn='{$_REQUEST['orderId']}'"; //付款标志置为1,交易成功
-                            $dsql->ExecuteNoneQuery($updatesql);
-                            $sql="select * from #@__member_order where ordersn='{$_REQUEST['orderId']}'";
-                            $arr=$dsql->GetOne($sql);
-                            $msgInfo = Helper_Archive::getDefineMsgInfo($arr['typeid'],3);
-                            $memberInfo = Helper_Archive::getMemberInfo($arr['memberid']);
-                            $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-                            if(isset($msgInfo['isopen'])) //等待客服处理短信
-                            {
-                                $content = $msgInfo['msg'];
-                                $totalprice = $arr['price'] * $arr['dingnum'];
-                                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                                $content = str_replace('{#PRICE#}',$arr['PRICE'],$content);
-                                $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
-                                $content = str_replace('{#TOTALPRICE#}',$totalPrice,$content);
-                                Helper_Archive::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-                            }
-                            //支付成功后添加预订送积分
-                            if(!empty($arr['jifenbook']))
-                            {
-                                $addjifen = intval($arr['jifenbook']);
-                                $sql = "update sline_member set jifen=jifen+{$addjifen} where mid='{$arr['memberid']}'";
-                                if($dsql->ExecuteNoneQuery($sql))
-                                {
-                                    Helper_Archive::addJifenLog($arr['memberid'],"预订线路{$arr['productname']}获取得{$addjifen}",$addjifen,2);
-                                }
-                            }
-							 //如果是酒店订单,则把子订单置为交易成功状态
-							   $sql="select typeid,id from sline_member_order where ordersn='{$_REQUEST['orderId']}'";
-							   $ar = $dsql->GetOne($sql);
-							   if($ar['typeid']==2)
-							   {
-								   $s = "update sline_member_order set ispay=1 where pid='{$ar['id']}'";
-								   $dsql->ExecuteNoneQuery($s);
-							   }
-
-                        }
+						$ordersn=$_REQUEST['orderId'];
+                        Helper_Archive::paySuccess($ordersn,$paySource,$_REQUEST);
 
 						
 						

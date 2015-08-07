@@ -141,6 +141,7 @@ class UEditor{
 
         $out .= "<script type=\"text/javascript\" src=\"" . $ueditorPath . 'js/editor_config.js' . $args . "\"></script>\n";
 		$out .= "<script type=\"text/javascript\" src=\"" . $ueditorPath . 'js/editor_ui_all.js' . $args . "\"></script>\n";
+        $out .= "<script type=\"text/javascript\" src=\"" . $ueditorPath . 'js/image.js' . $args . "\"></script>\n";
         $out .= "<link rel='stylesheet' type='text/css' href='".$ueditorPath."themes/default/ueditor.css'/>\n";
 
 		$initComplete = $this->initialized = true;

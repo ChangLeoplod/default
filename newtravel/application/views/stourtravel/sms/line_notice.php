@@ -48,7 +48,7 @@
         </div>
         <div class="set-one">
             <div class="set-one-box">
-                <div class="box-tit">订单处理成功</div>
+                <div class="box-tit">订单付款成功</div>
                 <div class="box-con">
                     <textarea name="msg3">{$line_order_msg3}</textarea>
                 </div>
@@ -113,4 +113,4 @@
             return false;
         })
     })
-</script><script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.2103&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>
+</script>

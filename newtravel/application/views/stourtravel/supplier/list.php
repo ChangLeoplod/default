@@ -2,9 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>问答管理-思途CMS3.0</title>
+    <title>供应商管理-思途CMS3.0</title>
     {template 'stourtravel/public/public_js'}
     {php echo Common::getCss('style.css,base.css,base2.css,plist.css'); }
+    {php echo Common::getScript("choose.js"); }
 
 </head>
 <style>
@@ -162,7 +163,7 @@ Ext.onReady(
                         var items = this.items;
                      //   bar.down('tbfill').hide();
 
-                        bar.insert(0, Ext.create('Ext.panel.Panel', {border: 0, html: '<div class="panel_bar"><a class="abtn" href="javascript:void(0);" onclick="chooseAll()">全选</a><a class="abtn" href="javascript:void(0);" onclick="chooseDiff()">反选</a><a class="abtn" href="javascript:void(0);" onclick="del()">删除</a></div>'}));
+                        bar.insert(0, Ext.create('Ext.panel.Panel', {border: 0, html: '<div class="panel_bar"><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.chooseAll()">全选</a><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.chooseDiff()">反选</a><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.delMore()">删除</a></div>'}));
 
                         bar.insert(1, Ext.create('Ext.toolbar.Fill'));
                         //items.add(Ext.create('Ext.toolbar.Fill'));
@@ -500,4 +501,4 @@ function modify(id)
 
 </body>
 </html>
-<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.1705&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.3102&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

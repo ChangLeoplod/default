@@ -48,7 +48,7 @@
         </div>
         <div class="set-one">
             <div class="set-one-box">
-                <div class="box-tit">订单处理成功</div>
+                <div class="box-tit">订单付款成功</div>
                 <div class="box-con">
                     <textarea name="msg3">{$car_order_msg3}</textarea>
                 </div>

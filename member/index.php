@@ -241,12 +241,10 @@ if($dopost == 'vieworder')
 	$_model = new CommonModule('#@__member_order');
 	$orderinfo = $_model->getOne("id='$orderid'");
 	$_model2 = new CommonModule('#@__line');
-	$lineinfo = $_model2->getOne("id='{$orderinfo['productaid']}'");
+	$lineinfo = $_model2->getOne("aid='{$orderinfo['productaid']}'");
         $lineinfo['startcity'] = getStartCityName($lineinfo['startcity']);
         unset($lineinfo['id']);
-        global $dsql;
-        $sql = "select * from sline_member_order_tourer where orderid='{$orderid}'";
-        $tourer = $dsql->getall($sql);
+        
         $orderinfo['dingdate'] = Mydate('Y-m-d H:i:s',$orderinfo['addtime']);
 	$orderinfo['orderstatus'] = strip_tags(getOrderStatus($orderinfo['status'],$orderinfo['paytype']));//订单状态
     $orderinfo['dingjin'] = $orderinfo['dingjin'] * $orderinfo['dingnum'];
@@ -260,8 +258,10 @@ if($dopost == 'vieworder')
             $p = intval($order['dingnum'])*$order['price'];
             $totalprice+= $p;
             $roomdinginfo[]=array('usedate'=>$order['usedate'],'dingnum'=>$order['dingnum'],'totalprice'=>$p,'singleprice'=>$order['price']);
+
         }
         $orderinfo['totalprice'] = $totalprice;
+
     }
     else
     {
@@ -294,7 +294,6 @@ if($dopost == 'vieworder')
 	//$GLOBALS['condition']['_has_jiefencomment'] = $orderinfo['jifencomment'];
     $GLOBALS['condition']['_has_dingjin'] = $dingjin;
     if ($orderinfo['status'] ==3) $orderinfo['ispay'] =3;
-    if ($orderinfo['status'] ==1 && $orderinfo['ispay']==0) $orderinfo['ispay'] = $orderid;
 	foreach($orderinfo as $key=>$value)
 		{
 		  $pv->Fields[$key] = $value;  
@@ -307,6 +306,7 @@ if($dopost == 'vieworder')
 		{
 		  $pv->Fields[$key] = $value;  
 		}
+        $pv->Fields['litpic'] = empty($pv->Fields['litpic']) ? $GLOBALS['cfg_templets_skin'].'/images/member_default.gif' : $pv->Fields['litpic'];
 	$pv->SetTemplet(MEMBERTEMPLET . 'order_detail.htm');
 
 	$pv->Display();

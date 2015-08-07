@@ -238,7 +238,7 @@ b.isjian,b.isding,ifnull(b.displayorder,9999) as displayorder,ishidden from slin
     {
         $weblist=ORM::factory('weblist')->get_all();
 
-        $columns=ORM::factory('tuan_content')->where("webid=0 and isopen=1")->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('tuan_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
         $this->assign('columns',$columns);
         $this->assign('weblist',$weblist);
         $this->assign('webid',0);
@@ -261,7 +261,7 @@ b.isjian,b.isding,ifnull(b.displayorder,9999) as displayorder,ishidden from slin
         $info['supplier_arr']=ORM::factory('supplier',$info['supplierlist'])->as_array();
         $extendinfo = Common::getExtendInfo(13,$info['id']);
 
-        $columns=ORM::factory('tuan_content')->where("webid=0 and isopen=1")->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('tuan_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
         $this->assign('columns',$columns);
         $this->assign('extendinfo',$extendinfo);//扩展信息
         $this->assign('action','edit');

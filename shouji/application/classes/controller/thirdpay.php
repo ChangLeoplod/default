@@ -159,35 +159,10 @@ _FRM_;
              switch($_REQUEST['payResult']){
                  case '10':
                      //此处做商户逻辑处理
-
-                     if(substr($_REQUEST['orderId'],0,2)=='dz')
-                     {
-                         $updatesql="update sline_dzorder set status=2 where ordersn='{$_REQUEST['orderId']}'";
-                     }
-                     else
-                     {
-                         $updatesql="update sline_member_order set status=2,ispay=1 where ordersn='{$_REQUEST['orderId']}'"; //付款标志置为1,交易成功
-                         DB::query(Database::UPDATE,$updatesql)->execute();
-                         $sql="select * from sline_member_order where ordersn='{$_REQUEST['orderId']}'";
-                         $orderinfo = DB::query(1,$sql)->execute()->as_array();
-                         $arr=$orderinfo[0];
-                         $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
-                         $memberInfo = Common::getMemberInfo($arr['memberid']);
-                         $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-                         if(isset($msgInfo['isopen'])) //等待客服处理短信
-                         {
-                             $orderAmount = Common::StatisticalOrderAmount($arr);
-                             $content = $msgInfo['msg'];
-
-                             $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                             $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
-                             $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
-                             $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
-                             Common::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-                         }
-
-                     }
-
+                    /* $ordersn=$_REQUEST['orderId'];
+                     $paySource='快钱支付';
+                     $this->paySuccess($ordersn,$paySource);
+                     */
 
 
 
@@ -254,32 +229,9 @@ _FRM_;
                 case '10':
                     //此处做商户逻辑处理
 
-                    if(substr($_REQUEST['orderId'],0,2)=='dz')
-                    {
-                        $updatesql="update sline_dzorder set status=2 where ordersn='{$_REQUEST['orderId']}'";
-                    }
-                    else
-                    {
-                        $updatesql="update sline_member_order set status=2,ispay=1 where ordersn='{$_REQUEST['orderId']}'"; //付款标志置为1,交易成功
-                        DB::query(Database::UPDATE,$updatesql)->execute();
-                        $sql="select * from sline_member_order where ordersn='{$_REQUEST['orderId']}'";
-                        $orderinfo = DB::query(1,$sql)->execute()->as_array();
-                        $arr=$orderinfo[0];
-                        $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
-                        $memberInfo = Common::getMemberInfo($arr['memberid']);
-                        $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-                        if(isset($msgInfo['isopen'])) //等待客服处理短信
-                        {
-                            $content = $msgInfo['msg'];
-                            $orderAmount = Common::StatisticalOrderAmount($arr);
-                            $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                            $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
-                            $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
-                            $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
-                            Common::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-                        }
-
-                    }
+                    $ordersn=$_REQUEST['orderId'];
+                    $paySource='快钱支付';
+                    $this->paySuccess($ordersn,$paySource);
 
 
 
@@ -480,45 +432,8 @@ _FRM_;
                 }
                 else if ($trade_status == 'TRADE_SUCCESS')
                 {
-                    $sql="select * from sline_member_order where ordersn='$ordersn'";
-                    $arr1=DB::query(1,$sql)->execute()->as_array();
-                    $arr = $arr1[0];
-
-                    if(substr($ordersn,0,2)=='dz')
-                    {
-                        $ordertype = 'dz';
-                        $updatesql="update sline_dzorder set status=2 where ordersn='$ordersn'";
-                    }
-                    else
-                    {
-                        $ordertype = 'sys';
-                        $updatesql="update sline_member_order set ispay=1,status=2 where ordersn='$ordersn'"; //付款标志置为1,交易成功
-                    }
-                    DB::query(Database::UPDATE,$updatesql)->execute();
-
-                    //logResult('更新成功');
-
-                    //$subject='你成功预订'.$arr['productname'].'产品';
-                    //$text="尊敬的{$arr['linkman']},你已经成功在{$GLOBALS['cfg_webname']}预订{$arr['productname']},数量{$arr['dingnum']}.";
-                    //sendMsg($subject,$text,$arr['handletel'],$ordersn);
-
-                    if($ordertype !='dz')
-                    {
-                        $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
-                        $memberinfo = Common::getMemberInfo($arr['memberid']);
-                        $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-                        if(isset($msgInfo['isopen'])) //等待客服处理短信
-                        {
-                            $content = $msgInfo['msg'];
-                            $orderAmount = Common::StatisticalOrderAmount($arr);
-							$content = str_replace('{#MEMBERNAME#}',$memberinfo['nickname'],$content);
-                            $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                            $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
-                            $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
-                            $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
-                            Common::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-                        }
-                    }
+                    $paySource='支付宝';
+                    $this->paySuccess($ordersn,$paySource);
 
                     echo "success";		//请不要修改或删除
                 }
@@ -690,45 +605,8 @@ _FRM_;
             if ($notify->data["return_code"] == "SUCCESS") {
             //此处应该更新一下订单状态，商户自行增删操作
                 $ordersn = $notify->data["attach"];
-                $sql="select * from sline_member_order where ordersn='$ordersn'";
-                $arr1=DB::query(1,$sql)->execute()->as_array();
-                $arr = $arr1[0];
-
-                if(substr($ordersn,0,2)=='dz')
-                {
-                    $ordertype = 'dz';
-                    $updatesql="update sline_dzorder set status=2 where ordersn='$ordersn'";
-                }
-                else
-                {
-                    $ordertype = 'sys';
-                    $updatesql="update sline_member_order set ispay=1,status=2 where ordersn='$ordersn'"; //付款标志置为1,交易成功
-                }
-                DB::query(Database::UPDATE,$updatesql)->execute()->as_array();
-
-                //logResult('更新成功');
-
-                //$subject='你成功预订'.$arr['productname'].'产品';
-                //$text="尊敬的{$arr['linkman']},你已经成功在{$GLOBALS['cfg_webname']}预订{$arr['productname']},数量{$arr['dingnum']}.";
-                //sendMsg($subject,$text,$arr['handletel'],$ordersn);
-
-                if($ordertype !='dz')
-                {
-                    $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
-                    $memberinfo = Common::getMemberInfo($arr['memberid']);
-                    $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-                    if(isset($msgInfo['isopen'])) //等待客服处理短信
-                    {
-                        $content = $msgInfo['msg'];
-                        $orderAmount = Common::StatisticalOrderAmount($arr);
-						$content = str_replace('{#MEMBERNAME#}',$memberinfo['nickname'],$content);
-                        $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                        $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
-                        $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
-                        $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
-                        Common::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-                    }
-                }
+                $paySource='微信支付';
+                $this->paySuccess($ordersn,$paySource);
             }
 
             echo "success";     //请不要修改或删除
@@ -771,10 +649,90 @@ _FRM_;
             return $kq_va=$kq_na.'='.$kq_va.'&';
         }
     }
+	public function paySuccess($ordersn,$paySource,$params=null)
+	{
+        $sql="select * from sline_member_order where ordersn='$ordersn'";
+        $arr1=DB::query(1,$sql)->execute()->as_array();
+        $arr = $arr1[0];
+
+        $configModel=new Model_Sysconfig();
+        $configs=$configModel->getConfig(0);
+        if(substr($ordersn,0,2)=='dz')
+        {
+            $ordertype = 'dz';
+            $updatesql="update sline_dzorder set status=2,paysource='$paySource' where ordersn='$ordersn'";
+        }
+        else
+        {
+            $ordertype = 'sys';
+            $updatesql="update sline_member_order set ispay=1,status=2,paysource='$paySource' where ordersn='$ordersn'"; //付款标志置为1,交易成功
+        }
+        DB::query(Database::UPDATE,$updatesql)->execute();
+
+        //logResult('更新成功');
+
+        //$subject='你成功预订'.$arr['productname'].'产品';
+        //$text="尊敬的{$arr['linkman']},你已经成功在{$GLOBALS['cfg_webname']}预订{$arr['productname']},数量{$arr['dingnum']}.";
+        //sendMsg($subject,$text,$arr['handletel'],$ordersn);
+
+        if($ordertype !='dz')
+        {
+            $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
+            $memberModel=ORM::factory('member',$arr['memberid']);
+            $memberInfo = Common::getMemberInfo($arr['memberid']);
+            $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
+            $orderAmount = Common::StatisticalOrderAmount($arr);
+            if(isset($msgInfo['isopen'])) //等待客服处理短信
+            {
+                $content = $msgInfo['msg'];
+
+                $content = str_replace('{#MEMBERNAME#}',$nickname,$content);
+                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
+                $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
+                $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
+                $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
+                $content = str_replace('{#WEBNAME#}',$configs['cfg_webname'],$content);
+                Common::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
+            }
+
+            $emailInfo=Common::getEmailMsgConfig2($arr['typeid'],3);
+            if($emailInfo['isopen']==1 && !empty($memberInfo['email']))
+            {
+               // $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
+                $title="订单支付成功";
+                $content = $emailInfo['msg'];
+                $content = str_replace('{#MEMBERNAME#}',$nickname,$content);
+                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
+                $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
+                $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
+                $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
+                $content = str_replace('{#WEBNAME#}',$configs['cfg_webname'],$content);
+                Common::ordermaill($memberInfo['email'],$title,$content);
+            }
 
 
+            //支付成功后添加预订送积分
+            if(!empty($arr['jifenbook']))
+            {
+                $addjifen = intval($arr['jifenbook']);
+
+                $memberModel->jifen=$memberModel->jifen+$addjifen;
+                if($memberModel->save())
+                {
+                    Common::addJifenLog($arr['memberid'],"预订{$arr['productname']}获得积分{$addjifen}",$addjifen,2);
+                }
+            }
+            //如果是酒店订单,则把子订单置为交易成功状态
+
+            if($arr['typeid']==2)
+            {
+                $s = "update sline_member_order set ispay=1,paysource='$paySource' where pid='{$arr['id']}'";
+                DB::query(Database::UPDATE,$s);
+            }
+
+        }
 
 
-
+    }
 
 }

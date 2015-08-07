@@ -82,30 +82,31 @@
             <dt class="wid_90">游客{$n}：</dt>
             <dd style="height: auto">
                 <ul>
-		    <input name="tourer_id[]" type="hidden"  value="{$r['id']}" />
-                    <li>姓名：<input name="uname[]" type="text" class="" value="{$r['tourername']}" /> </li>
-                    <li>性别: <input name="usex[]" type="text" class="" value="{$r['sex']}" /> </li>
-                    <li>身份证号码：<input name="idno[]" type="text" class="" value="{$r['cardnumber']}" /> </li>
-                    <li>护照号码：<input name="ppno[]" type="text" class="" value="{$r['passportno']}" /> </li>
+			<input name="tourer_id[]" type="hidden"  value="{$r['id']}" />
+			<li>姓名：<input name="uname[]" type="text" class="" value="{$r['tourername']}" /> </li>
+			<li>性别: <input name="usex[]" type="text" class="" value="{$r['sex']}" /> </li>
+			<li>身份证号码：<input name="idno[]" type="text" class="" value="{$r['cardnumber']}" /> </li>
+			<li>护照号码：<input name="ppno[]" type="text" class="" value="{$r['passportno']}" /> </li>
                 </ul>
 
             </dd>
         </dl>
         {/loop}
         {/if}
-        <dl class="list_dl">
-            <dt class="wid_90">新增游客：</dt>
-            <dd style="height: auto">
-                <ul>
-		    <input name="tourer_id[]" type="hidden"  value="" />
-                    <li>姓名：<input name="uname[]" type="text" class="" value="" /> </li>
-                    <li>性别: <input name="usex[]" type="text" class="" value="" /> </li>
-                    <li>身份证号码：<input name="idno[]" type="text" class="" value="" /> </li>
-                    <li>护照号码：<input name="ppno[]" type="text" class="" value="" /> </li>
-                </ul>
+         <dl class="list_dl">
+		<dt class="wid_90">新增游客：</dt>
+		<dd style="height: auto">
+		<ul>
+			<input name="tourer_id[]" type="hidden"  value="" />
+			<li>姓名：<input name="uname[]" type="text" class="" value="" /> </li>
+			<li>性别: <input name="usex[]" type="text" class="" value="" /> </li>
+			<li>身份证号码：<input name="idno[]" type="text" class="" value="" /> </li>
+			<li>护照号码：<input name="ppno[]" type="text" class="" value="" /> </li>
+		</ul>
 
-            </dd>
-        </dl>
+		</dd>
+	</dl>
+
         <dl class="list_dl">
             <dt class="wid_90">预订说明：</dt>
             <dd style="height: auto">{$info['remark']}</dd>
@@ -113,11 +114,10 @@
         <dl class="list_dl">
             <dt class="wid_90">订单状态：</dt>
             <dd>
-              <input name="status" type="radio" class="checkbox" value="0" {if $info['status']==0}checked="checked"{/if}  />未处理
-              <input name="status" type="radio" class="checkbox" value="1" {if $info['status']==1}checked="checked"{/if}  />处理中
-              <input name="status" type="radio" class="checkbox" value="2" {if $info['status']==2}checked="checked"{/if}  />交易成功
-              <input name="status" type="radio" class="checkbox" value="3" {if $info['status']==3}checked="checked"{/if}  />取消订单
-                <input name="status" type="radio" class="checkbox" value="4" {if $info['status']==4}checked="checked"{/if}  />已退款
+
+                {loop $statusnames $v}
+                   <input name="status" type="radio" class="checkbox" value="{$v['status']}" {if $info['status']==$v['status']}checked="checked"{/if}  />{$v['name']}
+                {/loop}
             </dd>
         </dl>
         <dl class="list_dl">
@@ -170,4 +170,4 @@
 </script>
 
 </body>
-</html>
+</html><script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201508.0302&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

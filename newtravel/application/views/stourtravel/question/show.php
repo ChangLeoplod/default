@@ -90,7 +90,7 @@
     </div>
 
 	<script>
-
+    var id="{$info['id']}";
 	$(document).ready(function(){
 
 
@@ -112,6 +112,8 @@
                            {
 
                                ST.Util.showMsg('保存成功!','4',2000);
+                               setTimeout(function(){ST.Util.responseDialog({id:id},true)},1000);
+
                            }
                            else{
 
@@ -133,4 +135,3 @@
 
 </body>
 </html>
-<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.1501&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

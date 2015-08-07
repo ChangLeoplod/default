@@ -513,11 +513,16 @@ function refreshField(id, arr) {
 function view(id)
 {
    var url = SITEURL+'question/view/id/'+id;
-   ST.Util.showBox('查看问答',url,760,450);
+   ST.Util.showBox('查看问答',url,760,450,null,null,document,{loadCallback:function(result){
+       var record = window.product_store.getById(result.id);
+       record.set('replytime',1);
+       record.commit();
+
+   },loadWindow:window});
 }
 
 </script>
 
 </body>
 </html>
-<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.1705&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.3102&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

@@ -50,12 +50,7 @@
 window.display_mode = 1;	//默认显示模式
 window.product_kindid = 0;  //默认目的地ID
 
-window.statusmenu=[
-    {"status":"0","name":"未处理"},
-    {"status":"1","name":"处理中"},
-    {"status":"2","name":"交易成功"},
-    {"status":"3","name":"取消订单"}
-];
+window.statusmenu={json_encode($statusnames,true)};
 
 
 Ext.onReady(
@@ -557,4 +552,3 @@ function view(id)
 
 </body>
 </html>
-<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.1705&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

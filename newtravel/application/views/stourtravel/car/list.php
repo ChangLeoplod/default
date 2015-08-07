@@ -348,7 +348,7 @@
                    sortable:true,
                    menuDisabled:true,
                    renderer : function(value, metadata,record,rowIndex,colIndex) {
-
+                       var id=record.get('id');
                        var curdate=new Date();
                        var curtimestamp=curdate.getTime();
                        var date=new Date(value*1000);
@@ -356,8 +356,10 @@
                            var color=value*1000<curtimestamp?'red':'green';
                            return '<span style="color:'+color+'">' + Ext.Date.format(date, 'Y-m-d') + '</span>';
                        }
-                       else
-                           return '<span style="color:red">无套餐</span>';
+                       else {
+                           var str = id.indexOf('suit') == -1 ? '无套餐' : '未报价';
+                           return '<span style="color:red">' + str + '</span>';
+                       }
 
                    }
                },
@@ -1301,3 +1303,4 @@
 
 </body>
 </html>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201508.0403&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

@@ -338,7 +338,7 @@ class Controller_Tongyong  extends Stourweb_Controller{
         $this->assign('position','添加');
         $this->assign('action','add');
 
-        $columns=ORM::factory('model_content')->where("webid=0 and isopen=1")->and_where('typeid','=',$typeid)->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('model_content')->where("(webid=0 and isopen=1 and typeid=$typeid) or (columnname='tupian' and typeid=$typeid)")->order_by('displayorder','asc')->get_all();
         $this->assign('columns',$columns);
         $this->assign('typeid',$typeid);
         $this->display('stourtravel/tongyong/edit');
@@ -353,7 +353,7 @@ class Controller_Tongyong  extends Stourweb_Controller{
         $this->assign('action','edit');
         $info = ORM::factory('model_archive',$productid)->as_array();
 
-        $columns=ORM::factory('model_content')->where("webid=0 and isopen=1")->and_where('typeid','=',$typeid)->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('model_content')->where("(webid=0 and isopen=1 and typeid=$typeid) or (columnname='tupian' and typeid=$typeid)")->order_by('displayorder','asc')->get_all();
         $this->assign('columns',$columns);
 
         $info['kindlist_arr'] = ORM::factory('destinations')->getKindlistArr($info['kindlist']);//目的地数组

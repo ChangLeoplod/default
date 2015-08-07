@@ -7,14 +7,14 @@ class Controller_Keyword extends Stourweb_Controller{
      */
 
     private $channelArr = array(
-        '1'=>array('channelname'=>'线路','table'=>'sline_line','typeid'=>1,'fieldname'=>'linename'),
-        '2'=>array('channelname'=>'酒店','table'=>'sline_hotel','typeid'=>2,'fieldname'=>'hotelname'),
-        '3'=>array('channelname'=>'租车','table'=>'sline_car','typeid'=>3,'fieldname'=>'carname'),
-        '4'=>array('channelname'=>'攻略','table'=>'sline_article','typeid'=>4,'fieldname'=>'articlename'),
-        '5'=>array('channelname'=>'景点','table'=>'sline_spot','typeid'=>5,'fieldname'=>'spotname'),
-        '6'=>array('channelname'=>'相册','table'=>'sline_photo','typeid'=>6,'fieldname'=>'photoname'),
-        '8'=>array('channelname'=>'签证','table'=>'sline_visa','typeid'=>8,'fieldname'=>'title'),
-        '13'=>array('channelname'=>'团购','table'=>'sline_tuan','typeid'=>12,'fieldname'=>'title'),
+        '1'=>array('channelname'=>'线路','table'=>'sline_line','typeid'=>1,'fieldname'=>'linename','url'=>'/lines/'),
+        '2'=>array('channelname'=>'酒店','table'=>'sline_hotel','typeid'=>2,'fieldname'=>'hotelname','url'=>'/hotels/'),
+        '3'=>array('channelname'=>'租车','table'=>'sline_car','typeid'=>3,'fieldname'=>'carname','url'=>'/cars/'),
+        '4'=>array('channelname'=>'攻略','table'=>'sline_article','typeid'=>4,'fieldname'=>'articlename','url'=>'/raiders/'),
+        '5'=>array('channelname'=>'景点','table'=>'sline_spot','typeid'=>5,'fieldname'=>'spotname','url'=>'/spots/'),
+        '6'=>array('channelname'=>'相册','table'=>'sline_photo','typeid'=>6,'fieldname'=>'photoname','url'=>'/photos/'),
+        '8'=>array('channelname'=>'签证','table'=>'sline_visa','typeid'=>8,'fieldname'=>'title','url'=>'/visa/'),
+        '13'=>array('channelname'=>'团购','table'=>'sline_tuan','typeid'=>12,'fieldname'=>'title','url'=>'/tuan/'),
     );
     public function before()
     {
@@ -38,10 +38,10 @@ class Controller_Keyword extends Stourweb_Controller{
         {
             $start=Arr::get($_GET,'start');
             $limit=Arr::get($_GET,'limit');
-            $keyword=ARR::get($_GET,'keyword');
-            $channelid = ARR::get($_GET,'channelid');
+            $keyword=Arr::get($_GET,'keyword');
+            $channelid = Arr::get($_GET,'channelid');
             $channelid = empty($channelid) ? 1 : $channelid;
-            $type = ARR::get($_GET,'type');
+            $type = Arr::get($_GET,'type');
             $type = empty($type) ? 0 : $type;
 
 
@@ -119,13 +119,74 @@ class Controller_Keyword extends Stourweb_Controller{
         $this->assign('info',$info);
         $this->display('stourtravel/supplier/edit');
     }
+
+    /*
+     * 生成Excel
+     * */
+    public function action_genexcel()
+    {
+
+        $typeid = $this->params['typeid'];
+
+        $fieldname = $this->channelArr[$typeid]['fieldname'];
+
+        $tablename = $this->channelArr[$typeid]['table'];
+
+        $link = $this->channelArr[$typeid]['url'];
+
+
+        $sql="select id, aid,seotitle,{$fieldname} as title,keyword  from  {$tablename}";
+
+
+        $list=DB::query(Database::SELECT,$sql)->execute()->as_array();
+        $table = "<table><tr>";
+        $table.="<td>产品名称</td>";
+        $table.="<td>优化标题</td>";
+        $table.="<td>关键词</td>";
+        $table.="<td>链接地址</td>";
+        $table.="</tr>";
+        foreach($list as $row)
+        {
+
+            $url = $GLOBALS['cfg_basehost'].$link.'show_'.$row['aid'].'.html';
+            $table.="<tr>";
+
+            $table.="<td>{$row['title']}</td>";
+            $table.="<td>{$row['seotitle']}</td>";
+            $table.="<td>{$row['keyword']}</td>";
+            $table.="<td>{$url}</td>";
+            $table.="</tr>";
+
+        }
+        $table.="</table>";
+        $filename = date('Ymdhis');
+        header ( 'Pragma:public');
+        header ( 'Expires:0');
+        header ( 'Cache-Control:must-revalidate,post-check=0,pre-check=0');
+        header ( 'Content-Type:application/force-download');
+        header ( 'Content-Type:application/vnd.ms-excel');
+        header ( 'Content-Type:application/octet-stream');
+        header ( 'Content-Type:application/download');
+        header ( 'Content-Disposition:attachment;filename='.$filename.".xls" );
+        header ( 'Content-Transfer-Encoding:binary');
+
+        //define("FILETYPE","xls");
+        //header("Content-type:application/vnd.ms-excel");
+        //header('Content-type: charset=GBK');
+        //header('Pragma: no-cache');
+        //header('Expires: 0');
+        //header("Content-Disposition:filename=".$info['name'].".xls");
+        //$str = iconv("UTF-8//IGNORE","GBK//IGNORE",$str);
+        echo $table;
+        exit();
+    }
     /*
      * 保存
      * */
     public function action_ajax_save()
     {
-        $action = ARR::get($_POST,'action');//当前操作
-        $id = ARR::get($_POST,'id');
+        $action = Arr::get($_POST,'action');//当前操作
+        $id = Arr::get($_POST,'id');
 
         $status = false;
 
@@ -143,14 +204,14 @@ class Controller_Keyword extends Stourweb_Controller{
 
         }
 
-        $model->suppliername = ARR::get($_POST,'suppliername');
-        $model->linkman = ARR::get($_POST,'linkman');
-        $model->mobile = ARR::get($_POST,'mobile');
-        $model->telephone = ARR::get($_POST,'telephone');
-        $model->address = ARR::get($_POST,'address');
-        $model->litpic = ARR::get($_POST,'litpic');
-        $model->fax = ARR::get($_POST,'fax');
-        $model->qq = ARR::get($_POST,'qq');
+        $model->suppliername = Arr::get($_POST,'suppliername');
+        $model->linkman = Arr::get($_POST,'linkman');
+        $model->mobile = Arr::get($_POST,'mobile');
+        $model->telephone = Arr::get($_POST,'telephone');
+        $model->address = Arr::get($_POST,'address');
+        $model->litpic = Arr::get($_POST,'litpic');
+        $model->fax = Arr::get($_POST,'fax');
+        $model->qq = Arr::get($_POST,'qq');
         $model->modtime = time();
 
         if($action=='add' && empty($id))
@@ -187,8 +248,8 @@ class Controller_Keyword extends Stourweb_Controller{
     public function action_ajax_check()
     {
         $field = $this->params['type'];
-        $val = ARR::get($_POST,'val');//值
-        $mid = ARR::get($_POST,'mid');//会员id
+        $val = Arr::get($_POST,'val');//值
+        $mid = Arr::get($_POST,'mid');//会员id
         $flag = Model_Member::checkExist($field,$val,$mid);
         echo $flag;
     }

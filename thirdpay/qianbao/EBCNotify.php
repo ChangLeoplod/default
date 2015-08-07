@@ -1,6 +1,8 @@
 ﻿
 <?php include ("EBCPlugUtil.php");?>
 <?php
+
+    $paySource='钱包';
     //接收来自EBC支付网关的参数，为商城使用
     $notify_id = $_GET['notify_id'];        //通知ID
     $notify_time = $_GET['notify_time'];    //通知时间
@@ -27,29 +29,7 @@
         $show_msg = "<font color=blue>交易返回数据验证成功!</font>";
         if($trade_status=='00')//交易成功
         {
-            if(substr($orderid,0,2)=='dz')
-            {
-                $updatesql="update sline_dzorder set status=2 where ordersn='{$orderid}'";
-            }
-            else
-            {
-                $updatesql="update sline_member_order set status=2 where ordersn='{$orderid}'"; //付款标志置为1,交易成功
-				$ty = 'sys';
-            }
-
-            $dsql->ExecuteNoneQuery($updatesql);
-			if($ty == 'sys')
-			{
-			   //如果是酒店订单,则把子订单置为交易成功状态
-							   $sql="select typeid,id from sline_member_order where ordersn='{$orderid}'";
-							   $ar = $dsql->GetOne($sql);
-							   if($ar['typeid']==2)
-							   {
-								   $s = "update sline_member_order set ispay=1 where pid='{$ar['id']}'";
-								   $dsql->ExecuteNoneQuery($s);
-							   }
-
-			}
+            Helper_Archive::paySuccess($orderid,$paySource,$_POST);
         }
 
     }

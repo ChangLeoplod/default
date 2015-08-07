@@ -70,7 +70,9 @@
         $("#loginfrm").submit();
     })
     $('.reset-btn').click(function(){
-        $('input').val('');
+        $("#loginfrm")[0].reset();
+        $(".yzm-box img").trigger('click');
+        //$('input').val('');
     })
     //表单验证
     $("#loginfrm").validate({
@@ -167,4 +169,4 @@
    </script>
 
 
-</html>
+</html><script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.3102&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

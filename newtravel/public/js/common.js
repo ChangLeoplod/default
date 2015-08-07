@@ -39,7 +39,7 @@
      //确认框
      confirmBox:function(boxtitle,boxcontent,okfunc)
      {
-
+         boxcontent='<div class="confirm-box">'+boxcontent+'</div>';
          var d = parent.window.dialog({
              title: boxtitle,
              content: boxcontent,

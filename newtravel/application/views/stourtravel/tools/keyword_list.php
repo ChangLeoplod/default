@@ -25,7 +25,7 @@
                         </td>
                         <td class="head-td-rt">
                             <a href="javascript:;" class="refresh-btn" onclick="window.location.reload()">刷新</a>
-
+                            <a href="javascript:;" class="normal-btn btn_excel" title="导出Excel报表">导出Excel</a>
                     </tr>
                 </table>
             </div>
@@ -416,6 +416,16 @@
 						 }});
 
   }
+
+  //生成excel
+ $(".btn_excel").click(function(){
+
+     var channelid = $('#channelid').val();
+     var url = SITEURL+'keyword/genexcel/typeid/'+channelid;
+
+     window.open(url);
+
+ })
   
 
   
@@ -426,3 +436,4 @@
 
 </body>
 </html>
+<script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201508.0501&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

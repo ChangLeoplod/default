@@ -130,6 +130,8 @@ class Controller_Order extends Stourweb_Controller{
         $action=$this->params['action'];
         $typeid=$this->params['typeid'];
         $webid=Arr::get($_GET,'webid');
+
+
         $this->assign('typeid',$typeid);
         //订单模板
         //$channelname = self::$channelArr[$typeid];
@@ -137,6 +139,8 @@ class Controller_Order extends Stourweb_Controller{
 
         if(empty($action))  //显示列表
         {
+            $this->assign('paysources',Model_Member_Order::getPaySources());
+            $this->assign('statusnames',Model_Member_Order::getStatusNamesJs());
             $this->assign('position',$channelname.'订单');
             $this->assign('channelname',$channelname);
             $this->display('stourtravel/order/list');
@@ -146,9 +150,21 @@ class Controller_Order extends Stourweb_Controller{
             $start=Arr::get($_GET,'start');
             $limit=Arr::get($_GET,'limit');
             $keyword=Arr::get($_GET,'keyword');
+            $status=$_GET['status'];
+            $paysource=$_GET['paysource'];
 
             $order='order by a.addtime desc';
             $w = "where a.typeid = $typeid";
+
+            if($status!='')
+            {
+                $w.=' and a.status='.$status;
+            }
+            if(!empty($paysource))
+            {
+                $w.=" and a.paysource='$paysource'";
+            }
+
             if(!empty($keyword))
             {
                 $w .=" and (a.ordersn like '%{$keyword}%' or a.linkman like '%{$keyword}%' or a.linktel like '%{$keyword}%' or a.productname like '%{$keyword}%')";
@@ -167,7 +183,6 @@ class Controller_Order extends Stourweb_Controller{
                 {
                     $v['productname'] = $v['productname']."[<span style='color:red'>子订单</span>]";
                 }
-
                 $new_list[] = $v;
             }
             $result['total']=$totalcount_arr[0]['num'];
@@ -216,7 +231,9 @@ class Controller_Order extends Stourweb_Controller{
 
                     if($field=='status' && $val==2)//完成交易
                     {
-                        Model_Member_Order::refundJifen($id);
+                       // Model_Member_Order::refundJifen($id);
+                        Common::paySuccess($model->ordersn);
+
                     }
                     if($field=='status' && $val==3)//取消订单
                     {
@@ -295,6 +312,7 @@ class Controller_Order extends Stourweb_Controller{
 
         $this->assign('info',$info);
         $this->assign('typeid',$typeid);
+        $this->assign('statusnames',Model_Member_Order::getStatusNamesJs());
 
         $this->display('stourtravel/order/'.$templet);
     }
@@ -306,14 +324,13 @@ class Controller_Order extends Stourweb_Controller{
 
         $id = Arr::get($_POST,'id');
         $type = Arr::get($_POST,'type');
-
 	//修改旅客信息
 	$toureridarr = Arr::get($_POST, 'tourer_id');
 	$unamearr  = Arr::get($_POST, 'uname');
 	$usexarr   = Arr::get($_POST, 'usex');
 	$idnoarr   = Arr::get($_POST, 'idno');
 	$ppnoarr   = Arr::get($_POST, 'ppno');
-	//print_r($unamearr);
+
         $status = false;
         if(empty($type))
         {
@@ -333,44 +350,44 @@ class Controller_Order extends Stourweb_Controller{
         }
         $model->status = Arr::get($_POST,'status');
         $model->update();
-	
+
 	//修改旅客信息
 	//by jlzhang
 	$tmp_i = 0;
 	while($tmp_i < count($toureridarr))
 	{
-	    //新增
-	    if(empty($toureridarr[$tmp_i]) 
+		//新增
+		if(empty($toureridarr[$tmp_i])
 		&& !empty($unamearr[$tmp_i]) && !empty($usexarr[$tmp_i])
-                && !empty($idnoarr[$tmp_i]) && !empty($ppnoarr[$tmp_i]))
-	    {
-	        $tourer_model = ORM::factory('tourer');
-		$tourer_model->orderid = $id;
-                $tourer_model->tourername = $unamearr[$tmp_i];
-                $tourer_model->sex = $usexarr[$tmp_i];
-                $tourer_model->cardnumber = $idnoarr[$tmp_i];
-                $tourer_model->passportno = $ppnoarr[$tmp_i];
-		$tourer_model->save();
-	    }
-            //删除
-            else if( !empty($toureridarr[$tmp_i])
+		&& !empty($idnoarr[$tmp_i]) && !empty($ppnoarr[$tmp_i]))
+		{
+			$tourer_model = ORM::factory('tourer');
+			$tourer_model->orderid = $id;
+			$tourer_model->tourername = $unamearr[$tmp_i];
+			$tourer_model->sex = $usexarr[$tmp_i];
+			$tourer_model->cardnumber = $idnoarr[$tmp_i];
+			$tourer_model->passportno = $ppnoarr[$tmp_i];
+			$tourer_model->save();
+		}
+		//删除
+		else if( !empty($toureridarr[$tmp_i])
 		&& empty($unamearr[$tmp_i]) && empty($usexarr[$tmp_i])
-                && empty($idnoarr[$tmp_i]) && empty($ppnoarr[$tmp_i]))
-            {
-                $tourer_model = ORM::factory('tourer', $toureridarr[$tmp_i]);
-                $tourer_model->delete();
-            }
-            //更新
-            else if( !empty($toureridarr[$tmp_i]) )
-            {
-	    	$tourer_model = ORM::factory('tourer', $toureridarr[$tmp_i]);
-	    	$tourer_model->tourername = $unamearr[$tmp_i];
-            	$tourer_model->sex = $usexarr[$tmp_i];
-            	$tourer_model->cardnumber = $idnoarr[$tmp_i];
-            	$tourer_model->passportno = $ppnoarr[$tmp_i];
-	    	$tourer_model->update();
-            }
-            $tmp_i++;
+		&& empty($idnoarr[$tmp_i]) && empty($ppnoarr[$tmp_i]))
+		{
+			$tourer_model = ORM::factory('tourer', $toureridarr[$tmp_i]);
+			$tourer_model->delete();
+		}
+		//更新
+		else if( !empty($toureridarr[$tmp_i]) )
+		{
+			$tourer_model = ORM::factory('tourer', $toureridarr[$tmp_i]);
+			$tourer_model->tourername = $unamearr[$tmp_i];
+			$tourer_model->sex = $usexarr[$tmp_i];
+			$tourer_model->cardnumber = $idnoarr[$tmp_i];
+			$tourer_model->passportno = $ppnoarr[$tmp_i];
+			$tourer_model->update();
+		}
+		$tmp_i++;
 	}
 
         if($model->saved())
@@ -385,6 +402,11 @@ class Controller_Order extends Stourweb_Controller{
                 else if($oldstatus==3 && $current_status==1) //由取消变为在处理中
                 {
                     Model_Member_Order::refundStorage($id,'minus');//订单增加,库存减少
+                }
+
+                if($current_status==2)
+                {
+                    Model_Member_Order::refundJifen($id);
                 }
 
             }
@@ -404,7 +426,7 @@ class Controller_Order extends Stourweb_Controller{
         $action=$this->params['action'];
         if(empty($action))  //显示列表
         {
-
+            $this->assign('statusnames',Model_Member_Order::getStatusNamesJs());
             $this->display('stourtravel/order/dz_list');
         }
         else if($action=='read')    //读取列表
@@ -489,7 +511,7 @@ class Controller_Order extends Stourweb_Controller{
         $action=$this->params['action'];
         if(empty($action))  //显示列表
         {
-
+            $this->assign('statusnames',Model_Member_Order::getStatusNamesJs());
             $this->display('stourtravel/order/xy_list');
         }
         else if($action=='read')    //读取列表
@@ -504,7 +526,6 @@ class Controller_Order extends Stourweb_Controller{
             {
                 $w =" where ( a.username like '%{$keyword}%' or a.phone like '%{$keyword}%')";
             }
-
 
 
 

@@ -85,11 +85,10 @@
         </dl>
         <dl class="list_dl">
             <dt class="wid_90">订单状态：</dt>
-            <dd><input name="status" type="radio" class="checkbox" value="0" {if $info['status']==0}checked="checked"{/if}  />未处理
-                <input name="status" type="radio" class="checkbox" value="1" {if $info['status']==1}checked="checked"{/if}  />处理中
-                <input name="status" type="radio" class="checkbox" value="2" {if $info['status']==2}checked="checked"{/if}  />交易成功
-                <input name="status" type="radio" class="checkbox" value="3" {if $info['status']==3}checked="checked"{/if}  />取消订单
-                <input name="status" type="radio" class="checkbox" value="4" {if $info['status']==4}checked="checked"{/if}  />已退款
+            <dd>
+                {loop $statusnames $v}
+                <input name="status" type="radio" class="checkbox" value="{$v['status']}" {if $info['status']==$v['status']}checked="checked"{/if}  />{$v['name']}
+                {/loop}
             </dd>
         </dl>
         <dl class="list_dl">
@@ -144,4 +143,4 @@
 </script>
 
 </body>
-</html><script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201507.2701&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>
+</html><script type="text/javascript" src="http://update.souxw.com/service/api_V3.ashx?action=releasefeedback&ProductName=%E6%80%9D%E9%80%94CMS4.1&Version=4.1.201508.0302&DomainName=&ServerIP=unknown&SerialNumber=14049767" ></script>

@@ -471,6 +471,7 @@ div.clear{
 	height:30px;	
 	line-height:30px;
 	margin-bottom:20px;
+        margin-top: 20px;
 	text-align:center;
 	background:url("/images/wline1.gif") repeat-x left center;
 }

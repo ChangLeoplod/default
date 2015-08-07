@@ -257,8 +257,8 @@ return array(
         'htaccess'=>array('name'=>'伪静态配置','url'=>'config/htaccess/parentkey/system/itemid/15','itemid'=>'15','ico'=>'weijingtai.png'),
         'model'=>array('name'=>'扩展产品','url'=>'model/index/parentkey/system/itemid/17','itemid'=>'17','ico'=>'moxing.png'),
         'jipiao'=>array('name'=>'机票接口','url'=>'ticket/ctrip/parentkey/system/itemid/18','itemid'=>'18','ico'=>'chindren-ico-52.png'),
-        'insurance'=>array('name'=>'保险接口','url'=>'insurance/huizhe/parentkey/system/itemid/19','itemid'=>'19','ico'=>'chindren-ico-52.png')
-
+        'insurance'=>array('name'=>'保险接口','url'=>'insurance/huizhe/parentkey/system/itemid/19','itemid'=>'19','ico'=>'chindren-ico-52.png'),
+        'image'=>array('name'=>'图片管理','url'=>'image/index/parentkey/system/itemid/20','itemid'=>'20','ico'=>'N_03.gif','flag'=>"new")
 
     ),
     'application'=>array(

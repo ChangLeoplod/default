@@ -201,11 +201,12 @@ class UEditor{
 
         $out .= "<script type=\"text/javascript\" src=\"" . $ueditorPath . 'js/editor_config.js' . $args . "\"></script>\n";
 		$out .= "<script type=\"text/javascript\" src=\"" . $ueditorPath . 'js/editor_ui_all.js' . $args . "\"></script>\n";
+        $out .= "<script type=\"text/javascript\" src=\"" . $ueditorPath . "js/image.js\"></script>\n";
         $out .= "<link rel='stylesheet' type='text/css' href='".$ueditorPath."themes/default/css/ueditor.css'/>\n";
         $out .= "<script type=\"text/javascript\" src=\"". $ueditorPath .'lang/zh-cn/zh-cn.js' .$args."\"></script>\n";
 
 		$initComplete = $this->initialized = true;
-
+       //
 		return $out;
 	}
 

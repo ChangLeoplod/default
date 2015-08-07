@@ -56,6 +56,22 @@
 
                    </select>
                 </div>
+                <div class="change-btn-list mt-4 ml-10">
+                    <select name="status" onchange="togStatus(this)" class="bar-select">
+                        <option value="">订单状态</option>
+                        {loop $statusnames $row}
+                        <option value="{$row['status']}">{$row['name']}</option>
+                        {/loop}
+                    </select>
+                </div>
+                <div class="change-btn-list mt-4 ml-10">
+                    <select name="paysource" onchange="togPaysource(this)" class="bar-select">
+                        <option value="">支付方式</option>
+                        {loop $paysources $v}
+                        <option value="{$v}">{$v}</option>
+                        {/loop}
+                    </select>
+                </div>
                 <div class="pro-search ml-10 mt-4 fl mt-4">
                     <input type="text" id="searchkey" value="订单号/产品名称/联系人" datadef="订单号/产品名称/联系人" class="sty-txt1 set-text-xh wid_200" />
                     <a href="javascript:;" class="head-search-btn" onclick="searchKeyword()"></a>
@@ -72,13 +88,9 @@
 window.display_mode = 1;	//默认显示模式
 window.product_kindid = 0;  //默认目的地ID
 
-window.statusmenu=[
-    {"status":"0","name":"未处理"},
-    {"status":"1","name":"处理中"},
-    {"status":"2","name":"交易成功"},
-    {"status":"3","name":"取消订单"},
-    {"status":"4","name":"已退款"}
-];
+window.statusmenu={json_encode($statusnames,true)};
+window.paysources={json_encode($paysources)};
+
 
 function togWeb(ele)
 {
@@ -141,7 +153,8 @@ Ext.onReady(
                 'childnum',
                 'linkman',
                 'status',
-                'viewstatus'
+                'viewstatus',
+                'paysource'
 
             ],
 
@@ -226,7 +239,7 @@ Ext.onReady(
                         var items = this.items;
                       //  bar.down('tbfill').hide();
 
-                        bar.insert(0, Ext.create('Ext.panel.Panel', {border: 0, html: '<div class="panel_bar"><a class="abtn" href="javascript:void(0);" onclick="chooseAll()">全选</a><a class="abtn" href="javascript:void(0);" onclick="chooseDiff()">反选</a><a class="abtn" href="javascript:void(0);" onclick="del()">删除</a></div>'}));
+                        bar.insert(0, Ext.create('Ext.panel.Panel', {border: 0, html: '<div class="panel_bar"><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.chooseAll()">全选</a><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.chooseDiff()">反选</a><a class="abtn" href="javascript:void(0);" onclick="CHOOSE.delMore()">删除</a></div>'}));
 
                         bar.insert(1, Ext.create('Ext.toolbar.Fill'));
                         //items.add(Ext.create('Ext.toolbar.Fill'));
@@ -254,7 +267,7 @@ Ext.onReady(
                     text: '订单号',
                     width: '10%',
                     dataIndex: 'ordersn',
-                    align: 'left',
+                    align: 'center',
                     border: 0,
                     sortable: false,
                     menuDisabled:true,
@@ -266,7 +279,7 @@ Ext.onReady(
 
                 {
                     text: '产品名称',
-                    width: '27%',
+                    width: '24%',
                     dataIndex: 'productname',
                     align: 'left',
                     border: 0,
@@ -358,10 +371,22 @@ Ext.onReady(
                     }
 
                 },
+                {
+                    text: '支付方式',
+                    width: '8%',
+                    dataIndex: 'paysource',
+                    align: 'center',
+                    border: 0,
+                    sortable: false,
+                    menuDisabled:true,
+                    renderer: function (value, metadata, record) {
+                        return value;
+                    }
 
+                },
                 {
                     text: '查看',
-                    width: '8%',
+                    width: '6%',
                     align: 'center',
                     border: 0,
                     sortable: false,
@@ -383,7 +408,7 @@ Ext.onReady(
                 },
                 {
                     text: '删除',
-                    width: '10%',
+                    width: '6%',
                     align: 'center',
                     border: 0,
                     sortable: false,
@@ -392,6 +417,7 @@ Ext.onReady(
                     renderer: function (value, metadata, record) {
 
                         var id = record.get('id');
+
                         var html = "<a href='javascript:void(0);' title='删除' class='row-del-btn' onclick=\"delS(" + id + ")\"></a>";
                         return html;
                         // return getExpandableImage(value, metadata,record);
@@ -471,13 +497,25 @@ Ext.EventManager.onWindowResize(function () {
     if (data_height > height - 140)
         window.product_grid.height = (height - 140);
     else
-       // delete window.product_grid.height;
+       delete window.product_grid.height;
     window.product_grid.doLayout();
 
 
 })
 
+function togStatus(ele)
+{
+    var status=$(ele).val();
+    window.product_store.getProxy().setExtraParam('status',status);
+    window.product_store.loadPage(1);
 
+}
+function togPaysource(ele)
+{
+    var paysource=$(ele).val();
+    window.product_store.getProxy().setExtraParam('paysource',paysource);
+    window.product_store.loadPage(1);
+}
 
 $(function(){
 
@@ -629,7 +667,7 @@ function refreshField(id, arr) {
 function view(id,typeid)
 {
     var url=SITEURL+"order/view/id/"+id+"/typeid/"+typeid;
-    ST.Util.showBox('查看订单信息',url,450,300,function(){window.product_store.load()});
+    ST.Util.showBox('查看订单信息',url,600,300,function(){window.product_store.load()});
 }
 
 </script>

@@ -1,5 +1,4 @@
-<?php  
-error_reporting(’7’);  
+<?php
 require  dirname(dirname(dirname(__FILE__))).'/include/common.inc.php';
 // 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，这个页面不是给人看的，是给机器看的  
    
@@ -7,6 +6,7 @@ require  dirname(dirname(dirname(__FILE__))).'/include/common.inc.php';
 * 从数据库获取指定的订单信息  
 */  
 //$order = $PDO->query("select * from order where order_out_id = ’{$_GET[’order_id’]}’")->fetch_all(); 
+$paySource='贝宝支付';
 $orderid = $_GET['order_id'];
 if(substr($orderid,0,2)=='dz')
 {
@@ -77,15 +77,7 @@ if(!empty($order))
             }  
 			
 			//进行订单状态修改
-			if(substr($orderid,0,2)=='dz')
-			{
-				$updatesql="update sline_dzorder set status=2 where ordersn='{$orderid}'";
-			}
-			else
-			{
-				$updatesql="update sline_member_order set status=2 where ordersn='{$orderid}'"; //付款标志置为1,交易成功
-			}
-			$dsql->ExecuteNoneQuery($updatesql);
+            Helper_Archive::paySuccess($orderid,$paySource,$_POST);
 			
         }  
         elseif(strcmp($res,'INVALID') === 0)  

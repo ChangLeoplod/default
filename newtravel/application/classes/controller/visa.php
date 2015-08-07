@@ -272,7 +272,7 @@ class Controller_Visa extends Stourweb_Controller{
         $this->assign('webid',0);
         $this->assign('position','添加签证');
         $this->assign('action','add');
-        $columns=ORM::factory('visa_content')->where("webid=0 and isopen=1")->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('visa_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
         $this->assign('columns',$columns);
         $this->display('stourtravel/visa/edit');
     }
@@ -291,7 +291,7 @@ class Controller_Visa extends Stourweb_Controller{
         $info['supplier_arr']=ORM::factory('supplier',$info['supplierlist'])->as_array();
         $extendinfo = Common::getExtendInfo(8,$info['id']);
 
-        $columns=ORM::factory('visa_content')->where("webid=0 and isopen=1")->order_by('displayorder','asc')->get_all();
+        $columns=ORM::factory('visa_content')->where("(webid=0 and isopen=1) or columnname='tupian'")->order_by('displayorder','asc')->get_all();
         $this->assign('columns',$columns);
         $this->assign('extendinfo',$extendinfo);//扩展信息
         $this->assign('info',$info);

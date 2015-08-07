@@ -28,6 +28,7 @@ class Controller_Page extends Stourweb_Controller{
         $pay_arr=explode(',',$cfg_pay_type);
         if(in_array(6,$pay_arr))
           $this->assign('isXianxia',1);
+		$this->assign('paytypes',$pay_arr);
         $this->assign('info',$info);
         $this->display('public/fukuan');
 
