@@ -1,1 +1,0 @@
-<a href="[field:id function=getTuanUrl(@me,'dest_id')/]"  class="[field:id function=Helper_Archive::getParamUrlCls('on','dest_id',@me) /]">[field:kindname/]</a>

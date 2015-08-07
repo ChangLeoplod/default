@@ -1,1 +1,0 @@
-<li><s>.</s><a href="[field:url/]" target="_blank">[field:title/]</a></li>

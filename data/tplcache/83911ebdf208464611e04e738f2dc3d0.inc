@@ -1,1 +1,0 @@
-<dd><a rel="nofollow" href="[field:url/]">[field:title/]</a></dd>

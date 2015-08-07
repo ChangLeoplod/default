@@ -1,1 +1,0 @@
-<a href="/spots/[field:pinyin/]/">[field:title/]</a>

@@ -1,1 +1,0 @@
-<li rel="[field:id/]">[field:attrname/]</li>

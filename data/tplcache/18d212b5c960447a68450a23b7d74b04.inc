@@ -1,1 +1,0 @@
-<li><a href="?attr_id=[field:attr_id/]&id=[field:id/]" [field:class/]>[field:title/]</a></li>

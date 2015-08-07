@@ -1,1 +1,0 @@
-<li data-value="[field:id/]" data-field="priceid">[field:title/]</li>
