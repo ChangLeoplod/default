@@ -5,7 +5,7 @@ return array
     (
         'type'       => 'mysql',
         'connection' => array(
-            'hostname'   => 'rdsbh2o57pn94642bx73.mysql.rds.aliyuncs.com',
+            'hostname'   => 'rdsbh2o57pn94642bx73.mysql.rds.aliyuncs.com:3306',
 
             'database'   => 'jishatestdb',
             'username'   => 'testguangyou',
