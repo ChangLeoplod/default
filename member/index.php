@@ -239,7 +239,7 @@ if($dopost == 'vieworder')
 	$pagename = $dopost;
 	Helper_Archive::loadModule('common');
 	$_model = new CommonModule('#@__member_order');
-	$orderinfo = $_model->getOne("id='$orderid'");
+	$orderinfo = $_model->getOne("memberid='$uid' and id='$orderid'");
 	$_model2 = new CommonModule('#@__line');
 	$lineinfo = $_model2->getOne("aid='{$orderinfo['productaid']}'");
         $lineinfo['startcity'] = getStartCityName($lineinfo['startcity']);
@@ -251,7 +251,7 @@ if($dopost == 'vieworder')
     if($orderinfo['typeid']==2)
     {
         $childOrder = M::getChildOrderInfo($orderinfo['id']);
-        $totalprice = 0;
+        $totalprice = 0; 
         $roomdinginfo = array();
         foreach($childOrder as $order)
         {
@@ -294,6 +294,7 @@ if($dopost == 'vieworder')
 	//$GLOBALS['condition']['_has_jiefencomment'] = $orderinfo['jifencomment'];
     $GLOBALS['condition']['_has_dingjin'] = $dingjin;
     if ($orderinfo['status'] ==3) $orderinfo['ispay'] =3;
+    if ($orderinfo['status'] ==1) $orderinfo['ispay'] =$orderid;
 	foreach($orderinfo as $key=>$value)
 		{
 		  $pv->Fields[$key] = $value;  

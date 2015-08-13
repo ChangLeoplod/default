@@ -29,6 +29,8 @@ $(function(){
         $('.login_info').html('请输入密码');
         return false;
     }
+    $("#login").attr('disabled', true);
+    $("#login").val('正在登录...');
     $.ajax({
              type:"post",
              async: false,
@@ -36,7 +38,9 @@ $(function(){
     dataType:'json',
              success: function(data){
                   if(data.status == '1'){
-                      $(".login-win").hide();
+                      
+                      $(".pop_win").hide();
+                        hideMask();
                     $.ajax({
                         type: "POST",
                         url: "/ajax/ajax_login.php",
@@ -49,6 +53,8 @@ $(function(){
                  else{
                      $(".login_info").show();
                     $(".login_info").html('用户名或者密码错误');
+                    $("#login").removeAttr('disabled');
+                    $("#login").val('登 录');
                  }  
              }
     });
@@ -62,22 +68,23 @@ $(function(){
         var regPartton=/1[3-8]+\d{9}/;
         if (!regPartton.test(mobile))
         {
-            alert('请输入正确的手机号码');
+            perror('请输入正确的手机号码');
             return false;
         }
         if(p_msgcode.length<5) {
-            alert('请输入验证码');
+            perror('请输入验证码');
             return false;
         }
         if (p_password!=p_repassword) {
-            alert('二次密码不一样');
+            perror('二次密码不一样');
             return false;
         }
         if(p_password.length<6||p_repassword<6) {
-            alert('密码不能少于6位');
+            perror('密码不能少于6位');
             return false;
         }
-        
+        $("#reg").attr('disabled', true);
+        $("#reg").val('正在注册...');
         
         $.ajax({
              type:"post",
@@ -87,20 +94,14 @@ $(function(){
             dataType:'json',
              success: function(data){
                   if(data.status == '1'){
-                      alert(data.res);
-                      return ;
+                    perror(data.res);
+                    $("#reg").removeAttr('disabled');
+                    $("#reg").val('注 册');
+                    return ;
                  }
                  else{
-                     alert(data.res);
-                    $(".login-win").hide();
-                  $.ajax({
-                      type: "POST",
-                      url: "/ajax/ajax_login.php",
-                      data: "dopost=LoginStatus",
-                      success: function(data){
-                              $('#userLogin').html(data);
-                      }
-                 });
+                $('.reg_area').html('<dl class="reg_success"><dt>注册成功!!!</dt><dd>页面跳转中…<span class="reg_seconds">5</span></dd></dl><script type="text/javascript">var regSe=5;setInterval(function(){if(regSe <= 2){location.href="/";	}regSe--;$(".reg_seconds").html(regSe);},1000);</script>');
+                    
                
                  }  
              }
@@ -111,17 +112,31 @@ $(function(){
     });
 
 
+        
 
 
 });	
-
+function showMask(){
+    var top = ($(window).height() - $('.pop_win').height())/2;   
+    var left = ($(window).width() - $('.pop_win').width())/2;   
+    var scrollTop = $(document).scrollTop();   
+    var scrollLeft = $(document).scrollLeft();   
+    $('.pop_win').css( { position : 'absolute', 'top' : top + scrollTop, left : left + scrollLeft } );  
+    $('body').append('<div id="mask"></div>');
+    $("#mask").css("height",$(document).height());     
+    $("#mask").css("width",$(document).width());     
+    $("#mask").show();     
+}  
+function hideMask(){     
+    $("#mask").hide();     
+}  
  function checkPhoneSend()
     {
         var mobile = $("#p_mobile").val();
         var regPartton=/1[3-8]+\d{9}/;
         if (!regPartton.test(mobile))
         {
-            alert('请输入正确的手机号码');
+            perror('请输入正确的手机号码');
             return false;
         }
         var t=$("#MobileInvCode")[0];
@@ -129,12 +144,16 @@ $(function(){
         var sendnum = $.cookie('sendnum') ? $.cookie('sendnum') : 0;
 
         if(sendnum>3){
-            alert("验证码发送请求过于频繁,请过15分钟后再试");
+            perror("验证码发送请求过于频繁,请过15分钟后再试");
             return false;
         }
         return true;
     }
-    
+
+function perror(msg) {
+    $('.reg_error').show();  
+    $('.reg_error').html(msg);
+}   
     
 function checkMobile() {
      var mobile = $("#p_mobile").val();
@@ -179,7 +198,7 @@ function checkMobile() {
 
     }
     
-    
+
     
     /*!
  * jQuery Cookie Plugin v1.4.1

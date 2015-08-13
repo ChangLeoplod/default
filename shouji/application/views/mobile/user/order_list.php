@@ -2,129 +2,136 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>我的订单列表-{$webname}</title>
-  {php echo Common::getScript('jquery-min.js,common.js,st_m.js'); }
-  {php echo Common::getCss('m_base.css,style.css'); }
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<title>{$seotitle}-{$webname}</title>
+    {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
+    {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
 </head>
 
 <body>
-    {template 'public/top'}
-	<div class="city_top clearfix">
-  	 <a class="back" href="{$cmsurl}">返回</a>
-     <a class="city_tit" href="{$cmsurl}user/index">个人中心</a>
+<div class="container">
+    <header class="bg-green p15">
+      <ul class="m0 p0 w100">
+         <li class="pull-left li1"><div class="baseicon return-left"></div></li>
+         <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">我的订单</li>
+         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="#" class="baseicon block pull-right date"></a></li>
+      </ul>
+    </header>
+    <div class="main"> 
+        <div class="my-order" id="order_list">
+        {loop $orderlist $order}
+            <div class="order-col bg-white bte3 bbe3 p15 mt10">
+                <div class="modal-title o-hidden bbe3">
+                    <span class="pull-left mb10 grey">订单编号：{$order['ordersn']}</span>
+                    <em class="pull-right grey mb10">
+                        {if $order['status']==0 || $order['status']==1}
+                        <a href="{$cmsurl}user/order_detail/orderid/{$order['id']}">待支付</a>
+                        {elseif $order['status']==2} 
+                            已支付
+                        {elseif $order['status']==3}
+                            已取消订单
+                        {elseif $order['status']==4}
+                            已退款
+                        {/if}
+                    </em>
+                </div>
+                <a href="{$cmsurl}user/order_detail/orderid/{$order['id']}" >
+                    <div class="content o-hidden bbe3 posr">
+
+                        <div class="pic pull-left posa"><img src="{$order['mobilepic']}"></div>
+                        <div class="name pull-left o-hidden">
+                            <h5 class="m0 mt10 font16">{$order['productname']}</h5>
+                            <p class="grey font12 mt5 o-hidden">{$order['suitname']}</p>
+                        </div>
+
+                    </div>
+                </a>
+                <div class="info o-hidden mt10">
+                    <span class="pull-left grey">使用日期：{$order['usedate']}</span>
+                    <div class="pull-right grey"><span class="orange">¥<em class="font18">{$order['totalprice']}</em></span></div>
+                </div>
+            </div>
+        {/loop}
+        </div>
     </div>
-  
-  <div class="m-main">
-  	<div class="bgcolor_f0 clearfix" id="order_list">
-      {loop $orderlist $order}
-      <div class="order-list-zt">
-        <ul>
-          <a href="{$cmsurl}user/order_detail/orderid/{$order['id']}">
-          <li class="li_1">
-            <img src="{$order['litpic']}" width="90" height="64" />
-            <p>
-              <span class="tit">{$order['productname']}</span>
-              <span class="txt">{$order['suitname']}</span>
-            </p>
-          </li>
-          </a>
-          <li class="li_2"><span>数量：{$order['dingnum']}</span><span>总额：<em>&yen;{$order['totalprice']}</em></span></li>
-          {if $order['status']!=2}
-          <li class="li_3"><a class="qr_zhifu" href="{$cmsurl}page/pay/orderid/{$order['id']}">确认支付</a></li>
-          {else}
-          <li class="li_3">
-              {if $order['ispinlun']==1}
-                <span>已经点评</span>
-              {else}
-               <a class="lj_dp" href="{$cmsurl}user/pinlun/orderid/{$order['id']}">立即点评</a>
-              {/if}
-              <span>交易成功</span></li>
-          {/if}
-        </ul>
-      </div>
-      {/loop}
+</div>
+    
+<div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
 
-
-
-    </div>
-	</div>
-
-  {template 'public/foot'}
-  <input type="hidden" id="page" value="1"/>
-  <script>
-      $(function(){
-
-          $(window).scroll(function(){
-               var scrollTop = $(this).scrollTop();               //滚动条距离顶部的高度
-               var scrollHeight = $(document).height();           //当前页面的总高度
-               var windowHeight = $(this).height();               //当前可视的页面高度
-               if(scrollTop + windowHeight >= scrollHeight)  { //距离顶部+当前高度 >=文档总高度 即代表滑动到底部
-                  var page = parseInt($("#page").val())+1;
-                  $.ajax({
-                      type:'POST',
-                      data:"page="+page,
-                      url:SITEURL+'user/ajax_order_more',
-                      dataType:'json',
-                      success:function(data){
+<input type="hidden" id="page" value="1"/>
+<script>
+    $(function(){
+        $(window).scroll(function(){
+             var scrollTop = $(this).scrollTop();               //滚动条距离顶部的高度
+             var scrollHeight = $(document).height();           //当前页面的总高度
+             var windowHeight = $(this).height();               //当前可视的页面高度
+             var SITEURL = {$cmsurl};
+             if(scrollTop + windowHeight >= scrollHeight)  {    //距离顶部+当前高度 >=文档总高度 即代表滑动到底部
+                var page = parseInt($("#page").val())+1;
+                $.ajax({
+                    type:'POST',
+                    data:"page="+page,
+                    url:'{$cmsurl}user/ajax_order_more',
+                    dataType:'json',
+                    success:function(data){
                             if(data.status=='success'){
                                 var html = '';
                                 $.each(data.orderlist,function(i,row){
-                                     html+='<div class="order-list-zt">';
-                                     html+='<ul>';
-                                     html+='<a href="'+SITEURL+'user/order_detail/orderid/'+row.id+'>';
-                                     html+='<li class="li_1">';
-                                     html+='<img src="'+row.litpic+'" width="90" height="64" />';
-                                     html+='<p>';
-                                     html+='<span class="tit">'+row.productname+'</span>';
-                                     html+='<span class="txt">'+row.suitname+'</span>';
-                                     html+='</p>';
-                                     html+='</li>';
-                                     html+='</a>';
-                                     html+='<li class="li_2"><span>数量：'+row.dingnum+'</span>';
-                                     html+='<span>总额：<em>&yen;'+row.totalprice+'</em></span></li>';
-                                     if(row.status!=2){
-                                         html+='<li class="li_3"><a class="qr_zhifu" href="'+SITEURL+'user/pay/orderid/'+row.id+'">确认支付</a></li>';
-                                     }
-                                     else{
-
-                                            html+='<li class="li_3">';
-                                            if(row.ispinlun == 1){
-                                                html+='<span>已经点评</span>';
+                                    html+='<div class="order-col bg-white bte3 bbe3 p15 mt10">';
+                                        html+='<div class="modal-title o-hidden bbe3">';
+                                            html+='<span class="pull-left mb10 grey">订单编号：'+row.ordersn+'</span>';
+                                            html+='<em class="pull-right grey mb10">'
+                                            if(row.status==0 || row.status==1){
+                                                html+='<a href="'+SITEURL+'user/order_detail/orderid/'+row.id+'">待支付</a>';
                                             }
-                                            else{
-                                                //html+='<span><a href="'+SITEURL+'user/pinlun/orderid/'+row.orderid+'">我要点评</a></span>';
-                                                html+='<a class="lj_dp" href="'+SITEURL+'user/pinlun/orderid/'+row.id+'">立即点评</a>';
+                                            else if(row.status == 2)
+                                            {
+                                                html+='已支付';
                                             }
-                                            html+=' <span>交易成功</span></li>';
+                                            else if(row.status == 3)
+                                            {
+                                                html+='已取消订单';
+                                            }
+                                            else if(row.status == 4)
+                                            {
+                                                html+='已退款';
+                                            }
+                                            html+='</em>';
+                                        html+='</div>';
+                                    
+                                        html+='<a href="'+SITEURL+'user/order_detail/orderid/'+row.id+'" >';
+                                        html+='<div class="content o-hidden bbe3 posr">';
+                                            html+='<div class="pic pull-left posa"><img src="'+row.mobilepic+'"></div>';
+                                            html+='<div class="name pull-left o-hidden">';
+                                                html+='<h5 class="m0 mt10 font16">'+row.productname+'</h5>';
+                                                html+='<p class="grey font12 mt5 o-hidden">'+row.suitname+'</p>';
+                                            html+='</div>';
+                                        html+='</div>';
+                                        html+='</a>';
+                                    
+                                        html+='<div class="info o-hidden mt10">';
+                                            html+='<span class="pull-left grey">使用日期：'+row.usedate+'</span>';
+                                            html+='<div class="pull-right grey"><span class="orange">¥<em class="font18">'+row.totalprice+'</em></span></div>'
+                                        html+='</div>';
+                                    html+='</div>';
+                              })
+                              $("#page").val(page);
+                              $("#order_list").append(html);
+                          }
+                    }
+                })
+            }
+        })
+    })
 
-
-
-
-
-                                     }
-                                     html+='</ul>';
-                                     html+='</div>';
-
-
-                                })
-                                $("#page").val(page);
-                                $("#order_list").append(html);
-                            }
-
-
-                      }
-
-
-                  })
-
-              }
-          })
-
-
-      })
-
-  </script>
+</script>
 
 </body>
 </html>

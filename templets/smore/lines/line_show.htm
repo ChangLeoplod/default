@@ -166,7 +166,7 @@
 			<div class="sale_content">
 			{sline:detailcontent typeid='1'}
                         <div class="sc_head" id="[field:columnname/]"><span>[field:chinesename/]</span></div>
-                        [field:file/]
+                        [field:content/]
                     {/sline:detailcontent}  	
                             
 					
@@ -256,7 +256,8 @@
                    location.href = url; 
 	  } 
                         } else {
-                            $(".login-win").show();
+                            $(".pop_win").show();
+                            showMask();
                             return false;
                         }
 		}

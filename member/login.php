@@ -12,8 +12,9 @@ $pv = new View(0);
 if($dopost=='login')
 {
     @session_start();
-    $fromurl = $_SERVER['HTTP_REFERER'];//来源地址
-	$fromurl = strpos($fromurl,'login')? $GLOBALS['cfg_basehost'] : $fromurl;
+    
+    $fromurl = $_GET['fromurl']?$_GET['fromurl']:$_SERVER['HTTP_REFERER'];//来源地址
+    $fromurl = strpos($fromurl,'login')? $GLOBALS['cfg_basehost'] : $fromurl;
     $_SESSION['login_referer']=$fromurl;
     $templet = Helper_Archive::getUseTemplet('member_login');//获取使用模板
     $templet = !empty($templet) ? $templet : MEMBERTEMPLET.'login.htm';

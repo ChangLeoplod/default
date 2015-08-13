@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>	
+	
+	{sline:include file='public/header.htm'/}
+	
+	<div class="container">
+		
+		<div class="line_top">
+			
+			<a href="#" target="_blank" class="line_banner"><img src="/images/line_banner.jpg" /></a>
+			
+			<div class="line_tips">
+				
+				<div class="tip_top">
+					<span>积沙品牌承诺</span>	
+				</div>
+				
+				<dl class="tip1">
+					<dt>高品质，高性价比</dt>	
+					<dd>精品线路，供应商直采模式保证服务品质和可靠性</dd>
+				</dl>
+				
+				<dl class="tip2">
+					<dt>精选目的地，深度体验</dt>	
+					<dd>专业精品线路助你深入体验当地生活、风情、文化、传统习俗</dd>
+				</dl>
+				
+				<dl class="tip3">
+					<dt>旅行管家，全程服务</dt>	
+					<dd>7*24小时 管家贴心服务<br />让您全程无忧，更有保障</dd>
+				</dl>
+					
+			</div>
+			
+			<div class="clear"></div>	
+		</div>
+		<div class="clear"></div>
+		
+		<div class="line_classify">
+			
+			<div class="lca_in">
+				
+				<span class="lca_tit">目的地：</span>
+				
+				<div class="lca_rt">
+                                    <a href="?p={sline:field.p/}&d={sline:field.d/}"
+                                                 {sline:field.id runphp='yes'}
+                                                    if(empty(@me))
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.id} >全部</a>
+                                    {sline:vlist name="dest"}
+                                        <a href="?p=[field:p/]&id=[field:id/]&d=[field:d/]" [field:class/]>[field:kindname/]</a>
+                                    {/sline:vlist}
+				</div>
+				
+				<div class="clear"></div>	
+			</div>
+			
+			<div class="lca_in">
+				
+				<span class="lca_tit">价格：</span>
+				
+				<div class="lca_rt">
+					<a href="?p=0&id={sline:field.id/}&d={sline:field.d/}"{sline:field.p runphp='yes'}
+                                                    if(empty(@me))
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.p}>全部</a>	
+					<a href="?p=1&id={sline:field.id/}&d={sline:field.d/}"{sline:field.p runphp='yes'}
+                                                    if(@me==1)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.p}>￥1000-3000</a>	
+					<a href="?p=2&id={sline:field.id/}&d={sline:field.d/}"{sline:field.p runphp='yes'}
+                                                    if(@me==2)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.p}>￥3000-5000</a>	
+					<a href="?p=3&id={sline:field.id/}&d={sline:field.d/}"{sline:field.p runphp='yes'}
+                                                    if(@me==3)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.p}>￥5000-10000</a>	
+					<a href="?p=4&id={sline:field.id/}&d={sline:field.d/}"{sline:field.p runphp='yes'}
+                                                    if(@me==4)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.p}>￥10000-20000</a>	
+				</div>
+				
+				<div class="clear"></div>	
+			</div>
+			
+			<div class="lca_in">
+				
+				<span class="lca_tit">行程天数：</span>
+				
+				<div class="lca_rt">
+					<a href="?p={sline:field.p/}&id={sline:field.id/}&d=0"{sline:field.d runphp='yes'}
+                                                    if(empty(@me))
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.d}>全部</a>	
+					<a href="?p={sline:field.p/}&id={sline:field.id/}&d=1"{sline:field.d runphp='yes'}
+                                                    if(@me==1)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.d}>4天</a>	
+					<a href="?p={sline:field.p/}&id={sline:field.id/}&d=2"{sline:field.d runphp='yes'}
+                                                    if(@me==2)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.d}>5天</a>	
+					<a href="?p={sline:field.p/}&id={sline:field.id/}&d=3"{sline:field.d runphp='yes'}
+                                                    if(@me==3)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.d}>6天</a>	
+					<a href="?p={sline:field.p/}&id={sline:field.id/}&d=4"{sline:field.d runphp='yes'}
+                                                    if(@me==4)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.d}>7天</a>	
+					<a href="?p={sline:field.p/}&id={sline:field.id/}&d=5"{sline:field.d runphp='yes'}
+                                                    if(@me==5)
+                                                      @me=' class="hover"';
+                                                    else
+                                                      @me='';
+                                                 {/sline:field.d}>8天</a>	
+				</div>
+				
+				<div class="clear"></div>	
+			</div>
+
+			
+			<div class="clear"></div>	
+		</div>
+		
+		<div class="line_sale">
+                    {sline:vlist name="list"}
+                    <div class="sale_area">
+				<div class="pic">
+					<a target="_blank" href="/lines/show_[field:aid/].html"><img src="[field:bigpic/]"></a>
+					<span><a target="_blank" href="/lines/show_[field:aid/].html">[field:linename/]</a></span>
+				</div>
+				
+				<div class="sa_txt">
+					[field:features/]	
+				</div>
+				
+				<dl class="sa_buy">
+					<dt><span>￥[field:lineprice/]元</span><em>/人</em></dt>	
+                                        
+					<dd><a class="buy" target="_blank" href="/lines/show_[field:aid/].html">立即购买 </a></dd>
+				</dl>
+				
+				<div class="clear"></div>
+			</div>
+                    {/sline:vlist}
+                        <input type="hidden" name="page" id="page" value="2" />	
+                        <input type="hidden" name="id" id="id" value="{sline:field.id/}" />	
+                        <input type="hidden" name="p" id="price" value="{sline:field.p/}" />	
+                        <input type="hidden" name="d" id="day" value="{sline:field.d/}" />	
+		</div>
+		
+		
+			{sline:field.total runphp='yes'}
+                            if(@me>10)
+                              @me=' <div class="line_more"><a href="javascript:;" class="more_btn" id="moreline">更多线路</a></div>';
+                            else
+                              @me='';
+                        {/sline:field.total}
+		<div class="clear"></div>	
+	</div>
+        
+        
+        <script>
+$(function(){
+$('#moreline').click(function(){
+    var page = $('#page').val();
+    var id = $('#id').val();
+    var p = $('#price').val();
+    var d = $('#day').val();
+    
+    $.ajax({
+             type:"post",
+             async: false,
+             url:"/lines/ajax.php",
+             data:{"page":page,"id":id,"p":p,"d":d},
+    dataType:'json',
+             success: function(data){
+                if(data.status == '1'){
+                     $('.line_sale').append(data.html);
+                     if(data.page>1) {
+                         $('#page').val(data.page);
+                     }else{
+                        $('.line_more').hide();
+                     }
+                     
+                }
+             }
+    });
+    
+    });
+});
+</script>
+	{sline:include file='public/footer.htm'/}

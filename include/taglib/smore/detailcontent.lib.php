@@ -62,7 +62,6 @@ function lib_detailcontent(&$ctag,&$refObj)
 
         if ($row2['columnname'] == 'tupian'||$row2['columnname'] == 'features')            continue;
         global $row;
-        if (!$row[$row2['columnname']])            continue;
         
         $GLOBALS['autoindex']++;
         if ($GLOBALS['autoindex']==1) {

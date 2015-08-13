@@ -222,10 +222,16 @@ class Controller_Lines extends Stourweb_Controller{
 				$row['pic_arr'][$key] = explode("||",$value);
 			}
 		}
-
-		$this->assign('linedisc',ORM::factory('line_content')->where("webid=0 and isopen=1 and isline=0 and columnname<>'linespot'")->order_by("displayorder",'asc')->get_all());
-
+                $linedisc = ORM::factory('line_content')->where("webid=0 and isopen=1 and isline=0 and columnname<>'linespot' and columnname<>'tupian' and columnname<>'features'")->order_by("displayorder",'asc')->get_all();
+                foreach ($linedisc as $k=>$v) {
+                    if (!$row[$v['columnname']]) {
+                        unset($linedisc[$k]);
+                    }
+                }
+		$this->assign('linedisc',$linedisc);
+                $suit =ORM::factory('line_suit')->where("lineid=$lineid")->get_all();
 		$this->assign('row',$row);
+		$this->assign('suit',$suit);
 		$this->assign('phone',$tel);
 		$this->display('lines/show');
 

@@ -11,27 +11,33 @@ class Taglib_Line {
      * 获取线路标签
      * @param 参数
      * @return array
-
    */
     public static function getLine($params)
     {
-        $default=array('row'=>10,'limit'=>0,'type'=>'top','flag'=>'new');
+        $default=array('row'=>10,'limit'=>0,'type'=>'top','flag'=>'new','attrid'=>'');
         $params=array_merge($default,$params);
-
         extract($params);
-
         //获取最新线路
         if($flag == 'new')
         {
-            $sql = "select a.* from sline_line a order by a.modtime desc,a.addtime desc limit {$limit},{$row}";
+            $sql = "select a.* from sline_line a order by a.yesjian desc,a.addtime desc limit {$limit},{$row}";
         }
         else if($flag == 'byorder') //根据排序获取线路
         {
             $sql = "select a.* from sline_line a left join sline_allorderlist b on (a.id=b.aid and b.typeid=1) where ishidden=0 order by ifnull(b.displayorder,9999) asc,a.modtime desc,a.addtime desc limit {$limit},{$row}";
 
         }
+        else if($flag == 'attribute')//根据属性标签获取线路
+        {
+            if ($attrid) {
+                $find = "FIND_IN_SET('{$attrid}',a.attrid)";
+            } else {
+                $find = 'CONCAT(a.attrid,",") not like "%162,%" ';
+            }
+            $sql="select a.* from sline_line a where {$find} and  a.ishidden=0  order by a.yesjian desc limit {$limit},{$row}";
+            
+        }
         $list = DB::query(1,$sql)->execute()->as_array();
-
         foreach($list as $key=>$value)
         {
             $list[$key]['title'] = $list[$key]['linename'];
@@ -40,12 +46,7 @@ class Taglib_Line {
             $list[$key]['satisfyscore'] = !empty($list[$key]['satisfyscore']) ? $list[$key]['satisfyscore'] : mt_rand(92,96).'%';
             $list[$key]['lineprice'] = Model_Line::getMinPrice($list[$key]['id']);
         }
-
         return $list;
-
-
-
-
     }
 
 } 

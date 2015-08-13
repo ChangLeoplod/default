@@ -194,7 +194,7 @@ class Kohana_Database_Query {
 		{
 			// Quote all of the values
 			$values = array_map(array($db, 'quote'), $this->_parameters);
-
+                        
 			// Replace the values in the SQL
 			$sql = strtr($sql, $values);
 		}

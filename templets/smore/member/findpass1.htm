@@ -1,149 +1,158 @@
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
-<title>找回密码第一步-{sline:global.cfg_webname/}</title>
-{sline:php}Helper_Archive::getCss('base.css,space.css','2014.02');{/sline:php}
-{sline:php}Helper_Archive::getScript('jquery-1.8.3.min.js,common.js,jquery.validate.js','2014.01');{/sline:php}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,ajax.member.search.js');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
 </head>
 
-<body>
+<body>	
+	
 	{sline:include file='public/header.htm'/}
-  
-  <!-- 中间内容开始 -->
-  <div class="big">
-  	<div class="width_1210">
-    	<!-- 面包屑and订单开始 -->
-    	<div class="top_first">
-      	<div class="crumbs"><a href="{sline:global.cfg_basehost/}">{sline:global.cfg_indexname/}</a> &gt;  找回密码</div>
-         {sline:include file='public/scroll_order.htm'/}
-      </div>
-      <!-- 面包屑and订单结束 -->
-       
-    	<!--登陆开始-->
-        <form method="post" id="findfrm" action="findpass.php?step=2">
-			<div class="user_space_big">
-      	<div class="retrieve_con">
-					<div class="ret_left_con">
-          	<div class="ret_top_gy">
-            	<span class="on">1.申请找回密码</span><s><img class="fl" src="{sline:global.cfg_templets_skin/}/images/zh_ico.png" /></s>
-              <span>2.验证身份</span><s><img class="fl" src="{sline:global.cfg_templets_skin/}/images/zh_ico_1.png" /></s>
-              <span>3.设置新密码</span><s><img class="fl" src="{sline:global.cfg_templets_skin/}/images/zh_ico_1.png" /></s>
-              <span>4.重新登录</span>
-            </div>
-            <div class="ret_middle">
-            	<dl>
-              	<dt>手机号/邮箱：</dt>
-                <dd><input type="text" class="text" name="loginname" id="loginname" value="" datadef="手机号/邮箱" /></dd>
-              </dl>
-             <dl>
-              	<dt>验证码：</dt>
-                <dd><input type="text" class="text length" name="checkcode" /><span class="yzm_num"><img class="yz_img" id="img_checkcode" src="{sline:global.cfg_cmsurl/}/include/vdimgck.php?word_type=3" style="cursor:pointer"  title="点击我更换图片" alt="点击我更换图片" onClick="reloadGd()"  /></span><span class="yz_xx">看不清楚？<a class="yaz_chenk" href="javascript:;" onClick="reloadGd()">换一张</a></span></dd>
-              </dl>
-            </div>
-            <div class="ret_bom">
-            	<div class="btn_div"><input type="submit" class="register_btn" value="申请找回" /></div>
+        
+<div class="container">
 
-            </div>
-          </div>
-					<div class="reg_rig_con">
-          	<dl>
-            	<dt>已有帐号</dt>
-              <dd><a class="now_login" href="login.php">立即登录</a></dd>
-            </dl>
-            <dl>
-            	<dt>其他方式登录</dt>
-                {sline:php}
-                if(!empty($GLOBALS['cfg_qq_appid']) && !empty($GLOBALS['cfg_qq_appkey']))
-                {
-                   echo ' <dd><a href="javascript:;"><img class="fl" src="'.$GLOBALS['cfg_templets_skin'].'/images/call_qq.gif" alt="QQ" /></a></dd>';
-                }
-                if(!empty($GLOBALS['cfg_sina_appkey']) && !empty($GLOBALS['cfg_sina_appsecret']))
-                {
-                   echo ' <dd><a href="javascript:;"><img class="fl" src="'.$GLOBALS['cfg_templets_skin'].'/images/call_sina.gif" alt="新浪微博" /></a></dd>';
-                }
-
-
-                {/sline:php}
-            </dl>
-          </div>
-        </div>
-      </div>
-      </form>
-      <!--登陆结束-->
-      
+    <div class="reg_pos">
+            <a href="#">首页</a> &gt; 找回密码
     </div>
-  </div>
-  <!-- 中间内容结束 -->
-  {sline:include file='public/help.htm'/}
-  {sline:include file='public/footer.htm'/}
-  <script language="javascript">
-		  //重新刷新验证码
-	  function reloadGd()
-	  {
-		  var src = $("#img_checkcode").attr('src');
-		  src = src + '&' + +new Date();
-		  $("#img_checkcode").attr('src',src);
-		  
-		  
-	  }
-	$(function(){
-//登陆名点击
-  $("#loginname").focusEffect();
-  //表单验证
-        // 邮箱和手机号验证
-        $.validator.addMethod("isDefault", function(value, element) {
-            if(value!='手机号/邮箱')
-             return true
-            else
-             return false
-        }, "请输入登陆手机号或者邮箱");
-	$("#findfrm").validate({ 
-			
-			rules: { 
-			     
-				  loginname: { 
-				   required: true,
-                   isDefault:true
-				  },
-				  checkcode:{
-				   required: true
-				  }
-				 
-				}, 
-				messages: { 
-				  
-				   loginname:{
-				   required:"请输入登陆手机号或者邮箱"
-						
-				   },
-				   checkcode:{
-				   required:"请输入验证码"
-				   }
-				 
-				}
-				
-				
-				
-				
-	     });
 
-})
-  </script>
-    <script>
-        $("#loginqq").click(function(){
+    <div class="reg_area">
 
-            var url=siteUrl+'member/login.php?dopost=loginbyqq';
-            window.open(url);
+            <div class="reg_edit">
+                    <form>
 
-        });
-        $("#loginsina").click(function(){
+                            <div class="reg_error">
+                                    找回密码。	
+                            </div>
 
-            var url=siteUrl+'member/login.php?dopost=loginbysina';
-            window.open(url);
+                            <div class="rin">
+                                    <span class="tit">手机号：</span>
+                                    <input type="text" name="mobile" id="p_mobile" class="text" />
+                            </div>
 
-        });
+                            <div class="rin">
+                                    <span class="tit">短信验证码：</span>
+                                    <input type="text" name="msgcode" id="p_msgcode" class="text tel_code" />
+                                    <input type="button" value="发送验证码" id="MobileInvCode" class="get_code" />
+                            </div>
 
-    </script>
-</body>
-</html>
+                            <div class="rin">
+                                    <span class="tit">密码：</span>
+                                    <input type="password" name="password" id="p_password" class="text" />
+                            </div>
+
+                            <div class="rin">
+                                    <span class="tit">确认密码：</span>
+                                    <input type="password" name="repassword" id="p_repassword" class="text" />
+                            </div>
+                            <input type="button" class="reg_sub" id="find" value="修改密码" />
+
+                    </form>	
+            </div>
+
+            <div class="clear"></div>	
+    </div>
+
+</div>
+<script>
+$('#MobileInvCode').click(function(){
+            if(!checkPhoneSend())
+                return false;
+             var sendnum = $.cookie('sendnum') ? $.cookie('sendnum') : 0;
+            if(sendnum!=0){
+                $.cookie('sendnum', sendnum++);
+            }else{
+                $.cookie('sendnum', 1,{ expires: 1/96 });
+            }
+            var mobile = $("#p_mobile").val();
+            $('.reg_error').hide(); 
+            var url = "/member/reg.php?dopost=sendmsgcode&mobile="+mobile+"&f=1&k="+"{sline:field.stoken/}";
+            $.post(url,true,function(data) {
+                if(data.status)
+                {
+                    CodeTimeout(60);
+                    return false;
+                }
+                else
+                {
+                   perror(data.msg);
+                   return false;
+                }
+            },'json');
+
+        });            
+ $('#find').click(function(){
+        var mobile = $("#p_mobile").val();
+        var p_msgcode = $('#p_msgcode').val();
+        var p_password = $('#p_password').val();
+        var p_repassword = $('#p_repassword').val();
+        var regPartton=/1[3-8]+\d{9}/;
+        if (!regPartton.test(mobile))
+        {
+            perror('请输入正确的手机号码');
+            return false;
+        }
+        if(p_msgcode.length<5) {
+            perror('请输入验证码');
+            return false;
+        }
+        if (p_password!=p_repassword) {
+            perror('二次密码不一样');
+            return false;
+        }
+        if(p_password.length<6||p_repassword<6) {
+            perror('密码不能少于6位');
+            return false;
+        }
+        $("#reg").attr('disabled', true);
+        $("#reg").val('正在修改...');
+        
+        $.ajax({
+             type:"post",
+             async: false,
+             url:"/member/reg.php?dopost=doreg",
+             data:{"mobile":mobile,"msgcode":p_msgcode,"password":p_password,"repassword":p_repassword,"f":1},
+            dataType:'json',
+             success: function(data){
+                  if(data.status == '1'){
+                    perror(data.res);
+                    $("#reg").removeAttr('disabled');
+                    $("#reg").val('修改密码');
+                    return ;
+                 }
+                 else{
+                redirect();
+                    
+               
+                 }  
+             }
+    });
+        
+        
+ function redirect() {
+    
+    var html = '<dl class="reg_success"><dt>密码修改成功!!!</dt><dd>页面跳转中…<span class="reg_seconds">5</span></dd></dl>';
+    $('.reg_area').html(html);
+    var regSe=5;
+    setInterval(function(){
+        
+        if(regSe <= 2){
+            location.href="/";
+        }
+        regSe--;
+        $(".reg_seconds").html(regSe);},1000);
+}       
+    });  
+</script>       
+        {sline:include file='public/footer.htm'/}

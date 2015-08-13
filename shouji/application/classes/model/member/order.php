@@ -17,7 +17,7 @@ class Model_Member_Order extends ORM {
    * */
     public function getOrderList($mid,$pagesize=5,$pageno=1,$haspinlun=0)
     {
-
+        
         $offset =($pageno-1)*$pagesize;
         $pinlun_where = $haspinlun ? " inner join sline_comment b on(a.id=b.orderid)" : "";
         $sql = "select a.* from sline_member_order a {$pinlun_where} where a.memberid='{$mid}' order by a.addtime desc limit {$offset},{$pagesize}";
@@ -29,6 +29,8 @@ class Model_Member_Order extends ORM {
         {
             $arr[$key]['suitname'] = self::getSuitName($v['suitid'],$v['typeid'],$v['productautoid']);//套餐名
             $arr[$key]['totalprice'] =  $v['price'] * $v['dingnum']+$v['childnum']*$v['childprice']+$v['oldnum']*$v['oldprice'];
+            $tmparr = ORM::factory('line')->where("aid='$v[productaid]'")->find()->as_array();
+            $arr[$key]['mobilepic']=$tmparr['mobilepic'];
         }
         return $arr;
     }
@@ -66,6 +68,7 @@ class Model_Member_Order extends ORM {
        $arr['suitname'] = self::getSuitName($arr['suitid'],$arr['typeid'],$arr['productautoid']);//套餐名
        $arr['totalprice'] = $arr['price'] * $arr['dingnum']+$arr['childnum']*$arr['childprice']+$arr['oldnum']*$arr['oldprice'];
        $arr['pinlun'] = $this->getOrderPinlun($orderid);
+       $arr['tourers'] = $this->getTourersInfo($orderid);
        return $arr;
    }
     /*
@@ -111,6 +114,14 @@ class Model_Member_Order extends ORM {
         }
         return $arr;
     }
-
+    
+        /*
+     * 获取订单游客信息
+     * */
+   public function getTourersInfo($orderid)
+   {
+       $arr = ORM::factory('member_order_tourer')->where("orderid='$orderid'")->get_all();
+       return $arr;
+   }
 
 }

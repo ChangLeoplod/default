@@ -69,7 +69,29 @@ if($dopost=='doreg')
         echo json_encode($arr);
         die();
     }
-    $sql="insert into #@__member(mobile,pwd,jointime,joinip,jifen,nickname) values('$mobile','$pwd','$jointime','$joinip','$jifen','$nickname')";
+    
+    $row=$dsql->GetOne("select * from #@__member where mobile='$mobile'");
+    if($row&&!$f==1)
+    {
+        $arr['status'] = 1;
+        $arr['res'] = '该手机号已经被注册';
+        echo json_encode($arr);
+        die();
+    }
+    if(!$row&&$f==1)
+    {
+        $arr['status'] = 1;
+        $arr['res'] = '该手机号没有注册';
+        echo json_encode($arr);
+        die();
+    }
+    
+    
+    if ($f==1) {
+        $sql="update #@__member set pwd='{$pwd}' where mid={$row['mid']}";
+    } else {
+        $sql="insert into #@__member(mobile,pwd,jointime,joinip,jifen,nickname) values('$mobile','$pwd','$jointime','$joinip','$jifen','$nickname')";
+    }
 
     if(defined('UC_API') && @include_once SLINEROOT.'/uc_client/client.php')
     {
@@ -295,9 +317,14 @@ else if($dopost=='sendmsgcode')
     {
         $sql="select count(*) as num from #@__member where mobile='$mobile'";
         $row=$dsql->GetOne($sql);
-        if($row['num']>0)
+        if($row['num']>0 &&!$f==1)
         {
               echo json_encode(array('status'=>false,'msg'=>'手机号已经注册'));
+               exit;
+        }
+        if(!$row['num']>0 &&$f==1)
+        {
+              echo json_encode(array('status'=>false,'msg'=>'手机号没有注册'));
                exit;
         }
         
@@ -311,7 +338,7 @@ else if($dopost=='sendmsgcode')
                echo json_encode(array('status'=>false,'msg'=>'验证码发送过于频繁，请稍后再试'));
                exit;
            }
-
+ 
            if($sentNum>=3&&$lastSentTime>($curtime-60*15))
            {
                echo json_encode(array('status'=>false,'msg'=>'验证码发送过于频繁，15分钟后再试'));
@@ -422,12 +449,6 @@ function validatePhone()
     if(!preg_match($phonePattern,$mobile))
     {
         return '手机号码格式错误';
-    }
-
-    $row=$dsql->GetOne("select count(*) as num from #@__member where mobile='$mobile'");
-    if($row['num']>0)
-    {
-       return '该手机号已经被注册';
     }
 
     if(strlen($password)<6)

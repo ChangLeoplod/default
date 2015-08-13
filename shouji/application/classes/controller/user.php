@@ -27,46 +27,158 @@ class Controller_User extends Stourweb_Controller{
         $forwardurl = Arr::get($_GET,'forwardurl');
         if(!empty($forwardurl)){
             $this->assign('backurl',$forwardurl); 
+        } else {
+           $this->assign('backurl',URL::site()); 
         }
        
         $this->display('user/register');
     }
+     /*发送验证码*/
+    public function action_sendmsg()
+    {
+        $mobile = Arr::get($_GET,'mobile');
+        $f = Arr::get($_GET,'f');
+        @session_start();
+        $curtime=time();
+        $_SESSION['total_value']='';
 
-    /*执行用户注册*/
+        if(empty($mobile))
+        {
+            echo json_encode(array('status'=>false,'msg'=>'手机号不能为空'));
+            exit;
+        }
+        else
+        {
+            $flag = Model_Member::checkExist('mobile',$mobile);
+            if(!$flag&&!$f==1)
+            {
+                echo json_encode(array('status'=>false,'msg'=>'手机号已经注册'));
+                exit;
+            }
+            if($flag&&$f==1)
+            {
+                echo json_encode(array('status'=>false,'msg'=>'手机号没有注册'));
+                exit;
+            }
+               $sentNum=$_SESSION['sendnum_'.$mobile]; //已发验证码次数
+               $lastSentTime=$_SESSION['senttime_'.$mobile];//上次发送时间
+               $sentNum=empty($sentNum)?0:$sentNum;
+               $lastSentTime=empty($lastSentTime)?0:$lastSentTime;
+
+               if($sentNum<3&&$sentNum>0&&$lastSentTime>($curtime-60))
+               {
+                   echo json_encode(array('status'=>false,'msg'=>'验证码发送过于频繁，请稍后再试'));
+                   exit;
+               }
+
+               if($sentNum>=3&&$lastSentTime>($curtime-60*15))
+               {
+                   echo json_encode(array('status'=>false,'msg'=>'验证码发送过于频繁，15分钟后再试'));
+                   exit;
+               }
+
+                $code = '';//验证码
+                for ($i=1; $i<=5; $i++)
+                {
+                    $code.=mt_rand(0,9);
+                }
+                $_SESSION['msgcode'] = $code;
+                $msgInfo = Model_Sms::getSms();
+
+                
+                
+                $content = $msgInfo['msg'];
+                $content = str_replace('{#CODE#}',$code,$content);
+                $content = str_replace('{#WEBNAME#}',$GLOBALS['cfg_webname'],$content);
+                $content = str_replace('{#PHONE#}',$GLOBALS['cfg_phone'],$content);
+                $flag = Common::sendMsg($mobile,'',$content);
+                
+
+                if($flag->Success)//发送成功
+                {
+                    $_SESSION['senttime_'.$mobile]=$curtime;
+                    $sentNum=$sentNum>=3?0:$sentNum+1;
+                    $_SESSION['sendnum_'.$mobile]=$sentNum;
+                    $_SESSION['mobilecode_'.$mobile]=$code;
+                    echo json_encode(array('status'=>true,'msg'=>'验证码发送成功'));
+                }
+                else
+                {
+                    echo json_encode(array('status'=>false,'msg'=>'验证码发送失败，请重试'.$flag->Message));
+                }
+
+        }
+    }
+
+   /*执行用户注册*/
     public function action_doreg()
     {
         $mobile = Arr::get($_POST,'mobile');
         $pwd = Arr::get($_POST,'password');
+        $repwd = Arr::get($_POST,'repassword');
+        $f = Arr::get($_POST,'f');
 
         $checkcode = Arr::get($_POST,'checkcode');
         $backurl = Arr::get($_POST,'backurl');
+        if (!$backurl) {
+            $backurl ='/';
+        }
+        if(!$mobile)
+        {
+            Common::showMsg('手机号码不能为空,请重新填写','-1');
+        }
+        if(!$pwd)
+        {
+            Common::showMsg('密码不能为空,请重新填写','-1');
+        }
+        if(strlen($pwd)<6)
+        {
+            Common::showMsg('密码必须大于六位,请重新填写','-1');
+        }
+        if($repwd!=$pwd)
+        {
+            Common::showMsg('二次密码不一致,请重新填写','-1');
+        }
         //验证码
         $checkcode=strtolower($checkcode);
         $flag = Model_Member::checkExist('mobile',$mobile);
-        if(!$flag)
+        if(!$flag&&$f<>1)
         {
             Common::showMsg('手机号码重复,请重新填写','-1');
         }
-
-        if(!Captcha::valid($checkcode))
+        @session_start();
+        if($_SESSION['mobilecode_'.$mobile]!=$checkcode)
         {
             Common::showMsg('验证码错误','-1');
         }
-        $model = ORM::factory('member');
-        $model->mobile = $mobile;
-        $model->pwd = md5($pwd);
-		$model->logintime = time();
-        $model->nickname = substr_replace($mobile,'***',3,3);
-        $model->save();
-        if($model->saved()) //注册成功
-        {
-            Model_Member::login($mobile,$pwd);
-            Common::showMsg('注册成功',$backurl);
-        }
-        else
-        {
-
-            //Common::showMsg('注册失败,请联系网站管理员','-1');
+        if($f==1) {
+            $member = ORM::factory('member')->where(mobile,'=',$mobile)->find()->as_array();
+            if ($member) {
+                $model = ORM::factory('member')->where('mid','=',$member['mid'])->find();
+                $model->pwd = md5($pwd);
+                $model->update();
+                if($model->saved()) //找回密码成功
+                {
+                    Model_Member::login($mobile,$pwd);
+                    Common::showMsg('密码修改成功',$backurl);
+                }
+            }
+        } else {
+            $model = ORM::factory('member');
+            $model->mobile = $mobile;
+            $model->pwd = md5($pwd);
+            $model->logintime = time();
+            $model->nickname = substr_replace($mobile,'***',3,3);
+            $model->save();
+            if($model->saved()) //注册成功
+            {
+                Model_Member::login($mobile,$pwd);
+                Common::showMsg('注册成功',$backurl);
+            }
+            else
+            {
+                //Common::showMsg('注册失败,请联系网站管理员','-1');
+            }
         }
 
 
@@ -90,6 +202,25 @@ class Controller_User extends Stourweb_Controller{
         $this->display('user/login');
     }
 
+    /*找回密码*/
+    public function action_findpass()
+    {
+        if(isset($GLOBALS['userinfo']['mid']))
+        {
+            
+            $this->request->redirect('/');
+
+        }
+        $forwardurl = Arr::get($_GET,'forwardurl');
+        if(!empty($forwardurl)){
+            $this->assign('backurl',$forwardurl); 
+        } else {
+           $this->assign('backurl',URL::site()); 
+        }
+       
+        $this->display('user/findpass');
+    }
+    
     public function action_dologin()
     {
         $mobile = Arr::get($_POST,'mobile');
@@ -113,7 +244,6 @@ class Controller_User extends Stourweb_Controller{
      * */
     public function action_index()
     {
-
         self::checkMid();
         $this->display('user/index');
     }
@@ -130,7 +260,133 @@ class Controller_User extends Stourweb_Controller{
       $this->assign('page',1);
       $this->display('user/order_list');
     }
-
+    /*
+     * 常用旅游列表
+     * */
+    public function action_commontourers()
+    {
+        self::checkMid();
+        $tourers = ORM::factory('member_set')->where("mid='$this->mid'")->get_all();
+        $this->assign('tourers',$tourers);
+        $this->display('user/common_tourers');
+    }
+    
+    /*
+     * 删除联系人
+     * */
+    public function action_deletetourer()
+    {
+        self::checkMid();
+        $tourerid = $this->params['tourerid'];
+        //判断id是否存在
+        $tourerinfo = ORM::factory('member_set')->where("id='$tourerid'")->find()->as_array();
+        if($tourerinfo['id'])
+        {
+            $tourer_model = ORM::factory('member_set', $tourerid);
+            $tourer_model->delete();
+        }
+        $this->action_commontourers();
+    }
+    
+    /*
+     * 编辑联系人
+     * */
+    public function action_edittourer()
+    {
+        self::checkMid();
+        $tourerid = $this->params['tourerid'];
+        //判断id是否存在
+        $tourerinfo = ORM::factory('member_set')->where("id='$tourerid'")->find()->as_array();
+        if($tourerinfo['id'])
+        {
+            $this->assign('tourer',$tourerinfo);
+            $this->display('user/edit_tourer');
+        }
+        else
+        {
+            $this->action_commontourers();
+        }
+    }
+    
+    /*
+     * 新增联系人
+     * */
+    public function action_addtourer()
+    {
+        self::checkMid();
+        $mid = $this->params['memberid'];
+        $tmparr = ORM::factory('member_set');
+        $tmparr->where("mid='$mid'")->find_all();
+        
+        if($tmparr->count_all() < 10)
+        {
+            $this->assign('mid',$mid);
+            $this->display('user/edit_tourer');
+        }
+        else
+        {
+            Common::showMsg('只能添加10个常用旅客信息','-1');
+        }
+    }
+    
+    /*
+     * 保存更改
+     * */
+    public function action_savetourer()
+    {
+        self::checkMid();
+        $id = Arr::get($_POST,'id');
+        $mid = Arr::get($_POST,'mid');
+        $name = Arr::get($_POST, 'name');
+        $mobile = Arr::get($_POST,'mobile');
+        $email = Arr::get($_POST, 'email');
+        $ppno = Arr::get($_POST,'ppno');
+        $idno = Arr::get($_POST, 'idno');
+        
+        if(!$name)
+        {
+            Common::showMsg('请填写正确的旅客名','-1');
+        }
+        if(!preg_match("/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/",$mobile)){    
+            Common::showMsg('请填写正确的手机号','-1');
+        }
+        if(!preg_match("/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/",$email)){    
+            Common::showMsg('请填写正确的邮箱','-1');
+        }
+        if(!preg_match("/^1[45][0-9]{7}|G[0-9]{8}|P[0-9]{7}|S[0-9]{7,8}|D[0-9]+$/",$ppno))
+        {
+            Common::showMsg('请填写正确的护照号', '-1');
+        }
+        if(!preg_match("/^((1[1-5])|(2[1-3])|(3[1-7])|(4[1-6])|(5[0-4])|(6[1-5])|71|(8[12])|91)\d{4}((19\d{2}(0[13-9]|1[012])(0[1-9]|[12]\d|30))|(19\d{2}(0[13578]|1[02])31)|(19\d{2}02(0[1-9]|1\d|2[0-8]))|(19([13579][26]|[2468][048]|0[48])0229))\d{3}(\d|X|x)?$/",$idno)){    
+            Common::showMsg('请填写正确的身份证号码','-1');
+        }
+        
+        //修改
+        if($id)
+        {
+            $tourer_model = ORM::factory('member_set', $id);
+            $tourer_model->name = $name;
+            $tourer_model->mobile = $mobile;
+            $tourer_model->email = $email;
+            $tourer_model->idno = $idno;
+            $tourer_model->ppno = $ppno;
+            $tourer_model->update();
+        }
+        //新增
+        else
+        {
+            $tourer_model = ORM::factory('member_set');
+            $tourer_model->mid = $mid;
+            $tourer_model->name = $name;
+            $tourer_model->mobile = $mobile;
+            $tourer_model->email = $email;
+            $tourer_model->idno = $idno;
+            $tourer_model->ppno = $ppno;
+            $tourer_model->intime = time();
+            $tourer_model->save();
+        }
+        $this->action_commontourers();
+    }
     //订单查看更多
     public function action_ajax_order_more()
     {
@@ -281,7 +537,7 @@ class Controller_User extends Stourweb_Controller{
     private function checkMid()
     {
         if(empty($this->mid))
-         $this->request->redirect('index');
+         $this->request->redirect('user/login');
     }
      
 

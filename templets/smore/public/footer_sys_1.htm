@@ -1,0 +1,116 @@
+<!--footer 底部开始-->
+		<div class="footer">	
+			
+			<div class="footer_copy">
+				<p>
+					<a href="about.html">关于积沙旅游</a>
+					<a href="join.html">加入我们</a>
+					<a href="contact.html">联系我们</a>
+					<a href="#">帮助中心</a>
+					<a href="contact.html">商务合作</a>
+				</p>	
+				<p>鄂ICP备14009743  © 积沙旅行 2015</p>
+			</div>
+			
+		</div>
+	<!--footer 底部结束-->
+	<!--login 开始-->
+            <div class="login-win">
+                 <div class="login-frame">
+                      <div class="title">积沙旅行 <i onClick="loginClose();">&nbsp;</i></div>
+                      <div class="content">
+                           <div class="reg">
+                                <h2>账号注册</h2>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                       <th align="right" width="140px">手机号：</th>
+                                       <td width="226px">
+                                          <input type="text" name="mobile" id="p_mobile" class="text">
+                                          <div class="info reg_info" style="display: none">账号或密码错误</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">短信验证：</th>
+                                       <td width="226px">
+                                           <input type="text" name="msgcode" id="p_msgcode" class="text" style="width: 110px; float:left">
+                                           <input type="button" value="发送验证码" id="MobileInvCode" style=" width:106px; float:right; text-indent:0em"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">密码：</th>
+                                       <td width="226px">
+                                          <input type="password" name="password" id="p_password" class="text valid">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">确认密码：</th>
+                                       <td width="226px">
+                                          <input type="password" name="repassword" id="p_repassword" class="text error">
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="right" width="140px">&nbsp;</th>
+                                       <td width="226px"><input type="button" class="input-button" id="reg" value="注&nbsp;册"></td>
+                                    </tr>
+                                </table>
+                           </div>
+                           <div class="log">
+                                <h2>登陆帐号</h2>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                       <th align="left"  width="140px">手机号：</th>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px" style="padding-top:5px;">
+                                          <input type="text" name="loginname" id="loginname"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <th align="left"  width="140px">密码：</th>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px" style="padding-top:5px;">
+                                          <input type="password" name="password" id="password"/>
+                                          <div class="info login_info" style="display: none">账号或密码错误</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td width="226px"><input type="button" id="login" class="input-button" value="登&nbsp;录" /></td>
+                                    </tr>
+                                </table>
+                           </div>
+                      </div>
+                 </div>
+            </div>
+<script>
+
+$('#MobileInvCode').click(function(){
+            if(!checkPhoneSend())
+                return;
+             var sendnum = $.cookie('sendnum') ? $.cookie('sendnum') : 0;
+            if(sendnum!=0){
+                $.cookie('sendnum', sendnum++);
+            }else{
+                $.cookie('sendnum', 1,{ expires: 1/96 });
+            }
+            var mobile = $("#p_mobile").val();
+
+            var url = "/member/reg.php?dopost=sendmsgcode&mobile="+mobile+"&firstcode=&k="+"{sline:field.stoken/}";
+            $.post(url,true,function(data) {
+                if(data.status)
+                {
+                    CodeTimeout(60);
+                    return false;
+                }
+                else
+                {
+                   alert(data.msg);
+                   return false;
+                }
+            },'json');
+
+        });            
+            
+</script>
+</body>
+</html>

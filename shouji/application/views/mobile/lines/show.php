@@ -2,143 +2,88 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>{if empty($row['seotitle'])}{$row['linename']}{else}{$row['seotitle']}{/if}-{$webname}</title>
-<meta name="keywords" content="{$row['keyword']}" />
-<meta name="description" content="{$row['description']}" />
- {php echo Common::getScript('jquery-min.js,idangerous.swiper.js'); }
- {php echo Common::getCss('m_base.css,style.css'); }
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<title>{$seotitle}-{$webname}</title>
+ {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
+ {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
 </head>
 
 <body>
-  {template 'public/top'}
-	<div class="city_top clearfix">
-  	<a class="back" href="javascript:history.go(-1);">返回</a>
-    <a class="city_tit">产品详情</a>
-  </div>
-  
-  <div class="m-main">
-
-  	<!--首页滚动图片-->
-    <div class="home-device">
-      <div class="swiper-main">
-        <div class="swiper-container swiper1">
-          <div class="swiper-wrapper">
-          {loop $row['pic_arr'] $v}
-            <div class="swiper-slide"> <img src="{$v[0]}" width="320" height="200" /> </div>
-          {/loop}
-          </div>
-        </div>
-      </div>
-      <div class="pagination pagination1"></div>
-    </div>
-    
-    <div class="show-jc-js">
-    	
-    	<div class="bt-box">
-        <h1 class="tit">{$row['linename']}</h1>
-        <p class="txt">{$row['sellpoint']}</p>
-      </div>
-      
-      <ul>
-      	<li class="li_1">
-        	<p>
-          	<span><em>{if $row['lineprice']>0}&yen;{$row['lineprice']}{else}电询{/if}</em> 起</span>
-            <a href="{$cmsurl}page/pinlun/id/{$row['id']}/typeid/1"><span class="myd"><b class="fl" style=" width:100%">满意度：<em>{$row['satisfyscore']}</em></b></span></a>
-          </p>
-        </li>
-        <li class="li_2">
-        	<p>线路编号：{$row['lineseries']}</p>
-          <p>往返交通：{$row['transport']}</p>
-          <p>旅游团期：{$row['lineday']}天</p>
-          <p>提前报名：{$row['linebefore']}天</p>
-        </li>
-        <li class="li_3">
-        	<a href="{$cmsurl}lines/create/id/{$row['id']}"><p>选择价格类型、出发日期</p></a>
-        </li>
+<div class="container">
+    <header class="bg-green p15">
+      <ul class="m0 p0 w100">
+         <li class="pull-left li1"><div class="baseicon return-left"></div></li>
+         <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">{$row['linetitle']}</li>
+         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}user/orderlist" class="baseicon block pull-right date"></a></li>
       </ul>
-      
-    </div>
-    <div class="show-list-js">
-      {loop $linedisc $v}
-        {if $v['columnname']=='jieshao'}
-          {if $row['isstyle']=='1'}
-            {if (!empty($row[$v['columnname']]))}
-          	<div class="list-con mt10">
-            	<h3 class="tit">{$v['chinesename']}</h3>
-            	<div class="txt">
-              {$row[$v['columnname']]}
-              </div>
-            </div>
-            {/if}
-          {else}
-            <div class="list-con mt10">
-              <h3 class="tit">{$v['chinesename']}</h3>
-                {loop $row['linejieshao_arr'] $v2}
-                  <div class="day_con">
-                    <div class="day_bg_num">{$v2['day']}</div>
-                    <dl>
-                      <dt>
-                        <span>第{$v2['day']}天</span><em>{$v2['title']}</em>
-                      </dt>
-                      <dd>
-                        <span class="line_item">用餐</span>
-                        <div class="line_item_p">
-                          <em>早餐：{if $v2['breakfirsthas'] =='1'}含{else}不含{/if}</em>
-                          <em>中餐：{if $v2['lunchhas'] =='1'}含{else}不含{/if}</em>
-                          <em>晚餐：{if $v2['supperhas'] =='1'}含{else}不含{/if}</em>
-                        </div>
-                      </dd>
-                      <dd><span class="line_item">住宿</span><em>{$v2['hotel']}</em></dd>
-                      <dd>
-                        <span class="line_item">安排</span>
-                        <div class="line_item_p">{$v2['jieshao']}</div>
-                      </dd>
-                    </dl>
-                  </div>
-              {/loop}
-              
-            </div>
-          {/if}
-        {else}
-          {if (!empty($row[$v['columnname']]))}
-            <div class="list-con mt10">
-              <h3 class="tit">{$v['chinesename']}</h3>
-              <div class="txt">
-              {$row[$v['columnname']]}
-              </div>
-            </div>
-            {/if}
-        {/if}
-      {/loop}
-     
-    </div>
+    </header>
     
-  </div>
-  
-{template 'public/foot'}
-<div class="opy"></div>
-  <div class="bom_fix_box">
-    <a class="cell_phone" href="tel:{$phone}">{$phone}</a>
-    <a class="booking" href="{$cmsurl}lines/create/id/{$row['id']}">立即预定</a>
-  </div>
+    <div class="main"> 
+         <div class="commodity-page">
+              <div class="ginto"><img src="{$row['mobilepic']}"></div>
+              
+              <div class="comm-name bg-white bbe3 p15"> 
+                 <h5 class="font16 m0">{$row['linename']}</h5>
+                 <div class="mt10 price"><span>&yen;<em class="font20">{$row['lineprice']}</em>起</span><i class="font12 grey ml10">自订价：{$row['storeprice']}元</i></div>
+              </div>
+              
+              <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
+                   <div class="panel-title p5">
+                        <h2 class="m0 font16">选择套餐</h2>
+                    </div>
+                    <ul class="o-hidden mt5 text-center font12">
+                        {loop $suit $v}
+                        <li class="w50 pull-lefts"><div class="p5"><div>{$v['suitname']}</div></div></li>
+                        {/loop}
+                    </ul>
+              </div>
+              
+              <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
+                   <div class="panel-title p5">
+                        <h2 class="m0 font16">产品亮点</h2>
+                    </div>
+                    <ul class="o-hidden font12 grey p15">
+                        {$row['features']}
+                    </ul>
+              </div>
+              
+              <div class="comm-col mt10 bg-white bte3 bbe3 p15 mb10">
+                    <ul id="myTab" class="nav nav-tabs font16 text-center">
+                       {loop $linedisc $v}
+                       <li class="w25 {if $n==1}active{/if}"><a href="#tab{$n}" class="grey" data-toggle="tab">{$v['chinesename']}</a></li>
+                       {/loop}
+                    </ul>
+                    <div id="myTabContent" class="tab-content font12">
+                        {loop $linedisc $v}
+                       <div class="tab-pane fade {if $n==1}in active{/if}" id="tab{$n}">
+                           {$row[$v['columnname']]}
+                       </div>
+                       {/loop}
+                    </div>
+                    
+                    
+              </div>
+              
+              <div class="mt10 affix" style="left:0px; bottom:0px; right:0px; z-index:1">
+                 <button type="button" class="btn w100 p10 font16 white mt10" style=" border-radius:0px;">
+                    立即抢购
+                  </button>
+              </div>
+              
+         </div> 
+    </div>
+ 
+    
+</div>
+
+<div class="footer grey font12 text-center" >武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
 
 </body>
-<script>
-    var mySwiper = new Swiper('.swiper1',{
-    pagination: '.pagination',
-    paginationClickable: true,
-    slidesPerView: 'auto',
-    autoplay:3000
-  })
-/*  $(function(){
-       if($('.list-con img').length>0){
-           var wp = $(window).width()-100;
-           $('.list-con img').css('width', wp+'px' );
-       }
-
-   })*/
-
-
-</script>
 </html>

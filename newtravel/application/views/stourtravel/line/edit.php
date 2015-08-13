@@ -419,7 +419,7 @@
 
                     <div class="up-pic">
                         <dl>
-                            <dt>展示页封面图:</dt>
+                            <dt>商品展示图:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn" class="btn-file mt-4" data="linepic">上传图片</div>
@@ -442,7 +442,7 @@
                             </dd>
                         </dl>
                         <dl>
-                            <dt>套餐封面图:</dt>
+                            <dt>一日游封面图:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn2" class="btn-file mt-4" data="packpic">上传图片</div>
@@ -465,7 +465,7 @@
                             </dd>
                         </dl>
                         <dl>
-                            <dt>线路封面图:</dt>
+                            <dt>套餐封面图:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn3" class=" btn-file mt-4" data="bigpic">上传图片</div>

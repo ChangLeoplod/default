@@ -2,107 +2,128 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
 <title>{$seotitle}-{$webname}</title>
-    <meta name="keywords" content="{$keyword}" />
-    <meta name="author" content="{$webname}" />
-    <meta name="description" content="{$description}" />
- {php echo Common::getScript('jquery-min.js,idangerous.swiper.js'); }
- {php echo Common::getCss('m_base.css,index.css'); }
- 
+ {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
+ {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
 </head>
 
 <body>
-	{template 'public/top'}
-  <div class="main_page clearfix">
-  
-  	<!--首页滚动图片-->
-    <div class="home-device">
-      <div class="swiper-main">
-        <div class="swiper-container swiper1">
-          <div class="swiper-wrapper">
-           {st:ad action="getrollad" name="MobileIndexRollAd"}
-              {loop $data $v}
-                 <div class="swiper-slide"> <a href="{$v['linkurl']}"><img src="{$v['picurl']}" width="320" height="200" /></a> </div>
-              {/loop}
-           {/st}
-          </div>
+<div class="container">
+    <header class="bg-green p15">
+      <ul class="m0 p0 w100">
+         <li class="pull-left li1"><div class="baseicon return"></div></li>
+         <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">首页</li>
+         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}user/orderlist" class="baseicon block pull-right date"></a></li>
+      </ul>
+    </header>
+    
+    <div class="main">
+        <div class="slider">
+              <ul class="m0 p0">
+                {st:line  action="getline" row="10" flag="attribute" attrid="162"}
+                    {loop $data $k $v}
+                    <li><a href="{$v['url']}" ><img src="{$v['mobilepic']}" alt="{$v['linename']}"></a></li>
+                    {/loop}
+                {/st}
+              </ul>
         </div>
-      </div>
-      <div class="pagination pagination1"></div>
-    </div>
-    
-    <div class="search_home clearfix">
-       <form method="post" action="{$cmsurl}search/index" onsubmit="return check();">
-    	<input type="text" class="h_txt" id="keyword" name="keyword" value="" placeholder="搜索关键词" />
-    	<input type="submit" class="h_btn" value="&nbsp;" />
-       </form>
-    </div>
-    
-    <div class="home_menu">
-    	<p>
-      	<a class="mdd_ico" href="{$cmsurl}mdd/index"><em></em>目的地</a>
-        <a class="xl_ico" href="{$cmsurl}lines/index"><em></em>线路</a>
-        <a class="mp_ico" href="{$cmsurl}spot/index"><em></em>景点门票</a>
-      </p>
-      <p>
-      	<a class="jd_ico" href="{$cmsurl}hotels/index"><em></em>酒店</a>
-        <a class="zc_ico" href="{$cmsurl}cars/index"><em></em>租车</a>
-        <a class="qz_ico" href="{$cmsurl}visa/index"><em></em>签证</a>
-      </p>
-      <p>
-      	<a class="tg_ico" href="{$cmsurl}tuan/index"><em></em>团购</a>
-        <a class="xc_ico" href="{$cmsurl}photo/index"><em></em>相册</a>
-        <a class="gl_ico" href="{$cmsurl}raider/index"><em></em>攻略</a>
-      </p>
-    </div>
-    
-    <div class="pdt_con">
-    	<div class="xl_tit clearfix"><h3>本季热推 /</h3> Tour</div>
-        {st:line  action="getline" row="10" flag="byorder"}
-            {loop $data $k $v}
-                    <div class="pdt_list">
-                        <a href="{$v['url']}">
-                            <div class="pdt_img"><img src="{$v['litpic']}" width="90" height="64"></div>
-                            <div class="pdt_txt">
-                                <div class="pdt_box">
-                                    <p class="p_tit">{$v['title']}...</p>
-                                    <p class="p_pir"> {if empty($v['lineprice'])}
-                                        <strong>电询</strong>
-                                        {else}
-                                        <strong>&yen;{$v['lineprice']}</strong>
-                                        {/if}<span>满意度{$v['satisfyscore']}</span></p>
-                                </div>
-                            </div>
-                        </a>
+        <script>
+          $(".slider").yxMobileSlider({width:640,height:320,during:5000})
+        </script>
+        <div class="bg-white p15 recommend o-hidden bbe3">
+            <ul class="m0 p0 text-center">
+               <li class="w25 posr pull-left"><img src="public/images/ad/ad_05.jpg"><span class="posa white">吉林岛</span></li>
+               <li class="w25 posr pull-left"><img src="public/images/ad/ad_05.jpg"><span class="posa white">吉林岛</span></li>
+               <li class="w25 posr pull-left"><img src="public/images/ad/ad_05.jpg"><span class="posa white">吉林岛</span></li>
+               <li class="w25 posr pull-left"><img src="public/images/ad/ad_05.jpg"><span class="posa white">吉林岛</span></li>
+            </ul>
+        </div>
+        
+        <div class="select-one p10 bte3 bbe3 mt10 bg-white o-hidden">
+             <div class="panel-title posr p5">
+                <h2 class="m0 font16">精选海岛一日游</h2>
+                <p class="font12 grey mt5">这些产品性价比奇高，异常火爆，卖完即止。</p>
+                <div class="more posa baseicon"></div>
+             </div>  
+             <ul class="m0 p0">
+                {st:line  action="getline" row="10" flag="attribute" attrid="162"}
+                    {loop $data $k $v}
+                 <li class="pull-left w50 p5 posr">
+                     <a href="{$v['url']}"><img src="{$v['mobilepic']}"></a>
+                   <div class="text posa white o-hidden">
+                      <h3 class=" m0 font14 bold white-nowrap">{$v['linetitle']}</h3>
+                      <p class=" font12 white-nowrap">{$v['linesubtitle']}</p>
+                      <span class="font14">&yen;{$v['lineprice']}/人</span>
+                   </div>
+                 </li>
+                {/loop}
+                {/st}
+             </ul> 
+               
+        </div>
+        
+        
+        
+        
+        <div class="select-we p15 bte3 bbe3 mt10 bg-white o-hidden"> 
+             <h4 class="bold text-center"><span class="bg-white">为什么选择我们</span></h4>
+             <ul class="m0 p0 we o-hidden">
+                <li class="w33 pull-left">
+                    <div class="icon">
+                        <span class="block p5"><i class="block baseicon"></i></span>
                     </div>
-            {/loop}
-        {/st}
-      <div class="ck_more">
-      	<a href="{$cmsurl}lines/list/kindid/0">点击查看更多&gt;&gt;</a>
-      </div>
+                    <div class="p5 text-center">
+                        <h5 class="font12">一站式自由行服务</h5>
+                        <p class="font10 grey">机票、酒店、签证、攻略、目的地安排，都为您搞定！</p>
+                    </div>
+                </li>
+                <li class="w33 pull-left">
+                    <div class="icon icon1">
+                        <span class="block p5"><i class="block baseicon"></i></span>
+                    </div>
+                    <div class="p5 text-center ">
+                        <h5 class="font12">一站式自由行服务</h5>
+                        <p class="font10 grey">机票、酒店、签证、攻略、目的地安排，都为您搞定！</p>
+                    </div>
+                </li>
+                <li class="w33 pull-left">
+                    <div class="icon icon2">
+                        <span class="block p5"><i class="block baseicon"></i></span>
+                    </div>
+                    <div class="p5 text-center ">
+                        <h5 class="font12">一站式自由行服务</h5>
+                        <p class="font10 grey">机票、酒店、签证、攻略、目的地安排，都为您搞定！</p>
+                    </div>
+                </li>
+             </ul>
+             
+             <ul class="m0 p0 hot-link o-hidden text-center">
+                 <li class="pull-left w33"><div><i class="baseicon"></i>我的订单</div></li>
+                 <li class="pull-left w33"><div><i class="baseicon i1"></i>帮助中心</div></li>
+                 <li class="pull-left w33"><div><i class="baseicon i2"></i>选择我们</div></li>
+                 <li class="pull-left w33"><div><i class="baseicon i3"></i>会员中心</div></li>
+                 <li class="pull-left w33"><div><i class="baseicon i4"></i>联系我们</div></li>
+                 <li class="pull-left w33"><div><i class="baseicon i5"></i>加入我们</div></li>
+             </ul>
+             
+        </div>
+        
+        
+        
     </div>
+ 
     
-  </div>
-  
-  {template 'public/foot'}
+</div>
 
-<script>
-		var mySwiper = new Swiper('.swiper1',{
-        pagination: '.pagination',
-		paginationClickable: true,
-		slidesPerView: 'auto',
-		autoplay:3000
-	})
-    function check()
-    {
-        var keyword = $("#keyword").val();
-        if(keyword==''){
-            alert("请输入目的地");
-            return false;
-        }
-        return true;
-    }
-</script>
+<div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
+
 </body>
 </html>

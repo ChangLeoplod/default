@@ -2,46 +2,86 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>用户登陆-{$webname}</title>
-    {php echo Common::getScript('jquery-min.js,common.js'); }
-    {php echo Common::getCss('m_base.css,style.css'); }
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<title>{$seotitle}-{$webname}</title>
+ {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
+ {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
+<script type="text/javascript">
+function errorMessage(obj){
+  $(obj).parent().children(".error-message").show().delay(2000).hide(0);
+};
+</script>
 </head>
-<style>
-    .input_group_input {
-        background: none;
-        width: 100%;
-        padding: 0.8em 10px 0.8em 0.8em;
-        box-sizing: border-box;
-        height: 45px;
-        font-size: 14px;
-        color: #333;
-        text-align: left;
-    }
-    input[type='password'] {
-        border: none;
-        outline: none;
-    }
-</style>
+
 <body>
-	{template 'public/top'}
-  <form action="{$cmsurl}user/dologin" method="post" onsubmit="return loginFrm();">
-      <div class="login_page clearfix">
-        <p><input type="text" class="username" value="" name="mobile" id="mobile" placeholder="请输入手机号码" /></p>
-        <p><input type="password" class="password" value="" name="password" id="password" placeholder="请输入密码" /></p>
-        <p><input class="login_in" name="" type="submit" value="登陆"></p>
-        <!--<p><a class="forget_word" href="javascript:;">忘记密码？</a></p>-->
-        <p class="other_dl">
-          <!--  <a class="qq" href="javascript:;">QQ账号登录</a>
-            <a class="xl" href="javascript:;">新浪微博登录</a>-->
+<style>body{ background:url(../public/images/add/in.jpg) no-repeat;background-size:cover; }</style>
+<div class="container">
+    <header class="bg-green p15">
+      <ul class="m0 p0 w100">
+         <li class="pull-left li1"><div class="baseicon return-left"></div></li>
+         <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">登录</li>
+         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}user/orderlist" class="baseicon block pull-right date"></a></li>
+      </ul>
+    </header>
+    
+    <div class="main"> 
+         <div class="modify-common-passenger sign-in p15">
+              <form action="{$cmsurl}user/dologin" method="post" onsubmit="return loginFrm();"> 
+              <div class="user-images text-center white"> 
+                  <div class="bg-white"><img src="../public/images/add/touxiang.png"></div>
+              </div>
+              
+              <div class="confirmation-order">
+                  
+                   <div class="canshu contact bg-white p10 mt10">
+                       <table class="table table-striped grey m0">
+                            <tr>
+                              <th scope="row" width="30%">手机号码：</th>
+                              <td align="right"  width="70%"><input type="text" class="username form-control" value="" name="mobile" id="mobile" placeholder="请输入手机号码"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">登录密码：</th>
+                              <td align="right"><input type="password" class="password form-control" value="" name="password" id="password" placeholder="请输入密码"></td>
             <input type="hidden" name="backurl" value="{$backurl}">
             <input type="hidden" name="forwardurl" value="{$forwardurl}">
-        </p>
-      </div>
-  </form>
+                            </tr>
+                        </table>    
+                  </div>
+                  
+              </div> 
+              
+              <div class="mt10" >
+                  <input class="login_in btn w100 p10 font16 white mt10" name="" type="submit" value="登陆">
+                 <div class="error-message affix">
+                      <div class="affix font12 p10 white text-center">账号或密码错误</div>
+                 </div> 
+              </div>
+              
+              <div class="mt10">
+                  <a href="{$cmsurl}user/register?forwardurl={$forwardurl}"><button type="button" class="btn font16 p10 white mt10 pull-left bg-green" style="padding:10px 18px;">
+                    5秒注册
+                      </button></a>
+                  <a href="{$cmsurl}user/findpass?forwardurl={$forwardurl}"><button type="button" class="btn font16 p10 mt10 pull-right bg-grey grey" style="padding:10px 18px;">
+                    忘记密码
+                      </button></a>
+              </div>
+              </form>
+               
+              
+         </div>
+    </div>
+ 
+    
+</div>
 
-  
-  {template 'public/foot'}
+<div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
 <script>
     function loginFrm()
     {
