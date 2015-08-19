@@ -28,7 +28,7 @@ $(function(){
 
 <body>
 <!--顶部-->
-{php Common::getEditor('jseditor','',700,300,'Sline','','print',true);}
+{php Common::getEditor('jseditor','',1000,800,'Sline','','print',true);}
 <table class="content-tab">
 <tr>
     <td width="119px" class="content-lt-td" valign="top">

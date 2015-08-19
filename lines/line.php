@@ -12,7 +12,7 @@ $price = array (
     '1'=>'lineprice >=1000 and lineprice<3000',
     '2'=>'lineprice >=3000 and lineprice<5000',
     '3'=>'lineprice >=5000 and lineprice<10000',
-    '3'=>'lineprice >=10000 and lineprice<20000',
+    '4'=>'lineprice >=10000 and lineprice<20000',
 );
 $day = array(
     '1'=>'lineday=4',
@@ -48,11 +48,11 @@ if ($p) {
 if ($d) {
     $w .= " and ".$day[$d];
 }
-$sql="select count(id) as amount from #@__line a where {$w} and FIND_IN_SET('162',a.attrid) and  a.ishidden=0";
+$sql="select count(id) as amount from #@__line a where {$w} and FIND_IN_SET('165',a.attrid) and  a.ishidden=0";
 $amount = $dsql->getOne($sql);
 $total = $amount['amount'];
 
-$sql="select * from #@__line a where {$w} and FIND_IN_SET('162',a.attrid) and  a.ishidden=0  order by a.displayorder asc,a.modtime desc,a.addtime desc limit 0,10";
+$sql="select * from #@__line a where {$w} and FIND_IN_SET('165',a.attrid) and  a.ishidden=0  order by a.displayorder asc,a.modtime desc,a.addtime desc limit 0,10";
 $list = $dsql->getall($sql);
 
 $pv = new View($typeid);

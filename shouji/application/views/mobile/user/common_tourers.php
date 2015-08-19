@@ -21,12 +21,12 @@
         <ul class="m0 p0 w100">
             <li class="pull-left li1"><div class="baseicon return-left"></div></li>
             <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">常用旅客信息</li>
-            <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}user/orderlist" class="baseicon block pull-right date"></a></li>
+            <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}index" class="baseicon block pull-right date"></a></li>
         </ul>
     </header>
     
     <div class="main"> 
-         <div class="comm-col"> 
+        <div class="comm-col"> 
             <div id="myTabContent" class="tab-content font12" style="padding:0px;">
                 <div class="tab-pane fade in active" id="tab1">
                     <div class="common-passenger p15">
@@ -43,11 +43,9 @@
                                       <div>身份证 : {$tourer['idno']}</div>
                                     </div>
                                     <div class="pull-right w50 mt10">
-                                        <a href="{$cmsurl}user/deletetourer/tourerid/{$tourer['id']}">
-                                           <button type="button" class="btn white pull-right ml10" style="padding: 3px 15px;">删除</button>
-                                        </a>
+                                        <button type="button" class="btn white pull-right ml10 delete" style="padding: 3px 15px;" data-id="{$tourer['id']}">删除</button>
                                         <a href="{$cmsurl}user/edittourer/tourerid/{$tourer['id']}">
-                                            <button type="button" class="btn bg-green  white pull-right" style="padding: 3px 15px;">修改</button>
+                                            <button id="update" type="button" class="btn bg-green  white pull-right" style="padding: 3px 15px;">修改</button>
                                         </a>
                                     </div>
                                 </li>
@@ -55,20 +53,62 @@
                             </ul>
                             {/if}
                             <div class="grey pull-right font12">最多可保存十条记录</div>
+                            <input type="hidden" id="count" name="count" value="{if $count}{$count}{/if}">
                         </div>
-
                         <div class="pb10 o-hidden pt10 mt10">
-                            <a href="{$cmsurl}user/addtourer/memberid/{$tourer['mid']}">
-                                <button type="button" class="btn bg-green white w100 font16">新增</button>
-                            </a>
+                            <button id="add" type="button" class="btn bg-green white w100 font16">新增</button>
                         </div>
                     </div>
                 </div>
             </div> 
+            
+            <div class="mt10">
+                <div class="error-message affix modal" id="myModal">
+                    <div class="affix font12 p10 white text-center" id="error">新增用户成功</div>
+                </div> 
+            </div>
         </div>
     </div>
 </div>
     
 <div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
+
+<script>
+    $("#add").click(function(){
+        var count = $("#count").val();
+        if(count<10)
+        {
+            location.href="{$cmsurl}user/addtourer";
+        }
+        else
+        {
+            perror("只能添加10位常用联系人");
+            return false;
+        }
+    });
+
+    $(".delete").click(function(){
+        var tourerid = $(this).attr("data-id");
+        $.ajax({
+            type:"post",
+            url:"{$cmsurl}user/deletetourer",
+            data:{"tourerid":tourerid},
+            dataType:'json',
+            success:function(data){
+                perror(data.msg);
+                if(data.status)
+                {
+                    setTimeout("location.href='{$cmsurl}user/commontourers';",700);
+                }
+            }
+        });
+    });
+    
+    function perror(msg) {
+        $("#error").html(msg);
+        $('#myModal').modal('show');
+    }
+</script>
+
 </body>
 </html>

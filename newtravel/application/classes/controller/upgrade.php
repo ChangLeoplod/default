@@ -133,6 +133,19 @@ class Controller_Upgrade extends Stourweb_Controller{
             echo json_encode(array('status'=>0,'msg'=>'序列号错误'));
         }
     }
+    
+     public function action_ajax_upgrade2(){
+        $model = new Model_Upgrade3();
+        $info = $model->getNewVersion();  
+        var_dump($info);
+        include(PUBLICPATH.'/vendor/httpdown.class.php');
+        include(PUBLICPATH.'/vendor/pclzip.lib.php');
+        $url = 'http://update.souxw.com/IFepfMprLOtXI5q65MXffoW19Th4nLBmYvxCPQDf3aJqDzNTlO1q9f7MzuypZcOnNwHaeoPt8ss=.kbp';
+            $htd = new HttpDown();//实例化下载类
+            $htd->OpenUrl($url);
+            $ok = $htd->SaveToBin(APPPATH.'/data/a3.zip');
+        
+    } 
     /*
      * ajax执行升级(每次只升级一个升级包)
      * */
@@ -173,6 +186,7 @@ class Controller_Upgrade extends Stourweb_Controller{
                 $downloadurl = $ver['Url'];
                 $filename=$savepath.$ver['Name'].'.zip';
                 $htd = new HttpDown();//实例化下载类
+               
                 $htd->OpenUrl($downloadurl);
                 $ok = $htd->SaveToBin($filename);
                 if($ok) //下载文件成功

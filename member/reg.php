@@ -435,7 +435,7 @@ function validatePhone()
     {
         if($_SESSION['mobilecode_'.$mobile]!= $msgcode)
         {
-            return '验证码1错误';
+            return '验证码错误';
         }
     }
     else

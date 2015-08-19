@@ -240,45 +240,238 @@ class Controller_Lines extends Stourweb_Controller{
 	//产品预订
 	public function action_create()
 	{
+		self::checkMid();
+		$suitid=$this->params['id'];
 		
-		$lineid=$this->params['id'];
-		/*if(!isset($GLOBALS['userinfo']['mid']))
-        {
-            $forwardurl = URL::site('lines/create/id/'.$lineid);
-            $this->request->redirect('user/login?forwardurl='.$forwardurl);
-
-        }*/
-		$row =ORM::factory('line')->where("id=$lineid")->find()->as_array();
-		if(empty($row['linepic'])){
-	 		$row['linepic'] = Common::getDefaultImage();
-	 	}
-        $row['lineprice'] = Model_Line::getMinPrice($row['id']);
-		$suit =ORM::factory('line_suit')->where("lineid=$lineid")->get_all();
-
-		//价格开始时间，从今天开始,最近30条价格信息
-		$BeginDate=strtotime(date("Y-m-d"));
-
-
-		//套餐价格
-		if(!empty($suit)){
-			foreach ($suit as $key => $value) {
-				$price_arr=ORM::factory('line_suit_price')->where("suitid=".$value['id']." and day>$BeginDate and adultprice>0")->order_by('day','asc')->limit('0,90')->get_all();
-				if(empty($price_arr)){
-					$suit[$key]['price_arr'] = array();
-				}else{
-					foreach ($price_arr as $ke => $va) {
-						$price_arr[$ke]['dayid'] = $va['day'];
-						$price_arr[$ke]['day'] = date("Y-m-d",$va['day']);
-                        $price_arr[$ke]['suitid'] = $va['suitid'];
-					}
-					$suit[$key]['price_arr'] = $price_arr;
-				}
-			}
-		}
-        //var_dump($suit[0]['price_arr']);
+		$row =ORM::factory('line_suit')->where("id=$suitid")->find()->as_array();
+		        
 		$this->assign('row',$row);
-		$this->assign('suit',$suit);
+		$this->assign('suitid',$suitid);
 		$this->display('lines/select');
 	}
+        
+        //套餐日历
+    public function action_rili() {
+        $mdays=date("t");    //当月总天数  
+        $datedatenow=date("j");  //当日日期  
+        $monthnow=Arr::get($_POST,'m')?Arr::get($_POST,'m'):date("n"); //当月月份  
+        $yearnow=Arr::get($_POST,'y')?Arr::get($_POST,'y'):date("Y");  //当年年份 
+        $suitid =Arr::get($_POST,'suitid');
+        //计算当月第一天是星期几  
+        $wk1st=date("w",mktime(0,0,0,$monthnow,1,$yearnow));  
+        $trnum=ceil(($mdays+$wk1st)/7); //计算表格行数  
+        //以下是表格字串  
+        $tabstr="<tr class=\"grey\"><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>";  
 
+        for($i=0;$i<$trnum;$i++) {  
+           $tabstr.="<tr>";  
+           for($k=0;$k<7;$k++) { //每行七个单元格  
+              $tabidx=$i*7+$k; //取得单元格自身序号  
+              //若单元格序号小于当月第一天的星期数($wk1st)或大于(月总数+$wk1st)  
+              //只填写空格，反之，写入日期  
+              ($tabidx<$wk1st or $tabidx>$mdays+$wk1st-1) ? $dayecho="&nbsp" : $dayecho=$tabidx-$wk1st+1;  
+              //突出标明今日日期 
+              $now = strtotime($yearnow.'-'.$monthnow.'-'.$dayecho);
+              if ($dayecho>=1&&$now>time()) {
+                  
+                  $price = ORM::factory('line_suit_price')->where("suitid='{$suitid}' and day='{$now}'")->find()->as_array
+();
+                  if ($price['number']>0 || $price['number']=='-1') {
+                    if ($price['number']=='-1') {
+                        $number='充足';
+                        $price['number']=999;
+                    }else {
+                        $number=$price['number'];
+                    }
+                    $tabstr.="<td class=\"have\" data-price=\"{$price['adultprice']}\" data-childprice=\"{$price
+['childprice']}\" data-roombalance=\"{$price['roombalance']}\" data-number=\"{$price['number']}\" data-day=\"{$now}
+\"><strong>{$dayecho}</strong><div class=\"font10 text-right\"><div>￥{$price['adultprice']}</div>{$number}</div></td>";
+                  } elseif($price['number']==0){
+                      $tabstr.="<td class=\"active\"><strong>{$dayecho}</strong><div class=\"font10 text-
+right\"><div>￥{$price['adultprice']}</div>售馨</div></td>";
+                  } else {
+                    $tabstr.="<td>{$dayecho}</td>";
+                  }
+              } else {
+                    $tabstr.="<td>{$dayecho}</td>";
+              }
+           }  
+           $tabstr.="</tr>";  
+        }
+        $nexttime = strtotime($yearnow.'-'.$monthnow.'-'.$mdays);
+        $next = ORM::factory('line_suit_price')->where("suitid='{$suitid}' and day>'{$nexttime}'")->find()->as_array();
+        if ($next['lineid']) {
+            $nextmonth = $monthnow+1;
+            $nextyear = $yearnow;
+            if ($nextmonth>12) {
+                $nextmonth = 1;
+                $nextyear++;
+            }
+            $arr['nextmonth'] = $nextmonth;
+            $arr['nextyear'] = $nextyear;
+        }
+        $pretime = strtotime($yearnow.'-'.$monthnow.'-1');
+        $pre = ORM::factory('line_suit_price')->where("suitid='{$suitid}' and day<'{$pretime}'")->find()->as_array();
+        if ($pre['lineid']) {
+            $premonth = $monthnow-1;
+            $preyear = $yearnow;
+            if ($premonth<1) {
+                $premonth = 12;
+                $preyear--;
+            }
+            $arr['premonth'] = $premonth;
+            $arr['preyear'] = $preyear;
+        }
+        
+        $arr['status'] = 1;
+        $arr['source'] = $tabstr;
+        echo json_encode($arr);
+    }
+    //by jlzhang
+    //for mobile
+    //一日游
+    public function action_daytrips() {
+        $dest_id = $attr_id = $p = 0;
+        $dest_id=intval(Arr::get($_GET,'dest_id'));
+        $p=intval(Arr::get($_GET,'p'));
+        $attr_id=intval(Arr::get($_GET,'attr_id'));
+        $action=Arr::get($_GET,'action');
+        $page=intval(Arr::get($_GET,'page'));
+        
+        $price = array (
+            '1'=>'lineprice >=100 and lineprice<300',
+            '2'=>'lineprice >=300 and lineprice<500',
+            '3'=>'lineprice >=500 and lineprice<1000',
+            '4'=>'lineprice >=1000 and lineprice<2000',
+        );
+    
+        $sql="select a.* from sline_destinations a where a.pid = '0' and a.isopen=1 order by a.displayorder asc ";
+        $dest = DB::query(Database::SELECT,$sql)->execute()->as_array();
+        
+        $sql="select a.* from sline_line_attr a where a.id<>'161' and a.id<>'162' and a.pid <> '0' and a.isopen=1 order by a.displayorder asc ";
+        $attr = DB::query(Database::SELECT, $sql)->execute()->as_array();
+    
+        if ($attr_id) {
+            $find = "FIND_IN_SET('{$attr_id}',a.attrid)";
+        } else {
+            $find = 'CONCAT(a.attrid,",") not like "%162,%" ';
+        }
+        if ($dest_id) {
+            $w .= " and FIND_IN_SET('{$dest_id}',a.kindlist)";
+        }
+        if ($p) {
+            $w .= " and ".$price[$p];
+        }
+        $pagesize = 5;
+        if ($page<1) {
+            $page =1;
+        }
+        $startnum = ($page-1)*$pagesize;
+            if ($startnum<0) {
+                $startnum=0;
+        }
+        
+        $sql="select * from sline_line a where {$find} {$w} and  a.ishidden=0  order by a.displayorder asc,a.modtime desc,a.addtime desc limit $startnum,$pagesize";
+        $list = DB::query(Database::SELECT,$sql)->execute()->as_array();
+        /*if(count($list)==0)
+        {
+            exit;
+        }*/
+        
+        if($action=="ajaxline"){
+            echo json_encode($list);
+            exit;
+        }
+        
+        $this->assign('list', $list);
+        $this->assign('dest_id', $dest_id);
+        $this->assign('dest', $dest);
+        $this->assign('attr_id', $attr_id);
+        $this->assign('attr',$attr);
+        $this->assign('p', $p);
+
+        $this->display('lines/daytrips');
+    }
+    
+    //by jlzhang
+    //for mobile
+    //套餐
+    public function action_packages() {
+        $dest_id = $d = $p = 0;
+        $dest_id=intval(Arr::get($_GET,'dest_id'));
+        $p=intval(Arr::get($_GET,'p'));
+        $d=intval(Arr::get($_GET,'d'));
+        $action=Arr::get($_GET,'action');
+        $page=intval(Arr::get($_GET,'page'));
+        
+        $price = array (
+            '1'=>'lineprice >=1000 and lineprice<3000',
+            '2'=>'lineprice >=3000 and lineprice<5000',
+            '3'=>'lineprice >=5000 and lineprice<10000',
+            '4'=>'lineprice >=10000 and lineprice<20000',
+        );
+        $day = array(
+            '1'=>'lineday=4',
+            '2'=>'lineday=5',
+            '3'=>'lineday=6',
+            '4'=>'lineday=7',
+            '5'=>'lineday=8',
+        );
+
+        $sql="select a.* from sline_destinations a where a.pid = '0' and a.isopen=1 order by a.displayorder asc ";
+        
+        $dest = DB::query(Database::SELECT,$sql)->execute()->as_array();
+        $w=1;
+
+        if ($dest_id) {
+            $w .= " and FIND_IN_SET('{$dest_id}',a.kindlist)";
+        }
+        if ($p) {
+            $w .= " and ".$price[$p];
+        }
+        if ($d) {
+            $w .= " and ".$day[$d];
+        }
+        $sql="select count(id) as amount from sline_line a where {$w} and FIND_IN_SET('165',a.attrid) and  a.ishidden=0";
+        $amount = DB::query(Database::SELECT,$sql)->execute();
+        $total = $amount['amount'];
+
+        $pagesize = 5;
+        if ($page<1) {
+            $page =1;
+        }
+        $startnum = ($page-1)*$pagesize;
+            if ($startnum<0) {
+                $startnum=0;
+        }
+        $sql="select * from sline_line a where {$w} and FIND_IN_SET('165',a.attrid) and  a.ishidden=0  order by a.displayorder asc,a.modtime desc,a.addtime desc limit $startnum,$pagesize";
+        $list = DB::query(Database::SELECT,$sql)->execute()->as_array();
+        /*if(count($list)==0)
+        {
+            exit;
+        }*/
+        if($action=="ajaxline"){
+            echo json_encode($list);
+            exit;
+        }
+        
+        $this->assign('list', $list);
+        $this->assign('p', $p);
+        $this->assign('dest', $dest);
+        $this->assign('dest_id', $dest_id);
+        $this->assign('d', $d);
+        $this->assign('total', $total);
+       
+        //$pv->GetChannelKeywords($typeid);//根据栏目类型获取关键词.介绍,栏目名称
+
+        $this->display('lines/packages');
+    }
+    
+    private function checkMid()
+    {
+        $this->user = $GLOBALS['userinfo'];
+        $this->mid = $this->user['mid'] ? $this->user['mid'] : 0;
+        if(empty($this->mid))
+         $this->request->redirect('user/login');
+    }
 }

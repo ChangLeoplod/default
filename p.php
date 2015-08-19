@@ -1,8 +1,11 @@
 <?php
-require_once(dirname(__FILE__)."/include/common.inc.php");
-require_once(dirname(__FILE__)."/data/webinfo.php");
-global $dsql;
-$arr=$dsql->getAll("select * from #@__line_content");
-   
-print_r($arr);
+$result= '<?xml version="1.0" encoding="UTF-8"?><response><error>0</error><message></message></response>';
+if (strpos($result,'<error>0</error>')) {
+    $status->Success=1;
+}
+print_r($status);
+$json = json_encode($status);
+$j = json_decode($json);
+
+print_r($j);
 ?>

@@ -35,7 +35,7 @@ if ($p) {
 if ($d) {
     $w .= " and ".$day[$d];
 }
-$sql="select count(id) as amount from #@__line a where {$w} and FIND_IN_SET('162',a.attrid) and  a.ishidden=0";
+$sql="select count(id) as amount from #@__line a where {$w} and FIND_IN_SET('165',a.attrid) and  a.ishidden=0";
 $amount = $dsql->getOne($sql);
 $total = $amount['amount'];
 $b = 10;
@@ -49,7 +49,7 @@ if ($a<0) {
 if ($page<ceil($total/$b)) {
     $nextpage = $page+1;
 }
-$sql="select * from #@__line a where {$w} and FIND_IN_SET('162',a.attrid) and  a.ishidden=0  order by a.displayorder asc,a.modtime desc,a.addtime desc limit {$a},{$b}";
+$sql="select * from #@__line a where {$w} and FIND_IN_SET('165',a.attrid) and  a.ishidden=0  order by a.displayorder asc,a.modtime desc,a.addtime desc limit {$a},{$b}";
 $list = $dsql->getall($sql);
 
 foreach ($list as $k=>$v) {

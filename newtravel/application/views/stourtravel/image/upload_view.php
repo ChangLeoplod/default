@@ -37,7 +37,7 @@
         <a class="save_btn" id="uploadfiles" href="#">上传</a>
     </div>
 </div>
-</body>
+
 <script type="text/javascript">
     var groupid=$('#group').val();
     $('#group').change(function(){
@@ -49,7 +49,7 @@
         url: 'temp',
         flash_swf_url: '<?php echo $publicPath;?>js/image/Moxie.swf',
         filters: {
-            max_file_size: '2mb',
+            max_file_size: '8mb',
             mime_types: [
                 {title: "Image files", extensions: "jpg,gif,png"},
             ]
@@ -63,19 +63,12 @@
             },
             FilesAdded: function (up, files) {
                 plupload.each(files, function (file) {
-                    var tpl='<li id="{id}">'
-                        +'<i class="closed"></i>'
-                        +'<span>'
-                        +'<img src="{imgsrc}"  width="86" height="86" />'
-                        +'<em class="progress"></em>'
-                        +'</span>'
-                        +'<input type="text" class="text_name" />'
-                        +' </li>';
+                    var tpl='<li id="{id}"><i class="closed"></i><span><img src="{imgsrc}"  width="86" height="86" /><em class="progress"></em></span><input type="text" class="text_name" /></li>';
                     tpl=tpl.replace("{id}",file.id);
                         previewImage(file, function (imgsrc) {
                             tpl=tpl.replace("{imgsrc}",imgsrc);
                             $('.add_photo_btn').before(tpl);
-                        })
+                        });
                 });
                 var total=$('#total').text();
                 if(total>0){
@@ -147,4 +140,5 @@
         ST.Util.responseDialog({id:groupid},true);
     });
 </script>
+</body>
 </html>

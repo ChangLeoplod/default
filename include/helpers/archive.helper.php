@@ -2545,14 +2545,14 @@ $paytypeArr=explode(',',$GLOBALS['cfg_pay_type']);
             if(in_array(11,$paytypeArr)&&in_array(1,$paytypeArr))
             {
                 //$out.="<input type='radio' name='choosepay' id='alipaytype' value='1' style='vertical-align:middle;margin-right:5px;'><label for='alipaytype'>支付宝</label>&nbsp;&nbsp;";
-                $out.='  <dl class="ico1">
+                $out.='  <div class="pay_bank bank_hover"><dl class="ico1">
 					<dt>支付宝</dt>	
 					<dd>5亿人使用，推荐使用支付宝安全可靠</dd>
 				</dl>
 				
 				<input type="radio" class="raw" name="choosepay" checked="checked"  value="11" data-type="支付宝"/>
 				
-				<div class="clear"></div>';
+				<div class="clear"></div></div>';
             }
             if(in_array(12,$paytypeArr)&&in_array(1,$paytypeArr))
             {
@@ -2643,13 +2643,14 @@ $paytypeArr=explode(',',$GLOBALS['cfg_pay_type']);
             }
             if(in_array(8,$paytypeArr))
             {
-                $out.='<li>
-                    	<label>
-                        <em><img class="fl" src="/templets/smore/images/weixin.png" alt="微信支付"/></em>
-                        <span>微信</span>
-                        <input type="radio" name="choosepay" value="8" data-type="微信支付">
-                      </label>
-                    </li>';
+                $out.='<div class="pay_bank">
+<dl class="ico2">
+					<dt>微信支付</dt>	
+					<dd>打开手机微信在电脑扫一扫即支付，方便快捷</dd>
+				</dl>
+				
+				<input type="radio" class="raw" name="choosepay" value="8" data-type="微信支付"/><div class="clear"></div>	
+			</div>';
             }
         }
 

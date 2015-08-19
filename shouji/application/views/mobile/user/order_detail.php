@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>{$seotitle}-{$webname}</title>
+<title>订单详情</title>
     {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
     {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
 </head>
@@ -44,7 +44,7 @@
                     <tr>
                         <th scope="row">订单状态：</th>
                         {if $order['status']==0 || $order['status']==1}
-                            <td ><span class="orange mr10">待支付生效</span>倒计时：29分56秒</td>
+                            <td ><span class="orange mr10">待支付生效</span>过期时间：{$order['expireddate']}</td>
                         {elseif $order['status']==2} 
                             <td ><span class="pay-success">支付成功</span></td>
                         {elseif $order['status']==3}
@@ -122,10 +122,11 @@
             {/if}
             
             {if $order['status']==0 || $order['status']==1}
-                <div class="canshu alipay bg-white p10 bte3 bbe3 mt10 o-hidden">
+                <div class="canshu alipay bg-white p10 bte3 bbe3 mt10 o-hidden" id="zhifu">
                     <div class="bbe3"><div class="mb10">选择支付方式</div></div>
                     <table class="table table-striped grey m0">
-                        <tr>
+                        {if in_array(8,$order['pay_type'])}
+                        <tr id="weixin_btn" data-value="3">
                             <th scope="row" width="20%"><div class="icon"><img src="../../../public/images/icon/chn_wechat.png"></div></th>
                             <td width="80%">
                                 <h5 class="m0">微信支付</h5>
@@ -133,7 +134,10 @@
                             </td>
                             <td align="right"  width="8%"><i class="more-right"></i></td>
                         </tr>
-                        <tr>
+                        {/if}
+                        
+                        {if in_array(1,$order['pay_type'])}
+                        <tr id="zhifubao" data-value="1">
                             <th scope="row"><div class="icon icon3"><img src="../../../public/images/icon/Alibabai_Alipay.png"></div></th>
                             <td>
                                 <h5 class="m0">支付宝支付</h5>
@@ -141,7 +145,10 @@
                             </td>
                             <td align="right"><i class="more-right"></i></td>
                         </tr>
-                        <tr>
+                        {/if}
+                        
+                        {if in_array(2,$order['pay_type'])}
+                        <tr id="yinlian" data-value="2">
                             <th scope="row"><div class="icon icon2"><img src="../../../public/images/icon/visa.png"></div></th>
                             <td>
                                 <h5 class="m0">银联支付</h5>
@@ -149,6 +156,8 @@
                             </td>
                             <td align="right"><i class="more-right"></i></td>
                         </tr>
+                        {/if}
+                        
                     </table>   
                 </div>
             {/if}
@@ -163,7 +172,82 @@
         </div>
     </div>
 </div>
+
+
+<form method="post" action="{$cmsurl}page/dopay" id="payfrm">
+    <input type="hidden" name="orderid" value="{$order['id']}"/>
+    <input type="hidden" name="paytype" id="paytype" value="0">
+</form>
+
     
 <div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
+
+<script>
+    $(function(){
+        $('#zhifu tr').click(function(){
+            $("#paytype").val($(this).attr('data-value'));
+            if ($(this).attr('data-value')==3) {
+                callpay();               
+                
+            } else {
+                $("#payfrm").submit();
+            }
+        });
+
+        if(!isWeiXin())
+        {
+            $("#weixin_btn").hide();
+        }
+    })
+
+    function isWeiXin(){ 
+        var ua = window.navigator.userAgent.toLowerCase(); 
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){ 
+            return true; 
+        }else{ 
+            return false; 
+    } 
+    }
+    
+     function jsApiCall()
+        {
+                WeixinJSBridge.invoke(
+                        'getBrandWCPayRequest',{$jsApiParameters},
+                        function(res){
+                                WeixinJSBridge.log(res.err_msg);
+                                $.ajax({
+                                    type:"post",
+                                    url:"{$cmsurl}order/check",
+                                    data:{"orderid":{$order['id']}},
+                                    dataType:'json',
+                                    success: function(data){
+                                        if(data.status == '1'){
+                                            if(data.ispay==1) {
+                                               location.href = '{$cmsurl}user/order_detail/orderid/{$order['id']}';
+                                            } 
+                                        }
+                                    }
+                                });
+                        }
+                );
+        }
+
+        function callpay()
+        {
+                if (typeof WeixinJSBridge == "undefined"){
+                    if( document.addEventListener ){
+                        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                    }else if (document.attachEvent){
+                        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+                        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                    }
+                }else{
+                    jsApiCall();
+                }
+        }
+    
+
+</script>
+
 </body>
 </html>

@@ -287,11 +287,11 @@ if(file_exists(SLINEDATA.'/weblist.php'))
         $prefix = $uarr[0]; //域名前辍
         if(!array_key_exists($prefix,$weblist) && $prefix!=$sys_webprefix)
         {
-            if(!isset($GLOBALS['is404']))
+            /*if(!isset($GLOBALS['is404']))
             {
                 head404();//如果域名不匹配,则跳转到404页面.
                 exit;
-            }
+            }*/
 
         }
         else if($prefix!=$sys_webprefix)

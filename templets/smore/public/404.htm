@@ -1,10 +1,22 @@
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
-<title>404错误</title>
-{sline:php}GetScript('jquery-1.4.2.min.js,common.js','2014.01');{/sline:php}
-{sline:php}GetCss('base.css','2014.01');{/sline:php}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetCss('base.css','2014.01');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,ajax.member.search.js');{/sline:php}
+    {sline:php}GetScript('common.js','2014.01');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
 </head>
 
 <body>
@@ -56,10 +68,3 @@
    <!--底部开始-->
   
   {sline:include file='public/footer.htm'/}
-  
-  {sline:include file='public/flink.htm'/}
-  <!-- 底部结束 -->
-  <!-- 友情链接结束 -->
-  <!-- 底部介绍结束 -->
-</body>
-</html>

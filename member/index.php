@@ -236,22 +236,27 @@ if($dopost == 'orderlist')
 
 if($dopost == 'vieworder')
 {
-	$pagename = $dopost;
-	Helper_Archive::loadModule('common');
-	$_model = new CommonModule('#@__member_order');
-	$orderinfo = $_model->getOne("memberid='$uid' and id='$orderid'");
-	$_model2 = new CommonModule('#@__line');
-	$lineinfo = $_model2->getOne("aid='{$orderinfo['productaid']}'");
-        $lineinfo['startcity'] = getStartCityName($lineinfo['startcity']);
-        unset($lineinfo['id']);
-        
-        $orderinfo['dingdate'] = Mydate('Y-m-d H:i:s',$orderinfo['addtime']);
-	$orderinfo['orderstatus'] = strip_tags(getOrderStatus($orderinfo['status'],$orderinfo['paytype']));//订单状态
+    $pagename = $dopost;
+    Helper_Archive::loadModule('common');
+    $_model = new CommonModule('#@__member_order');
+    $orderinfo = $_model->getOne("id='$orderid'");
+    $_model2 = new CommonModule('#@__line');
+    $lineinfo = $_model2->getOne("aid='{$orderinfo['productaid']}'");
+    $lineinfo['startcity'] = getStartCityName($lineinfo['startcity']);
+    unset($lineinfo['id']);
+
+    $orderinfo['dingdate'] = Mydate('Y-m-d H:i:s',$orderinfo['addtime']);
+    if($orderinfo['status']==0 || $orderinfo['status']==1)
+    {
+        $expiredtime=3600;
+        $orderinfo['expireddate'] = Mydate('Y-m-d H:i:s',($orderinfo['addtime']+$expiredtime));
+    }
+    $orderinfo['orderstatus'] = strip_tags(getOrderStatus($orderinfo['status'],$orderinfo['paytype']));//订单状态
     $orderinfo['dingjin'] = $orderinfo['dingjin'] * $orderinfo['dingnum'];
     if($orderinfo['typeid']==2)
     {
         $childOrder = M::getChildOrderInfo($orderinfo['id']);
-        $totalprice = 0; 
+        $totalprice = 0;
         $roomdinginfo = array();
         foreach($childOrder as $order)
         {
@@ -281,38 +286,34 @@ if($dopost == 'vieworder')
         }
         $orderinfo['totalprice']+=$orderinfo['roombalance']*$orderinfo['roombalancenum'];
     }
-
-
-
-
-
-	$userinfo = $User->getInfoByMid($uid);// 会员相关信息
+    
+    $userinfo = $User->getInfoByMid($uid);// 会员相关信息
 
 	//是否存在赠送奖励(先取消)
     //$GLOBALS['condition']['_has_jiefenbook'] = $orderinfo['jifenbook'];
 	//$GLOBALS['condition']['_has_jiefentprice'] = $orderinfo['jifentprice'];
 	//$GLOBALS['condition']['_has_jiefencomment'] = $orderinfo['jifencomment'];
     $GLOBALS['condition']['_has_dingjin'] = $dingjin;
+    $GLOBALS['condition']['_has_expireddate'] = $orderinfo['expireddate'];
     if ($orderinfo['status'] ==3) $orderinfo['ispay'] =3;
-    if ($orderinfo['status'] ==1) $orderinfo['ispay'] =$orderid;
-	foreach($orderinfo as $key=>$value)
-		{
-		  $pv->Fields[$key] = $value;  
-		}
-	foreach($userinfo as $key=>$value)
-		{
-		  $pv->Fields[$key] = $value;  
-		}
-	foreach($lineinfo as $key=>$value)
-		{
-		  $pv->Fields[$key] = $value;  
-		}
-        $pv->Fields['litpic'] = empty($pv->Fields['litpic']) ? $GLOBALS['cfg_templets_skin'].'/images/member_default.gif' : $pv->Fields['litpic'];
-	$pv->SetTemplet(MEMBERTEMPLET . 'order_detail.htm');
+    foreach($orderinfo as $key=>$value)
+    {
+        $pv->Fields[$key] = $value;  
+    }
+    foreach($userinfo as $key=>$value)
+    {
+        $pv->Fields[$key] = $value;  
+    }
+    foreach($lineinfo as $key=>$value)
+    {
+        $pv->Fields[$key] = $value;  
+    }
+    $pv->Fields['litpic'] = empty($pv->Fields['litpic']) ? $GLOBALS['cfg_templets_skin'].'/images/member_default.gif' : $pv->Fields['litpic'];
+    $pv->SetTemplet(MEMBERTEMPLET . 'order_detail.htm');
 
-	$pv->Display();
-	
-	exit();
+    $pv->Display();
+
+    exit();
 }
 
 /*-----------------------------

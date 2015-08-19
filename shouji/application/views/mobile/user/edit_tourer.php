@@ -27,57 +27,58 @@
                     新增常用旅客
                 {/if}
             </li>
-            <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}user/orderlist" class="baseicon block pull-right date"></a></li>
+            <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}index" class="baseicon block pull-right date"></a></li>
         </ul>
     </header>
     
     <div class="main"> 
-         <div class="modify-common-passenger p15">
-             <form action="{$cmsurl}user/savetourer" method="post" onsubmit="return CommitCheck();"> 
-              <div class="confirmation-order"> 
-                   <div class="canshu contact bg-white">
-                       <table class="table table-striped grey m0">
-                           <input type="hidden" name="id" value="{if $tourer['id']} {$tourer['id']} {/if}">
-                           <input type="hidden" name="mid" value="{if $tourer['mid']} {$tourer['mid']} {else} {$mid} {/if}">
-                            <tr>
-                                <th scope="row" width="30%">姓名：</th>
-                                <td align="right"  width="70%">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="张三" value="{if $tourer['name']} {$tourer['name']} {/if}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" width="30%">手机号：</th>
-                                <td align="right"  width="70%">
-                                    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="13012345678" value="{if $tourer['mobile']} {$tourer['mobile']} {/if}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" width="30%">邮箱：</th>
-                                <td align="right"  width="70%">
-                                    <input type="text" name="email" class="form-control" id="email" placeholder="aaa@bbb.com" value="{if $tourer['email']} {$tourer['email']} {/if}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" width="30%">护照号：</th>
-                                <td align="right"  width="70%">
-                                    <input type="text" name="ppno" class="form-control" id="ppno" placeholder="G12345678" value="{if $tourer['ppno']} {$tourer['ppno']} {/if}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" width="30%">身份证号：</th>
-                                <td align="right"  width="70%">
-                                    <input type="text" name="idno" class="form-control" id="idno" placeholder="123456789000000000" value="{if $tourer['idno']} {$tourer['idno']} {/if}">
-                                </td>
-                            </tr>
-                        </table>    
-                  </div>
-              </div> 
+        <div class="modify-common-passenger p15">
+            <div class="confirmation-order"> 
+                <div class="canshu contact bg-white">
+                    <table class="table table-striped grey m0">
+                        <input type="hidden" id="id" name="id" value="{if $tourer['id']} {$tourer['id']} {/if}">
+                        <input type="hidden" id="mid" name="mid" value="{if $tourer['mid']} {$tourer['mid']} {else} {$mid} {/if}">
+                        <tr>
+                            <th scope="row" width="30%">姓名：</th>
+                            <td align="right"  width="70%">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="张三" value="{if $tourer['name']}{$tourer['name']}{/if}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="30%">手机号：</th>
+                            <td align="right"  width="70%">
+                                <input type="text" name="mobile" class="form-control" id="mobile" placeholder="13012345678" value="{if $tourer['mobile']}{$tourer['mobile']}{/if}">
+                            </td>
+                        </tr>   
+                        <tr>
+                            <th scope="row" width="30%">邮箱：</th>
+                            <td align="right"  width="70%">
+                                <input type="text" name="email" class="form-control" id="email" placeholder="aaa@bbb.com" value="{if $tourer['email']}{$tourer['email']}{/if}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="30%">护照号：</th>
+                            <td align="right"  width="70%">
+                                <input type="text" name="ppno" class="form-control" id="ppno" placeholder="G12345678" value="{if $tourer['ppno']}{$tourer['ppno']}{/if}">
+                            </td>
+                        </tr>
+                        <tr>    
+                            <th scope="row" width="30%">身份证号：</th>
+                            <td align="right"  width="70%">
+                                <input type="text" name="idno" class="form-control" id="idno" placeholder="123456789000000000" value="{if $tourer['idno']}{$tourer['idno']}{/if}">
+                            </td>
+                        </tr>
+                     </table>
+               </div>
+            </div> 
               
-              <div class="mt10">
-                  <input class="login_in btn w100 p10 font16 white mt10" name="" type="submit" value="确定">
-              </div>
-             </form>
-         </div>
+            <div class="mt10">
+                  <input class="login_in btn w100 p10 font16 white mt10" id="confirm" name="" type="button" value="确定">
+                  <div class="error-message affix modal" id="myModal">
+                      <div class="affix font12 p10 white text-center" id="error">新增用户成功</div>
+                  </div> 
+            </div>
+        </div>
     </div>
     
 </div>
@@ -85,8 +86,9 @@
 <div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
 
 <script>
-    function CommitCheck()
-    {
+    $("#confirm").click(function(){
+        var id = $("#id").val();
+        var mid = $("#mid").val();
         var name = $("#name").val();
         var mobile = $("#mobile").val();
         var email = $("#email").val();
@@ -98,30 +100,46 @@
         var pppattern = /^1[45][0-9]{7}|G[0-9]{8}|P[0-9]{7}|S[0-9]{7,8}|D[0-9]+$/;
         if(name.length<1)
         {
-            alert('旅游名不能为空');
+            perror("请输入正确的用户名");
             return false;
         }
         if(!telpattern.test(mobile)){
-            alert('请输入正确的手机号码');
+            perror('请输入正确的手机号码');
             return false;
         }
         if(!emailpattern.test(email)) {
-            alert('请输入正确的邮箱');
+            perror('请输入正确的邮箱');
             return false;
         }
         if(!pppattern.test(ppno)) {
-            alert('请输入正确的护照号');
+            perror('请输入正确的护照号');
             return false;
         }
         if(!idpattern.test(idno)) {
-            alert('请输入正确的身份证号');
+            perror('请输入正确的身份证号');
             return false;
         }
-        
-        
-        return true;
-    }
+        $.ajax({
+            type:"post",
+            url:"{$cmsurl}user/savetourer",
+            data:{"id":id,"mid":mid,"name":name,"mobile":mobile,"email":email,"idno":idno,"ppno":ppno},
+            dataType:'json',
+            success:function(data){
+                perror(data.msg);
+                if(data.status)
+                {
+                    setTimeout("location.href='{$cmsurl}user/commontourers';",700);
+                }
+            }
+        }).done(function(){
+            return true;
+        });
+    });
 
+    function perror(msg) {
+        $("#error").html(msg);
+        $('#myModal').modal('show');
+    }
 </script>
 
 </body>

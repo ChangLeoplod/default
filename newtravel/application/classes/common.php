@@ -30,7 +30,7 @@ class Common {
      * @param     string  $isfullpage 是否全屏
      * @return    string
      */
-   public static function getEditor($fname,$fvalue,$nwidth="700",$nheight="350",$etype="Sline",$ptype='',$gtype="print",$jsEditor=false)
+   public static function getEditor($fname,$fvalue,$nwidth="1000",$nheight="850",$etype="Sline",$ptype='',$gtype="print",$jsEditor=false)
     {
 
 
@@ -851,7 +851,7 @@ class Common {
                 $head.='<dl>
                             <dt>'.$row['description'].'：</dt>
                             <dd>
-                                <div>'.self::getEditor($row['fieldname'],$default,700,200,'Sline','0','0').'</div>
+                                <div>'.self::getEditor($row['fieldname'],$default,1000,800,'Sline','0','0').'</div>
                             </dd>
                         </dl>';
                 $head.='</div>';
@@ -921,7 +921,7 @@ class Common {
                 $contentHtml.='<dl>
                             <dt>'.$row['description'].'：</dt>
                             <dd>
-                                <div>'.self::getEditor($row['fieldname'],$default,700,200,'Sline','0','0').'</div>
+                                <div>'.self::getEditor($row['fieldname'],$default,1000,800,'Sline','0','0').'</div>
                             </dd>
                         </dl>';
                 $contentHtml.='</div></div>';
@@ -933,7 +933,7 @@ class Common {
                 $head.='<dl>
                             <dt>'.$row['description'].'：</dt>
                             <dd>
-                                <div>'.self::getEditor($row['fieldname'],$default,700,200,'Sline','0','0').'</div>
+                                <div>'.self::getEditor($row['fieldname'],$default,1000,800,'Sline','0','0').'</div>
                             </dd>
                         </dl>';
                 $head.='</div>';
@@ -1096,225 +1096,6 @@ class Common {
                 $tempNum=$num;
         }
         return $tempNum+1;
-    }
-    public static function paySuccess($ordersn,$paySource='后台',$params=null)
-    {
-        $orderModel=ORM::factory('member_order')->where('ordersn','=',$ordersn)->find();
-        if(!$orderModel->loaded())
-            return false;
-        $arr=$orderModel->as_array();
-
-        if(empty($arr))
-            return false;
-        //if($arr['status']==2)
-        //    return true;
-
-        $configModel=new Model_Sysconfig();
-        $configs=$configModel->getConfig(0);
-        if(substr($ordersn,0,2)=='dz')
-        {
-            $ordertype = 'dz';
-            $dzModel=ORM::factory('dzorder')->where('ordersn','=',$ordersn)->find();
-            $dzModel->status=2;
-            $dzModel->paysource=$paySource;
-            $dzModel->save();
-        }
-        else
-        {
-            $ordertype = 'sys';
-          //  $updatesql="update #@__member_order set ispay=1,status=2,paysource='$paySource' where ordersn='$ordersn'"; //付款标志置为1,交易成功
-            $orderModel->ispay=1;
-            $orderModel->status=2;
-            $orderModel->paysource=$paySource;
-            $orderModel->save();
-        }
-
-        if($ordertype !='dz')
-        {
-            $msgInfo = self::getDefineMsgInfo($arr['typeid'],3);
-            $memberModel= ORM::factory('member',$arr['memberid']);
-            $memberInfo = $memberModel->as_array();
-            $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-            if(isset($msgInfo['isopen'])) //等待客服处理短信
-            {
-                $content = $msgInfo['msg'];
-                $totalprice = $arr['price'] * $arr['dingnum'];
-                $content = str_replace('{#MEMBERNAME#}',$memberInfo['nickname'],$content);
-                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                $content = str_replace('{#PRICE#}',$arr['price'],$content);
-                $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
-                $content = str_replace('{#TOTALPRICE#}',$totalprice,$content);
-                $content = str_replace('{#WEBNAME#}',$configs['cfg_webname'],$content);
-
-                self::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-            }
-
-            $emailInfo=self::getEmailMsgConfig2($arr['typeid'],3);
-            if($emailInfo['isopen']==1 && !empty($memberInfo['email']))
-            {
-                $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-                $title="订单支付成功";
-                $content = $emailInfo['msg'];
-                $totalprice = $arr['price'] * $arr['dingnum'];
-                $content = str_replace('{#MEMBERNAME#}',$nickname,$content);
-                $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                $content = str_replace('{#PRICE#}',$arr['price'],$content);
-                $content = str_replace('{#NUMBER#}',$arr['dingnum'],$content);
-                $content = str_replace('{#TOTALPRICE#}',$totalprice,$content);
-                $content = str_replace('{#EMAIL#}',$memberInfo['email'],$content);
-                $content = str_replace('{#WEBNAME#}',$configs['cfg_webname'],$content);
-                self::ordermaill($memberInfo['email'],$title,$content);
-            }
-
-
-            //支付成功后添加预订送积分
-            if(!empty($arr['jifenbook']))
-            {
-                $addjifen = intval($arr['jifenbook']);
-
-                $memberModel->jifen=$memberModel->jifen+$addjifen;
-                if($memberModel->save())
-                {
-                    self::addJifenLog($arr['memberid'],"预订{$arr['productname']}获得积分{$addjifen}",$addjifen,2);
-                }
-            }
-            //如果是酒店订单,则把子订单置为交易成功状态
-
-            if($arr['typeid']==2)
-            {
-                $s = "update sline_member_order set ispay=1,paysource='$paySource' where pid='{$arr['id']}'";
-                DB::query(Database::UPDATE,$s);
-            }
-        }
-        return true;
-    }
-    public static function getDefineMsgInfo($typeid,$num=0)
-    {
-        $model = ORM::factory('sms_msg');
-        $msgtype = self::getMsgType($typeid,$num);
-        $row = $model->where('msgtype','=',$msgtype)->find()->as_array();
-        return $row;
-    }
-    public static function getDefineMsgInfo2($msgtype)
-    {
-        $model = ORM::factory('sms_msg');
-        $row = $model->where('msgtype','=',$msgtype)->find()->as_array();;
-        return $row;
-    }
-    public static function getEmailMsgConfig($msgtype)
-    {
-
-        $model = ORM::factory('email_msg');
-        $row =  $model->where('msgtype','=',$msgtype)->find()->as_array();
-        return $row;
-    }
-    public static function getEmailMsgConfig2($typeid,$num)
-    {
-        $model = ORM::factory('email_msg');
-        $msgtype = self::getMsgType($typeid,$num);
-        $row = $model->where('msgtype','=',$msgtype)->find()->as_array();
-        return $row;
-    }
-
-    /*
-     * 根据typeid生成msgtype
-     * @param int $typeid
-     * @param int $num ,第几个状态.
-     * @return string $msgtype
-     * */
-    public static function getMsgType($typeid,$num)
-    {
-        switch($typeid)
-        {
-            case 1:
-                $msgtype = 'line_order_msg'.$num;
-                break;
-            case 2:
-                $msgtype = 'hotel_order_msg'.$num;
-                break;
-            case 3:
-                $msgtype = 'car_order_msg'.$num;
-                break;
-            case 5:
-                $msgtype = 'spot_order_msg'.$num;
-                break;
-            case 8:
-                $msgtype = 'visa_order_msg'.$num;
-                break;
-            case 13:
-                $msgtype = 'tuan_order_msg'.$num;
-                break;
-
-            default:
-                $msgtype = 'reg';
-                break;
-        }
-        return $msgtype;
-
-    }
-    public static function sendMsg($phone,$prefix,$content)
-    {
-        $configModel=new Model_Sysconfig();
-        $configs=$configModel->getConfig(0);
-        $prefix = $configs['cfg_webname'];
-        $msg = new Msg($configs['cfg_sms_username'],$configs['cfg_sms_password']);
-        $status = $msg->sendMsg($phone,$prefix,$content);
-        $status = json_decode($status);
-        return $status;
-    }
-    public static function addJifenLog($memberid,$content,$jifen,$type)
-    {
-        $model = ORM::factory('member_jifen_log');
-        $model->memberid=$memberid;
-        $model->content=$content;
-        $model->jifen=$jifen;
-        $model->type=$type;
-        $model->addtime=time();
-        $model->save();
-    }
-    public static   function ordermaill($maillto,$title,$content){
-        $configModel=new Model_Sysconfig();
-        $configs=$configModel->getConfig(0);
-        //如果没有自定义SMTP配置
-        if($configs['cfg_mail_smtp']==''){
-            $configs['cfg_mail_smtp'] = "smtp.163.com";
-        }
-        if($configs['cfg_mail_port']==''){
-            $configs['cfg_mail_port'] = 25;
-        }
-        if($configs['cfg_mail_user']==''){
-            $configs['cfg_mail_user'] = "Stourweb@163.com";
-            $configs['cfg_mail_pass'] = "kelly12345";
-        }
-        $smtpserver = $configs['cfg_mail_smtp'];//SMTP服务器
-        $smtpserverport =$configs['cfg_mail_port'];//SMTP服务器端口
-        $smtpusermail = $configs['cfg_mail_user'];//SMTP服务器的用户邮箱
-        $smtpemailto =$maillto;//发送给谁
-        $smtpuser = $configs['cfg_mail_user'];//SMTP服务器的用户帐号
-        $smtppass = $configs['cfg_mail_pass'];//SMTP服务器的用户密码
-        $mailtype = "HTML"; //邮件格式（HTML/TXT）,TXT为文本邮件
-
-        ##########################################
-
-        if($smtpserverport==25){
-
-            $mailsubject = iconv('UTF-8','GB2312//IGNORE',$title);//邮件主题
-            $mailbody = iconv('UTF-8','GB2312//IGNORE',$content);//邮件内容
-            $smtp = new Smtp($smtpserver,$smtpserverport,true,$smtpuser,$smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证.
-            $smtp->debug = false;//是否显示发送的调试信息
-            $status=$smtp->sendmail($smtpemailto, $smtpuser, $mailsubject, $mailbody, $mailtype);
-        }else{
-
-            $mail = new Mysendmail();
-            $mail->setServer($smtpserver, $smtpuser, $smtppass, 465, true); //设置smtp服务器，到服务器的SSL连接
-            $mail->setFrom($smtpuser); //设置发件人
-            $mail->setReceiver($smtpemailto); //设置收件人，多个收件人，调用多次
-            $mail->setMail($title, $content); //设置邮件主题、内容
-            $status = $mail->sendMail(); //发送
-        }
-
-
-        return $status;
     }
 
 

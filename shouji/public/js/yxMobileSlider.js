@@ -15,8 +15,6 @@ $('.return-left').click(function(){
     });
 });
 (function($){
-    
-    
     $.fn.yxMobileSlider = function(settings){
         var defaultSettings = {
             width: 640, //容器宽度
@@ -74,9 +72,10 @@ $('.return-left').click(function(){
             })
             $("div", oFocusContainer).width(oFocus.outerWidth(true) * num).css({
                 position: 'absolute',
-                right: '40%',
+                right: '50%',
                 top: '50%',
-                marginTop: -$(this).find('span').width() / 2
+                marginTop: -$(this).find('span').width() / 2,
+				marginRight:-$(".focus").children('div').width() / 2
             });
             oFocus.first().addClass("current");
             //页面加载或发生改变

@@ -5,19 +5,31 @@ class Controller_Order extends Stourweb_Controller{
     {
         parent::before();
     }
-     
+    public function action_check() {
+        $orderid = Arr::get($_POST,'orderid');
+        $info = ORM::factory('member_order',$orderid)->as_array();
+        if($info['ispay'] ==1) {
+            $arr['ispay'] =1;
+        } else {
+            $arr['ispay']=0;
+        }
+        $arr['status']=1;
+        echo json_encode($arr);
+    }
 
-
-    //订单创建(post提数参数)
+        //订单创建(post提数参数)
     //(id=>'产品id';suitid=>'套餐id';dateid=>'价格id或linux出行时间';ordertype=>'产品的类型';dingnum=>'大人数量或产品数量';childnum=>'小孩数量，没有填0';linkman=>'联系人';linktel=>'联系人电话')
-	public function action_create(){
+    public function action_create(){
 
-		$id = Arr::get($_POST,'id');
-		$suitid = Arr::get($_POST,'suitid');//套餐id
-        $tmpdateid = Arr::get($_POST,'dateid');
-        $dateid = is_numeric($tmpdateid) ? $tmpdateid : strtotime($tmpdateid);//价格id
+        $id = Arr::get($_POST,'id');
+        $suitid = Arr::get($_POST,'suitid');//套餐id
+        $tmpdateid = Arr::get($_POST,'day');
+        //$dateid = is_numeric($tmpdateid) ? $tmpdateid : strtotime($tmpdateid);//价格id
         $typeid = Arr::get($_POST,'ordertype');//订单类型
+        $linkman = Arr::get($_POST,'linkman');
         $linktel = Arr::get($_POST,'linktel');//手机号
+        $linkemail = Arr::get($_POST,'linkemail');
+        $remark = Arr::get($_POST,'remark');
         if(empty($linktel))
         {
             Common::showMsg('手机号不能为空',-1);
@@ -30,7 +42,7 @@ class Controller_Order extends Stourweb_Controller{
         	case '1':
 	        	$info = ORM::factory('line')->where("id=$id")->find()->as_array();
 	        	$suitarr = ORM::factory('line_suit')->where("id=$suitid")->find()->as_array();
-	        	$datearr = ORM::factory('line_suit_price')->where("day=$dateid and suitid=$suitid")->find()->as_array();
+                        $datearr = ORM::factory('line_suit_price')->where("day='{$tmpdateid}' and suitid='{$suitid}'")->find()->as_array();
                 if($suitarr['paytype']=='3')//这里补充一个当为二次确认时,修改订单为未处理状态.
                 {
                     $info['status'] = 0;
@@ -48,6 +60,7 @@ class Controller_Order extends Stourweb_Controller{
 	            $info['jifencomment']=intval($suitarr['jifencomment']);
 	            $info['ourprice']=intval($datearr['adultprice']);
 	            $info['childprice']=intval($datearr['childprice']);
+                    $info['roombalance']=intval($datearr['roombalance']);
 	            $info['usedate']=date('Y-m-d',$datearr['day']);
 
         		break;
@@ -192,15 +205,17 @@ class Controller_Order extends Stourweb_Controller{
             'paytype'=>$info['paytype'],
             'dingjin'=>$info['dingjin'],
             'usedate'=>$info['usedate'],
+            'roombalance'=>$info['roombalance'],
             'addtime'=>time(),
             'memberid'=>$mid,
-            'dingnum'=>Arr::get($_POST,'dingnum'),
-            'childnum'=>Arr::get($_POST,'childnum'),
+            'dingnum'=>Arr::get($_POST,'adult'),
+            'childnum'=>Arr::get($_POST,'child'),
             'oldprice'=>Arr::get($_POST,'oldprice'),
             'oldnum'=>Arr::get($_POST,'oldnum'),
             'linkman'=>Arr::get($_POST,'linkman'),
             'linktel'=>Arr::get($_POST,'linktel'),
-            'suitid'=> Arr::get($_POST,'suitid')
+            'suitid'=> Arr::get($_POST,'suitid'),
+            'remark'=> Arr::get($_POST,'remark'),
         );
 
         if(Common::addOrder($arr))

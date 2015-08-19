@@ -2,7 +2,7 @@
     function CodeTimeout(v){
         if(v>0)
         {
-            togPhoneBtn(false);console.log(v);
+            togPhoneBtn(false);
             $('#MobileInvCode').html('重发验证码('+(--v)+')');
             setTimeout(function(){CodeTimeout(v)},1000);
         }

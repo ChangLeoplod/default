@@ -411,7 +411,7 @@ class Controller_User extends Stourweb_Controller{
     private function checkMid()
     {
         if(empty($this->mid))
-         $this->request->redirect('user/login');
+            $this->request->redirect('user/login');
     }
      
 

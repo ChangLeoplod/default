@@ -15,15 +15,15 @@ class Msg{
 	var $sendphone;//发送的手机号
 	var $contentprefix;//称昵
 	var $content;
-	var $apiUrl='http://sms.souxw.com/service/api.ashx?'; //短信接口地址
+	var $apiUrl='http://sdk4rptws.eucp.b2m.cn:8080/sdkproxy/sendsms.action?'; //短信接口地址
     var $action;//操作 buysms/sendsms/querysmssendlog/querysmsbuylog/querysmsbalance
     var $data = array();
 	function __construct($username,$password)
 	{
-		$this->userName = $username;
-        $this->password = $password;
-        $this->data['account'] = $username;
-        $this->data['password'] = md5($password);
+        $this->userName = '6SDK-EMY-6688-KBTSK';
+        $this->password = 'guangyou';
+        $this->data['cdkey'] = $this->userName;
+        $this->data['password'] = $this->password;
 
 	}
 	
@@ -38,17 +38,20 @@ class Msg{
 
 	public function sendMsg($phone,$prefix,$content)
 	{
-		$init = array(
-            'action'=>'sendsms',
-            'telno'=>$phone,
-            'contentprefix'=>$prefix,
-            'content'=>$content
+            $init = array(
+            'phone'=>$phone,
+            'message'=>'【积沙旅行】'.$content,
+            'seqid'=>md5($phone),
+            'smspriority'=>1,
         );
         $data = array_merge($this->data,$init);//合并数组
         $params = http_build_query($data);//生成参数数组
         $url = $this->apiUrl.$params;
-
-        return $this->http($url);
+        $result = $this->http($url);
+        if (strpos($result,'<error>0</error>')) {
+            $status->Success=1;
+        }
+        return json_encode($status);
 	}
     /*
      * 查询发送记录接口

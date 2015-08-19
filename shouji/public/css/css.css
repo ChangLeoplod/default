@@ -5,6 +5,7 @@
 .white{color:#fff}
 .w100{ width:100%}
 .w50{ width:50%}
+.w51{ width:57%}
 .w25{ width:25%}
 .w40{ width:40%}
 .w33{ width:33.333%}
@@ -17,8 +18,9 @@ li{ list-style:none}
 .p15{ padding:15px;}
 .none {display:none;}
 .block{ display:block;}
-.font10{font-size:10px}
+.font10{font-size:12px}
 .font12{font-size:12px}
+.font1b{font-size:15px}
 .font14{font-size:14px}
 .font16{font-size:16px}
 .font18{font-size:18px}
@@ -37,7 +39,7 @@ li{ list-style:none}
 i,em{font-style:normal}
 .mt5{ margin-top:5px;}
 .bold{font-weight:bold}
-.bg-white{background:#fff}
+.bg-white{background:#fff!important}
 .o-hidden{ overflow:hidden;}
 a:hover{ text-decoration:none}
 .white-nowrap{white-space:nowrap;}
@@ -50,29 +52,40 @@ a:hover{ text-decoration:none}
 
 /*index*/
 header{ height:50px;}
-header .return-left,header .li3 .member,header .li3 .date,.return{ width:20px ; height:20px;}
+header .return-left,header .li3 .member,header .li3 .date{ width:20px ; height:20px;}
 header .return-left{ background:url(../images/icon/left.png) no-repeat; background-size:50%}
-header .li1{ width:15%}
-header .li2{ width:60%; line-height:20px;}
-header .li3{ width:25%}
+header .li1,header .li3{ width:20%}
+header .li2{ width:60%; line-height:20px;  }
 header .li3 .member{ background:url(../images/icon/user.png) no-repeat; background-size:100%; margin-left:15px;}
 header .li3 .date{background:url(../images/icon/calendar.png) no-repeat; background-size:100%;}
 header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav.png) no-repeat; background-size:100%; margin-top:-5px;}
+/*header{ height:50px;}
+header .return-left,header .li3 .member,header .li3 .date,header .return{ width:20px ; height:20px;}
+header .return-left{ background:url(../images/icon/left.png) no-repeat; background-size:50%}
+header .li1{ width:15%}
+header .li2{ width:60%; line-height:20px; padding-left:20px;}
+header .li3{ width:25%}
+header .li3 .member{ background:url(../images/icon/user.png) no-repeat; background-size:100%; margin-left:15px;}
+header .li3 .date{background:url(../images/icon/calendar.png) no-repeat; background-size:100%;}
+header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav.png) no-repeat; background-size:100%; margin-top:-5px;}*/
 
 .slider{display:none}/*用于获取更加体验*/
+.slider li{ position:relative}
+.slider li div{ bottom:30px; left:20px; rihgt:10px;}
 .focus span{width:10px;height:10px;margin-right:10px;border-radius:50%;background:#666;font-size:0}
 .focus span.current{background:#fff}
 
-.recommend li img{ height:60px; width:60px; border-radius:60px;}
+.recommend li img{ border-radius:60px; height:60px; width:60px;}
 .recommend li span{ top:20px; left:0px; right:0px; }
 
 .panel-title h2{ border-left:3px solid #22cdc4; padding-left:10px;}
 .panel-title p{ padding-left:13px; margin: 5px 0px 0px 0px; }
 .panel-title .more{ width:17px; height:17px; right:0px; top:10px; background:url(../images/icon/right1.png) no-repeat; background-size:58%}
 
-.select-one li img,.column-page .content li img,.commodity-page .ginto img,.order-col .content .pic img,.user-images div img{ width:100%;}
-.select-one li .text{ bottom:10px; left:15px; right:15px; }
-.select-one li .text p{margin: 5px 0px 5px 0px;}
+.select-one li img,.column-page .content li img,.commodity-page .ginto img,.order-col .content .pic img,.user-images div img,.comm-col .tab-content img{ width:100%;}
+.select-one li .text{ bottom:5px; left:5px; right:5px; top:5px; background:rgba(0,0,0,0.2)}
+.select-one li .text div,.column-page .content li .text div{ bottom:15px; left:15px; right:15px; }
+.select-one li .text p,.column-page .content li .text p{margin: 3px 0px 3px 0px;}
 
 .shop-col .panel-title h2{ border-left:3px solid #fd7b23;}
 .shop-col .panel-title .more{ background:url(../images/icon/right3.png) no-repeat; background-size:58%}
@@ -100,23 +113,33 @@ header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav
 .select-we .hot-link div i.i5{ background:url(../images/icon/Handshake.png) no-repeat; background-size:100%;}
 
 /*column-page*/
-.column-page .hot li{ padding:3px;}
 .column-page .hot li.active div{ background:#22cdc4; border:1px solid #22cdc4}
 .column-page .hot li.active div a{ color:#fff;}
 .column-page .hot li div{ padding:6px 10px; border:1px solid #d4d4d4}
-.black,.column-page .hot a,.alipay td h5{color:#333}
+.black,.alipay td h5{color:#333}
+.column-page .hot .btn{ border:0px;   padding:10px 15px;}
+.column-page .hot .open .btn .caret{border-bottom: 4px dashed;border-top: 0px dashed;}
+.column-page .hot .btn-group{ position:static!important}
+.column-page .hot .dropdown-menu{right:0px;}
+.column-page .hot .dropdown-menu li a{ border-bottom:1px solid #eeeeee;padding: 7px 20px; }
+.column-page .hot .dropdown-menu li:last-child a{border-bottom:0px;}
+.column-page .hot .btn,.column-page .hot .dropdown-menu>li>a{ color:#959595}
+.column-page .hot .open .btn,.column-page .hot .open .dropdown-menu a{ color:#13cbc9}
+.column-page .content li .text{ bottom:0px; left:0px; right:0px; top:0px; background:rgba(0,0,0,0.3)}
 
 
 /*commodity-page*/
-.orange,.commodity-page .comm-name .price span,.confirmation-order .canshu .price{ color:#fe4040;}
+.orange,.commodity-page .comm-name .price span,.confirmation-order .canshu .price{ color:#FD843D;}
 .commodity-page .comm-name .price span em{ padding:0px 5px 0px 2px;  }
 .commodity-page .comm-name .price i{ text-decoration:line-through}
 .green,.commodity-page .comm-col h2{ color:#22cdc4}
 .commodity-page .comm-col li div div{border:1px solid #e6e6e6; padding:8px 10px;}
 .commodity-page .comm-col li.active div div{ background:#22cdc4;border:1px solid #22cdc4; color:#fff}
 
+
 .comm-col .nav>li>a{ padding:5px 10px; margin-right:0px;}
-.comm-col .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover{color:#2ed0c7; border:0px;border-bottom:3px solid #2ed0c7}
+.comm-col .nav-tabs>li.active>a,.comm-col .nav-tabs>li.active>a:hover,.comm-col .nav-tabs>li>a:hover{border:0px; background:#fff;border-bottom:3px solid #2ed0c7}
+.comm-col .nav-tabs>li.active>a,.comm-col .nav-tabs>li.active>a:hover{color:#2ed0c7; }
 .comm-col .tab-content{ padding:15px 0px;}
 
 .btn{background:#fd7b23}
@@ -127,13 +150,27 @@ header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav
 .confirmation-order .canshu th{text-align:right;}
 .confirmation-order .canshu td .date{ padding:8px 10px; background:url(../images/icon/right1.png) center right no-repeat; background-size:40%;}
 .confirmation-order .contact .form-control{ background:#f4f4f4; border:0px;}
+
+
+.date-query .date-hd{ background:#fd7b23; border-radius:5px; border-bottom-left-radius:0px;border-bottom-right-radius:0px;}
+.date-query .table tr td:first-child{border-left:0px;}
+.date-query .table td{ border-top:1px solid #eeeeee!important;border-left:1px solid #eeeeee; height:50px; color:#e5e5e5;padding:4px; width:50px; font-family:"Microsoft yahei"}
+.date-query .table-responsive{ margin-bottom:0px;}
+.confirmation-order .date-query .table>tbody>tr>td{vertical-align:top;}
+.date-query .table>tbody>tr>td div,.date-query .table>tbody>tr>td.active,.date-query .table>tbody>tr>td.have{color:#c1c1c1}
+.date-query .table>tbody>tr>td.have div div{ color:#8ee7e3;}
+.date-query .table>tbody>tr>td.active{ background:#ececec;}
+.date-query .table>tbody>tr>td.select{ background:#ddf7f6;}
  
  
 /*payment*/
-.alipay .icon{ background:#fccb46; height:40px; width:40px; border-radius:10px; padding:5px;} 
+.alipay .icon{ background:#39B91C; height:40px; width:40px; border-radius:10px; padding:5px;} 
+.alipay .icona{ background:#fccb46; height:40px; width:40px; border-radius:10px; padding:5px;} 
 .alipay .icon img{ height:30px;}
-.alipay .icon2{ background:#69de96}
-.alipay .icon3{ background:#fd843d}
+.alipay .icona img{ height:30px;}
+.alipay .icon2{ background:#39B91C}
+.alipay .iconb{ background:#69DE96}
+.alipay .icon3{ background:#00aaee}
 .alipay tr{ border-bottom:1px dashed #e3e3e3}
 .alipay tr:last-child{ border-bottom:0px;}
 .alipay td .more-right{ background:url(../images/icon/right1.png) no-repeat;padding: 0px 10px 5px 10px;background-size:40%}
@@ -170,5 +207,5 @@ header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav
 
 
 /*error-message*/
-.error-message{ display:none; top:0px; bottom:0px; left:0px; right:0px; background:rgba(0,0,0,0.7)}
-.error-message div{ left:40px; right:40px; top:50%; margin-top:-18px; min-height:15px; line-height:15px; background:#000;}
+.error-message{ display:none; top:0px; bottom:0px; left:0px; right:0px; background:rgba(0,0,0,0.2)}
+.error-message div{ left:70px; right:70px; top:30%; margin-top:-18px; min-height:20px; line-height:50px; background:#151515;}

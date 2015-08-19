@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>{$seotitle}-{$webname}</title>
+<title>用户中心 - {$webname}</title>
     {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
     {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
 </head>
@@ -21,7 +21,7 @@
       <ul class="m0 p0 w100">
          <li class="pull-left li1"><div class="baseicon return-left"></div></li>
          <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">用户中心</li>
-         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}user/orderlist" class="baseicon block pull-right date"></a></li>
+         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}index" class="baseicon block pull-right date"></a></li>
       </ul>
     </header>
     
@@ -37,7 +37,7 @@
                     <table class="table table-striped grey m0">
                         
                         <tr>
-                            <th scope="row" width="20%"><div class="icon"><img src="../public/images/icon/clipboard.png"></div></th>
+                            <th scope="row" width="20%"><div class="icona"><img src="../public/images/icon/clipboard.png"></div></th>
                             <td width="80%">
                                 <a href="{$cmsurl}user/orderlist"> <h5 class="m0"> 我的订单 </h5> </a>
                             </td>
@@ -46,7 +46,7 @@
                         
                         
                         <tr>
-                            <th scope="row"><div class="icon icon2"><img src="../public/images/icon/users.png"></div></th>
+                            <th scope="row"><div class="icon iconb"><img src="../public/images/icon/users.png"></div></th>
                             <td>
                                 <a href="{$cmsurl}user/commontourers"><h5 class="m0"> 常用旅客 </h5></a>
                             </td>

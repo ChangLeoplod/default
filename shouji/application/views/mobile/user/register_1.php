@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>用户注册-{$webname}</title>
+<title>会员注册 - {$webname}</title>
 {php echo Common::getScript('jquery-min.js,common.js'); }
 {php echo Common::getCss('m_base.css,style.css'); }
 </head>

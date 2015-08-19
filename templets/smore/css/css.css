@@ -285,6 +285,8 @@ div.clear{
 .footer_copy a:hover{
 	color:#ff7b00;	
 }
+.footer{ clear:both;}
+}
 /*footer 底部结束*/
 
 .page{

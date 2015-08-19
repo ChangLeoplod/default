@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>{$seotitle}-{$webname}</title>
+<title>{$row['linename']} - {$webname}</title>
  {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
  {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
 </head>
@@ -20,8 +20,8 @@
     <header class="bg-green p15">
       <ul class="m0 p0 w100">
          <li class="pull-left li1"><div class="baseicon return-left"></div></li>
-         <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">{$row['linetitle']}</li>
-         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}user/orderlist" class="baseicon block pull-right date"></a></li>
+         <li class="pull-left li2 o-hidden font18 text-center white text-ellipsis white-nowrap">产品详情</li>
+         <li class="pull-right li3"><a href="{$cmsurl}user/index" class="baseicon block pull-right member"></a><a href="{$cmsurl}index" class="baseicon block pull-right date"></a></li>
       </ul>
     </header>
     
@@ -33,18 +33,22 @@
                  <h5 class="font16 m0">{$row['linename']}</h5>
                  <div class="mt10 price"><span>&yen;<em class="font20">{$row['lineprice']}</em>起</span><i class="font12 grey ml10">自订价：{$row['storeprice']}元</i></div>
               </div>
-              
+              {if strpos('s'.$row['attrid'].',','156,')}
+              <input type="hidden" name="suitid" id="suitid" value="{$suit[0]['id']}"/>
+              {else}
               <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
                    <div class="panel-title p5">
                         <h2 class="m0 font16">选择套餐</h2>
                     </div>
                     <ul class="o-hidden mt5 text-center font12">
                         {loop $suit $v}
-                        <li class="w50 pull-lefts"><div class="p5"><div>{$v['suitname']}</div></div></li>
+                        <li class="w50 pull-left {if $n==1}active{/if} choose" style="cursor:pointer" data-id="{$v['id']}"><div class="p5"><div>{$v['suitname']}</div></div></li>
+                        {if $n==1}<input type="hidden" name="suitid" id="suitid" value="{$v['id']}"/>{/if}
                         {/loop}
+                        
                     </ul>
               </div>
-              
+              {/if}
               <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
                    <div class="panel-title p5">
                         <h2 class="m0 font16">产品亮点</h2>
@@ -55,7 +59,7 @@
               </div>
               
               <div class="comm-col mt10 bg-white bte3 bbe3 p15 mb10">
-                    <ul id="myTab" class="nav nav-tabs font16 text-center">
+                    <ul id="myTab" class="nav nav-tabs font12 text-center">
                        {loop $linedisc $v}
                        <li class="w25 {if $n==1}active{/if}"><a href="#tab{$n}" class="grey" data-toggle="tab">{$v['chinesename']}</a></li>
                        {/loop}
@@ -72,8 +76,8 @@
               </div>
               
               <div class="mt10 affix" style="left:0px; bottom:0px; right:0px; z-index:1">
-                 <button type="button" class="btn w100 p10 font16 white mt10" style=" border-radius:0px;">
-                    立即抢购
+                 <button type="button" id="sumbit" class="btn w100 p10 font16 white mt10" style=" border-radius:0px;">
+                    立即购买
                   </button>
               </div>
               
@@ -82,7 +86,24 @@
  
     
 </div>
-
+<script>
+$(function(){
+    $('.choose').click(function(){
+        var id = $(this).attr('data-id');
+        $('#suitid').val(id);
+        $('.choose').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    $('#sumbit').click(function(){
+        var id = $('#suitid').val();
+         location.href="{$cmsurl}lines/create/id/"+id;
+    });
+    
+    
+});     
+        
+</script>
 <div class="footer grey font12 text-center" >武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
 
 </body>

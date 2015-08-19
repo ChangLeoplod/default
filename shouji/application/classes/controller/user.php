@@ -11,8 +11,6 @@ class Controller_User extends Stourweb_Controller{
         $this->assign('backurl',$refer_url);
         $this->user = $GLOBALS['userinfo'];
         $this->mid = $this->user['mid'] ? $this->user['mid'] : 0;
-
-
     }
 
     /*用户注册页面*/
@@ -101,14 +99,18 @@ class Controller_User extends Stourweb_Controller{
                     $_SESSION['sendnum_'.$mobile]=$sentNum;
                     $_SESSION['mobilecode_'.$mobile]=$code;
                     echo json_encode(array('status'=>true,'msg'=>'验证码发送成功'));
+                    exit;
                 }
                 else
                 {
                     echo json_encode(array('status'=>false,'msg'=>'验证码发送失败，请重试'.$flag->Message));
+                    exit;
                 }
 
         }
     }
+    
+    
 
    /*执行用户注册*/
     public function action_doreg()
@@ -117,7 +119,6 @@ class Controller_User extends Stourweb_Controller{
         $pwd = Arr::get($_POST,'password');
         $repwd = Arr::get($_POST,'repassword');
         $f = Arr::get($_POST,'f');
-
         $checkcode = Arr::get($_POST,'checkcode');
         $backurl = Arr::get($_POST,'backurl');
         if (!$backurl) {
@@ -125,31 +126,43 @@ class Controller_User extends Stourweb_Controller{
         }
         if(!$mobile)
         {
-            Common::showMsg('手机号码不能为空,请重新填写','-1');
+            echo json_encode(array('status'=>false,'msg'=>'手机号码不能为空,请重新填写','url'=>''));
+            exit;
+            //Common::showMsg('手机号码不能为空,请重新填写','-1');
         }
         if(!$pwd)
         {
-            Common::showMsg('密码不能为空,请重新填写','-1');
+            echo json_encode(array('status'=>false,'msg'=>'密码不能为空,请重新填写','url'=>''));
+            exit;
+            //Common::showMsg('密码不能为空,请重新填写','-1');
         }
         if(strlen($pwd)<6)
         {
-            Common::showMsg('密码必须大于六位,请重新填写','-1');
+            echo json_encode(array('status'=>false,'msg'=>'密码必须大于六位,请重新填写','url'=>''));
+            exit;
+            //Common::showMsg('密码必须大于六位,请重新填写','-1');
         }
         if($repwd!=$pwd)
         {
-            Common::showMsg('二次密码不一致,请重新填写','-1');
+            echo json_encode(array('status'=>false,'msg'=>'二次密码不一致,请重新填写','url'=>''));
+            exit;
+            //Common::showMsg('二次密码不一致,请重新填写','-1');
         }
         //验证码
         $checkcode=strtolower($checkcode);
         $flag = Model_Member::checkExist('mobile',$mobile);
         if(!$flag&&$f<>1)
         {
-            Common::showMsg('手机号码重复,请重新填写','-1');
+            echo json_encode(array('status'=>false,'msg'=>'手机号码重复,请重新填写','url'=>''));
+            exit;
+            //Common::showMsg('手机号码重复,请重新填写','-1');
         }
         @session_start();
         if($_SESSION['mobilecode_'.$mobile]!=$checkcode)
         {
-            Common::showMsg('验证码错误','-1');
+            echo json_encode(array('status'=>false,'msg'=>'验证码错误','url'=>''));
+            exit;
+            //Common::showMsg('验证码错误','-1');
         }
         if($f==1) {
             $member = ORM::factory('member')->where(mobile,'=',$mobile)->find()->as_array();
@@ -160,7 +173,9 @@ class Controller_User extends Stourweb_Controller{
                 if($model->saved()) //找回密码成功
                 {
                     Model_Member::login($mobile,$pwd);
-                    Common::showMsg('密码修改成功',$backurl);
+                    echo json_encode(array('status'=>true,'msg'=>'密码修改成功'));
+                    exit;
+                    //Common::showMsg('密码修改成功',$backurl);
                 }
             }
         } else {
@@ -173,17 +188,15 @@ class Controller_User extends Stourweb_Controller{
             if($model->saved()) //注册成功
             {
                 Model_Member::login($mobile,$pwd);
-                Common::showMsg('注册成功',$backurl);
+                echo json_encode(array('status'=>true,'msg'=>'注册成功'));
+                exit;
+                //Common::showMsg('注册成功',$backurl);
             }
             else
             {
                 //Common::showMsg('注册失败,请联系网站管理员','-1');
             }
         }
-
-
-
-
     }
 
     /*
@@ -191,7 +204,6 @@ class Controller_User extends Stourweb_Controller{
      * */
     public function action_login()
     {
-        
         if(!empty($GLOBALS['userinfo']['mid']))
         {
             header("location:{$_SERVER['HTTP_REFERER']}");
@@ -225,17 +237,21 @@ class Controller_User extends Stourweb_Controller{
     {
         $mobile = Arr::get($_POST,'mobile');
         $pwd = Arr::get($_POST,'password');
-        $backurl = Arr::get($_POST,'backurl');
-        $forwardurl = Arr::get($_POST,'forwardurl');
+        //$backurl = Arr::get($_POST,'backurl');
+        //$forwardurl = Arr::get($_POST,'forwardurl');
         $userinfo = Model_Member::login($mobile,$pwd);
         if(!empty($userinfo['mid']))
         {
-            $redirecturl = !empty($forwardurl) ? $forwardurl : $backurl;
-            Common::showMsg('',$redirecturl);
+            //$redirecturl = !empty($forwardurl) ? $forwardurl : $backurl;
+            //Common::showMsg('',$redirecturl);
+            echo json_encode(array('status'=>true,'msg'=>'登陆成功'));
+            exit;
         }
         else
         {
-            Common::showMsg('登陆失败,请检查用户名或密码是否正确','-1');
+            //Common::showMsg('登陆失败,请检查用户名或密码是否正确','-1');
+            echo json_encode(array('status'=>false,'msg'=>'用户或者密码错误'));
+            exit;
         }
     }
 
@@ -267,6 +283,9 @@ class Controller_User extends Stourweb_Controller{
     {
         self::checkMid();
         $tourers = ORM::factory('member_set')->where("mid='$this->mid'")->get_all();
+        $tourer_count = count($tourers);
+        $this->assign('mid',$this->mid);
+        $this->assign('count',$tourer_count);
         $this->assign('tourers',$tourers);
         $this->display('user/common_tourers');
     }
@@ -277,15 +296,23 @@ class Controller_User extends Stourweb_Controller{
     public function action_deletetourer()
     {
         self::checkMid();
-        $tourerid = $this->params['tourerid'];
+        $tourerid = Arr::get($_POST,'tourerid');
         //判断id是否存在
         $tourerinfo = ORM::factory('member_set')->where("id='$tourerid'")->find()->as_array();
         if($tourerinfo['id'])
         {
             $tourer_model = ORM::factory('member_set', $tourerid);
             $tourer_model->delete();
+            echo json_encode(array('status'=>true,'msg'=>'删除常用联系人成功'));
+            exit;
+            //$this->action_commontourers();
         }
-        $this->action_commontourers();
+        else
+        {
+            echo json_encode(array('status'=>false,'msg'=>'该联系人信息有误'));
+            exit;
+        }
+        
     }
     
     /*
@@ -314,19 +341,8 @@ class Controller_User extends Stourweb_Controller{
     public function action_addtourer()
     {
         self::checkMid();
-        $mid = $this->params['memberid'];
-        $tmparr = ORM::factory('member_set');
-        $tmparr->where("mid='$mid'")->find_all();
-        
-        if($tmparr->count_all() < 10)
-        {
-            $this->assign('mid',$mid);
-            $this->display('user/edit_tourer');
-        }
-        else
-        {
-            Common::showMsg('只能添加10个常用旅客信息','-1');
-        }
+        $this->assign('mid',$this->mid); 
+        $this->display('user/edit_tourer');
     }
     
     /*
@@ -345,20 +361,30 @@ class Controller_User extends Stourweb_Controller{
         
         if(!$name)
         {
-            Common::showMsg('请填写正确的旅客名','-1');
+            echo json_encode(array('status'=>false,'msg'=>'请填写正确的旅客名称'));
+            exit;
+            //Common::showMsg('请填写正确的旅客名','-1');
         }
-        if(!preg_match("/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/",$mobile)){    
-            Common::showMsg('请填写正确的手机号','-1');
+        if(!preg_match("/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/",$mobile)){
+            echo json_encode(array('status'=>false,'msg'=>'请填写正确的手机号码'));
+            exit;
+            //Common::showMsg('请填写正确的手机号','-1');
         }
         if(!preg_match("/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/",$email)){    
-            Common::showMsg('请填写正确的邮箱','-1');
+            echo json_encode(array('status'=>false,'msg'=>'请填写正确的邮箱'));
+            exit;
+            //Common::showMsg('请填写正确的邮箱','-1');
         }
         if(!preg_match("/^1[45][0-9]{7}|G[0-9]{8}|P[0-9]{7}|S[0-9]{7,8}|D[0-9]+$/",$ppno))
         {
-            Common::showMsg('请填写正确的护照号', '-1');
+            echo json_encode(array('status'=>false,'msg'=>'请填写正确的护照号'));
+            exit;
+            //Common::showMsg('请填写正确的护照号', '-1');
         }
         if(!preg_match("/^((1[1-5])|(2[1-3])|(3[1-7])|(4[1-6])|(5[0-4])|(6[1-5])|71|(8[12])|91)\d{4}((19\d{2}(0[13-9]|1[012])(0[1-9]|[12]\d|30))|(19\d{2}(0[13578]|1[02])31)|(19\d{2}02(0[1-9]|1\d|2[0-8]))|(19([13579][26]|[2468][048]|0[48])0229))\d{3}(\d|X|x)?$/",$idno)){    
-            Common::showMsg('请填写正确的身份证号码','-1');
+            echo json_encode(array('status'=>false,'msg'=>'请填写正确的身份证号码'));
+            exit;
+            //Common::showMsg('请填写正确的身份证号码','-1');
         }
         
         //修改
@@ -371,6 +397,8 @@ class Controller_User extends Stourweb_Controller{
             $tourer_model->idno = $idno;
             $tourer_model->ppno = $ppno;
             $tourer_model->update();
+            echo json_encode(array('status'=>true,'msg'=>'修改常用联系人信息成功'));
+            exit;
         }
         //新增
         else
@@ -384,8 +412,9 @@ class Controller_User extends Stourweb_Controller{
             $tourer_model->ppno = $ppno;
             $tourer_model->intime = time();
             $tourer_model->save();
+            echo json_encode(array('status'=>true,'msg'=>'新增常用联系人成功'));
+            exit;
         }
-        $this->action_commontourers();
     }
     //订单查看更多
     public function action_ajax_order_more()
@@ -403,6 +432,7 @@ class Controller_User extends Stourweb_Controller{
         else
         {
             $out['status'] = 'failure';
+            $out['pagenum'] = $page;
         }
         echo json_encode($out);
         exit;
@@ -537,7 +567,7 @@ class Controller_User extends Stourweb_Controller{
     private function checkMid()
     {
         if(empty($this->mid))
-         $this->request->redirect('user/login');
+            $this->request->redirect('user/login');
     }
      
 

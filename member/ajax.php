@@ -641,7 +641,7 @@ function setPageInfo($currentpage,$totalpage)
 		}
 		else
 		{
-		  $out.='<a title="'.$totalpage.'" href="javascript:$.AjaxSearch.page('.$totalpage.');">'.$totalpage.'</a>&nbsp;';
+		  $out.='<a title="'.$totalpage.'" href="javascript:$.AjaxSearch.page('.$totalpage.');">末页</a>&nbsp;';
 		}
 	}
 	//下一页

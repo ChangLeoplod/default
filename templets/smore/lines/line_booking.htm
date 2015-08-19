@@ -125,11 +125,9 @@
 			<div class="pay_more">
 				<h2>付款方式：</h2>	
 				
-				<div class="pay_bank bank_hover">
+				
 				{sline:field.id function="Helper_Archive::getPayTypeList()"/}
 				
-				<div class="clear"></div>	
-			</div>
 			
 			
 				
@@ -185,11 +183,19 @@
 
         $(".totalprice").html(price);
 
+
+        $(".pay_bank").click(function(){
+            $(".pay_bank").removeClass('bank_hover');
+            $(this).addClass('bank_hover');
+            $(".raw").attr("checked",false);
+            $(this).find(".raw").attr("checked","checked");
+        });
+
       
        $(".btnsaveorder").click(function(){
             var linkman = $("#linkman").val();
             var linktel = $("#linktel").val();
-            var linkemail  = $("#linkemail ").val();
+            var linkemail  = $("#linkemail").val();
             if (linkman.length<1) {
                  $("#linkman").focus();
                  alert("请输入姓名");
