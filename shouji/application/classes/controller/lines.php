@@ -192,7 +192,7 @@ class Controller_Lines extends Stourweb_Controller{
 		}
 		//产品信息
 		$row =ORM::factory('line')->where("id=$lineid")->find()->as_array();
-        $row['lineprice'] = Model_Line::getMinPrice($lineid);
+                $row['lineprice'] = Model_Line::getMinPrice($lineid);
 	 	if(empty($row['linepic'])){
 	 		$row['linepic'] = Common::getDefaultImage();
 	 	}
@@ -210,10 +210,10 @@ class Controller_Lines extends Stourweb_Controller{
 			}*/
 			$row['linejieshao_arr']=$temjeishao;
 		}
-        else
-        {
+                else
+                {
 
-        }
+                }
 
 		//产品图片
 		if(!empty($row['piclist'])){
@@ -222,10 +222,16 @@ class Controller_Lines extends Stourweb_Controller{
 				$row['pic_arr'][$key] = explode("||",$value);
 			}
 		}
+                $extend_field = ORM::factory('line_extend_field')->where("productid=".$row['id'])->find()->as_array();
                 $linedisc = ORM::factory('line_content')->where("webid=0 and isopen=1 and isline=0 and columnname<>'linespot' and columnname<>'tupian' and columnname<>'features'")->order_by("displayorder",'asc')->get_all();
                 foreach ($linedisc as $k=>$v) {
                     if (!$row[$v['columnname']]) {
-                        unset($linedisc[$k]);
+                        if($extend_field[$v['columnname']])
+                        {
+                            $row[$v['columnname']]=$extend_field[$v['columnname']];
+                        }
+                        else
+                            unset($linedisc[$k]);
                     }
                 }
 		$this->assign('linedisc',$linedisc);
