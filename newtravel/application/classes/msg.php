@@ -40,7 +40,7 @@ class Msg{
 	{
             $init = array(
             'phone'=>$phone,
-            'message'=>'【积沙旅行】'.$content,
+            'message'=>$content,
             'seqid'=>md5($phone),
             'smspriority'=>1,
         );

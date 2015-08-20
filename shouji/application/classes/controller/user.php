@@ -397,8 +397,16 @@ class Controller_User extends Stourweb_Controller{
             $tourer_model->idno = $idno;
             $tourer_model->ppno = $ppno;
             $tourer_model->update();
-            echo json_encode(array('status'=>true,'msg'=>'修改常用联系人信息成功'));
+            if($tourer_model->saved())
+            {
+               echo json_encode(array('status'=>true,'msg'=>'修改常用联系人信息成功'));
+            }
+            else
+            {
+                echo json_encode(array('status'=>false,'msg'=>'修改常用联系人信息失败'));
+            }
             exit;
+            
         }
         //新增
         else
@@ -412,7 +420,14 @@ class Controller_User extends Stourweb_Controller{
             $tourer_model->ppno = $ppno;
             $tourer_model->intime = time();
             $tourer_model->save();
-            echo json_encode(array('status'=>true,'msg'=>'新增常用联系人成功'));
+            if($tourer_model->saved())
+            {
+                echo json_encode(array('status'=>true,'msg'=>'新增常用联系人成功'));
+            }
+            else
+            {
+                echo json_encode(array('status'=>true,'msg'=>'新增常用联系人失败'));
+            }
             exit;
         }
     }
