@@ -100,7 +100,16 @@ function errorMessage(obj){
                 if(data.status)
                 {
                     if(forwardurl.length < 1)
-                        setTimeout("location.href='"+backurl+"'", 700);
+                    {
+                        if(backurl.length < 1)
+                        {
+                            setTimeout("location.href='{$cmsurl}user/index';",700 );
+                        }
+                        else
+                        {
+                            setTimeout("location.href='"+backurl+"'", 700);
+                        }
+                    }
                     else
                         setTimeout("location.href='"+forwardurl+"'", 700);
                 }

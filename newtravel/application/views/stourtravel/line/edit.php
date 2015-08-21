@@ -419,7 +419,7 @@
 
                     <div class="up-pic">
                         <dl>
-                            <dt>展示页封面图:</dt>
+                            <dt>PC商品页顶部图（1200*440）:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn" class="btn-file mt-4" data="linepic">上传图片</div>
@@ -442,7 +442,7 @@
                             </dd>
                         </dl>
                         <dl>
-                            <dt>套餐封面图:</dt>
+                            <dt>正方形封面图（350*313）:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn2" class="btn-file mt-4" data="packpic">上传图片</div>
@@ -465,7 +465,7 @@
                             </dd>
                         </dl>
                         <dl>
-                            <dt>线路封面图:</dt>
+                            <dt>PC首页封面图（1000*300）:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn3" class=" btn-file mt-4" data="bigpic">上传图片</div>
@@ -489,7 +489,7 @@
                             </dd>
                         </dl>
                         <dl>
-                            <dt>移动端封面图:</dt>
+                            <dt>移动端封面图（640*328）:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn4" class="btn-file mt-4" data="mobilepic">上传图片</div>
