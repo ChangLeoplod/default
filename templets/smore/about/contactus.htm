@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>{sline:global.cfg_indextitle/}</title>
+    <meta name="keywords" content="{sline:global.cfg_keywords/}" />
+    <meta name="author" content="{sline:global.cfg_webname/}" />
+    <meta name="description" content="{sline:global.cfg_description/}" />
+    {sline:php}GetCss('css.css');{/sline:php}
+    {sline:php}GetCss('base.css','2014.01');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,ajax.member.search.js');{/sline:php}
+    {sline:php}GetScript('common.js','2014.01');{/sline:php}
+<!--[if IE 6]>
+{sline:php}GetScript('Png_js.js');{/sline:php}
+	<script type="text/javascript">
+	DD_belatedPNG.fix('*');
+	</script>
+<![endif]--> 
+
+</head>
+
+<body>
+    {sline:include file='public/header.htm'/}
+  
+    <div class="about_banner"></div>
+	
+    <div class="contact_page">
+
+            <h2>Contact us | 联系我们</h2>
+
+            <h3>武汉市光游网络有限公司</h3>
+
+            <p>电话：027-87780713</p>
+            <p>武汉市洪山区创业街留学生创业园C栋3186室</p>
+            <p>如果您是用户，请发送邮件至：<span>service@jisha.com</span></p>
+            <p>如果您是供应商，请发送邮件至：<span>supplier@jisha.com</span></p>
+            <p>在线咨询：您可以通过微信公众号 <span>jishacom</span> 联系我们</p>
+
+            <div class="contact_code">
+                    <img src="../images/contact_code.png" />	
+            </div>
+
+    </div>
+ 
+  
+    <!--帮助流程开始-->
+    <!--底部开始-->
+  
+    {sline:include file='public/footer.htm'/}
