@@ -17,7 +17,7 @@ if($dopost=='LoginStatus')
 			 
 
                     $out ='<div class="login_after">
-                            <a href="'. $url.'/member/" class="login_face"><img src="/images/test/face1.png" /></a>	
+                            <a href="'. $url.'/member/" class="login_face"><img src="/images/about/face1.png" /></a>	
                             <div class="login_menu">
                                     <a href="'. $url.'/member/"><span class="menu_handle"><em>'.$uname.'</em></span></a>
                                     <ul>

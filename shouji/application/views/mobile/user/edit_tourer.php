@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>{$seotitle}-{$webname}</title>
+<title>修改常用旅客 - {$webname}</title>
     {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
     {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
 </head>
@@ -39,33 +39,28 @@
                         <input type="hidden" id="id" name="id" value="{if $tourer['id']} {$tourer['id']} {/if}">
                         <input type="hidden" id="mid" name="mid" value="{if $tourer['mid']} {$tourer['mid']} {else} {$mid} {/if}">
                         <tr>
-                            <th scope="row" width="30%">姓名：</th>
                             <td align="right"  width="70%">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="张三" value="{if $tourer['name']}{$tourer['name']}{/if}">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="姓名" value="{if $tourer['name']}{$tourer['name']}{/if}">
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" width="30%">手机号：</th>
                             <td align="right"  width="70%">
-                                <input type="text" name="mobile" class="form-control" id="mobile" placeholder="13012345678" value="{if $tourer['mobile']}{$tourer['mobile']}{/if}">
+                                <input type="tel" name="mobile" class="form-control" id="mobile" placeholder="手机号码" value="{if $tourer['mobile']}{$tourer['mobile']}{/if}">
                             </td>
                         </tr>   
                         <tr>
-                            <th scope="row" width="30%">邮箱：</th>
                             <td align="right"  width="70%">
-                                <input type="text" name="email" class="form-control" id="email" placeholder="aaa@bbb.com" value="{if $tourer['email']}{$tourer['email']}{/if}">
+                                <input type="text" name="email" class="form-control" id="email" placeholder="邮箱" value="{if $tourer['email']}{$tourer['email']}{/if}">
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" width="30%">护照号：</th>
                             <td align="right"  width="70%">
-                                <input type="text" name="ppno" class="form-control" id="ppno" placeholder="G12345678" value="{if $tourer['ppno']}{$tourer['ppno']}{/if}">
+                                <input type="text" name="ppno" class="form-control" id="ppno" placeholder="护照号码" value="{if $tourer['ppno']}{$tourer['ppno']}{/if}">
                             </td>
                         </tr>
                         <tr>    
-                            <th scope="row" width="30%">身份证号：</th>
                             <td align="right"  width="70%">
-                                <input type="text" name="idno" class="form-control" id="idno" placeholder="123456789000000000" value="{if $tourer['idno']}{$tourer['idno']}{/if}">
+                                <input type="text" name="idno" class="form-control" id="idno" placeholder="身份证号码" value="{if $tourer['idno']}{$tourer['idno']}{/if}">
                             </td>
                         </tr>
                      </table>

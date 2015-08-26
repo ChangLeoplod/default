@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>{$seotitle}-{$webname}</title>
+<title>支付宝付款 - {$webname}</title>
  {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
  {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
 </head>
@@ -43,7 +43,7 @@
                           <h4 class="modal-title" id="myModalLabel">提示</h4>
                         </div>
                         <div class="modal-body">
-                           支付完成
+                           恭喜你！支付成功！
                         </div>
                         <div class="modal-footer p10" style="text-align:center;">
                           <button type="button" class="btn btn-default white" id="ucheck" data-dismiss="modal" style="padding:8px 25px;">确&nbsp;定</button>
@@ -74,9 +74,9 @@ $(function(){
             success: function(data){
                 if(data.status == '1'){
                     if(data.ispay==1) {
-                        $('.modal-body').html('支付完成<input type="hidden" id="ispay" value="1" />');
+                        $('.modal-body').html('恭喜你！支付成功！<input type="hidden" id="ispay" value="1" />');
                     } else{
-                        $('.modal-body').html('还没支付');
+                        $('.modal-body').html('还没完成支付，请再次支付喔~');
                     }
                     $('#myModal').modal('show');
                 }

@@ -296,6 +296,15 @@ if($dopost == 'vieworder')
     $GLOBALS['condition']['_has_dingjin'] = $dingjin;
     $GLOBALS['condition']['_has_expireddate'] = $orderinfo['expireddate'];
     if ($orderinfo['status'] ==3) $orderinfo['ispay'] =3;
+    if ($orderinfo['ispay'] ==3) {
+        $orderinfo['statusinfo'] = '<div class="type">订单取消</div><a href="#" class="pay_out">订单取消</a>';
+    } elseif($orderinfo['ispay'] ==1) {
+        $orderinfo['statusinfo'] = '<div class="type">完成支付</div><a href="#" class="pay_over">完成支付</a>';
+    } else {
+        $orderinfo['statusinfo'] = '<div class="type">等待支付</div><a href="/lines/booking.php?dopost=payonline&id='.$orderid.'&paytype=11" class="pay_btn">马上支付</a>';
+    }
+    
+    
     foreach($orderinfo as $key=>$value)
     {
         $pv->Fields[$key] = $value;  

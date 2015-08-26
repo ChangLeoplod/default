@@ -146,7 +146,7 @@
                                     data:{"orderid":{$info['id']}},
                                     dataType:'json',
                                     success: function(data){
-                                        if(data.status == '1'){
+                                        if(data.status == '2'){
                                             if(data.ispay==1) {
                                                location.href = '{$cmsurl}user/order_detail/orderid/{$info['id']}';
                                             }

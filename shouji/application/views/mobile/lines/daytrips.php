@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>{$webname}</title>
+<title>旅游产品 - {$webname}</title>
     {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
     {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
 </head>
@@ -95,6 +95,9 @@
                 <div style="height:1px; clear:both"></div>
             </div>
             <div class="content" id="package_list">
+                {if !$list}
+                <center>暂时还没有您所选条件的一日游，请选择其它~</center>
+                {/if}
                 <ul>
                 {loop $list $v}
                     <a href="{$cmsurl}lines/show/id/{$v['id']}">
@@ -141,8 +144,8 @@ $(function(){
                 var dest_id = $("#destid").val();
                 var attr_id = $("#attrid").val();
                 var p = $("#pricerange").val();
-                var SITEURL = {$cmsurl};
-                var url='/shouji/lines/daytrips/?dest_id='+dest_id+'&p='+p+'&attr_id='+attr_id+'&action=ajaxline&page='+page;
+                var SITEURL = '{$cmsurl}';
+                var url='/lines/daytrips/?dest_id='+dest_id+'&p='+p+'&attr_id='+attr_id+'&action=ajaxline&page='+page;
                 $.get(url,function(results){
                     eval('results='+results);
                     var html='';

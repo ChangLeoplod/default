@@ -100,7 +100,7 @@ $(function(){
                     return ;
                  }
                  else{
-                $('.reg_area').html('<dl class="reg_success"><dt>注册成功!!!</dt><dd>页面跳转中…<span class="reg_seconds">5</span></dd></dl><script type="text/javascript">var regSe=5;setInterval(function(){if(regSe <= 2){location.href="/";	}regSe--;$(".reg_seconds").html(regSe);},1000);</script>');
+                $('.reg_area').html('<dl class="reg_success"><dt>注册成功!!!</dt><dd>页面跳转中…<span class="reg_seconds">3</span></dd></dl><script type="text/javascript">var regSe=5;setInterval(function(){if(regSe <= 2){location.href="/";	}regSe--;$(".reg_seconds").html(regSe);},1000);</script>');
                     
                
                  }  

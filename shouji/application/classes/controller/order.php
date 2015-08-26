@@ -51,7 +51,7 @@ class Controller_Order extends Stourweb_Controller{
                 {
                     $info['status'] = 1;
                 }
-	        	$info['name']= $info['linename'];
+	        	$info['name']= $info['linename'].'('.$suitarr['suitname'].')';
 	        	$info['litpic']= $info['linepic'];
 	        	$info['paytype']=$suitarr['paytype'];
 	            $info['dingjin']=intval($suitarr['dingjin']);
@@ -206,6 +206,7 @@ class Controller_Order extends Stourweb_Controller{
             'dingjin'=>$info['dingjin'],
             'usedate'=>$info['usedate'],
             'roombalance'=>$info['roombalance'],
+            'status'=>$info['status'],
             'addtime'=>time(),
             'memberid'=>$mid,
             'dingnum'=>Arr::get($_POST,'adult'),
@@ -214,6 +215,7 @@ class Controller_Order extends Stourweb_Controller{
             'oldnum'=>Arr::get($_POST,'oldnum'),
             'linkman'=>Arr::get($_POST,'linkman'),
             'linktel'=>Arr::get($_POST,'linktel'),
+            'linkemail'=>Arr::get($_POST,'linkemail'),
             'suitid'=> Arr::get($_POST,'suitid'),
             'remark'=> Arr::get($_POST,'remark'),
         );
@@ -254,7 +256,10 @@ class Controller_Order extends Stourweb_Controller{
             }*/
 
             //订单邮件提醒
-            $mailto = Common::getSysConf('value','cfg_Email139',0);
+            if($linkemail)
+		$mailto = $linkemail;
+	    else
+            	$mailto = Common::getSysConf('value','cfg_Email139',0);
              
             $title   = $arr['productname'].'预订成功';
              
@@ -266,6 +271,6 @@ class Controller_Order extends Stourweb_Controller{
 
             $this->request->redirect('page/pay/orderid/'.$ar[0]['id']);
         }
-	}
+    }
 	 
 }

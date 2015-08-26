@@ -458,8 +458,90 @@ class Controller_User extends Stourweb_Controller{
     public function action_order_detail()
     {
         $orderid = $this->params['orderid'];
+        
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $jsApiParameters=1;
+         if (strpos('s'.$user_agent, 'MicroMessenger'))
+        {
+            $GLOBALS['cfg_wxpay_appid'] = Common::getSysConf('value','cfg_wxpay_appid',0); //appid
+            $GLOBALS['cfg_wxpay_mchid'] = Common::getSysConf('value','cfg_wxpay_mchid',0); //mchid
+            $GLOBALS['cfg_wxpay_key'] = Common::getSysConf('value','cfg_wxpay_key',0); //key
+            $GLOBALS['cfg_wxpay_appsecret'] = Common::getSysConf('value','cfg_wxpay_appsecret',0); //secret
+
+            include_once(PUBLICPATH.'/thirdpay/weixinpay/WxPayPubHelper/WxPayPubHelper.php');
+            
+             //使用jsapi接口
+            $jsApi = new JsApi_pub();
+            //=========步骤1：网页授权获取用户openid============
+            //通过code获得openid
+            $code = $_GET['code'];
+            if (!$code)
+            {
+
+                //触发微信返回code码
+                $backurl = 'http://'.$_SERVER["SERVER_NAME"].'/user/order_detail/orderid/'.$orderid;
+                $url = $jsApi->createOauthUrlForCode($backurl);
+
+                Header("Location: $url"); 
+                            exit;
+            }else
+            {
+                //获取code码，以获取openid
+                $jsApi->setCode($code);
+                $openid = $jsApi->getOpenId();
+            }
+             $unifiedOrder = new UnifiedOrder_pub();
+
+             
+            //设置统一支付接口参数
+            //设置必填参数
+            //appid已填,商户无需重复填写
+            //mch_id已填,商户无需重复填写
+            //noncestr已填,商户无需重复填写
+            //spbill_create_ip已填,商户无需重复填写
+            //sign已填,商户无需重复填写
+            
+            
+            $info = ORM::factory('member_order')->where("id='".$orderid."'")->find()->as_array();
+            $goodsname = $info['productname'];
+            $out_trade_no = $info['ordersn'];
+            if ($info['roombalance']>0&&$info['dingnum']%2==1) {
+                $roombalance = $info['roombalance'];
+            }
+            $total_fee = (intval($info['price']) * intval($info['dingnum']))+(intval($info['childprice'])*intval($info['childnum']))+$roombalance;
+            $total_fee = $total_fee*100;
+            
+            $unifiedOrder->setParameter("openid","$openid");//商品描述
+            //自定义订单号，此处仅作举例
+            $timeStamp = time();
+            $tem_trade = WxPayConf_pub::APPID."$timeStamp";
+            $unifiedOrder->setParameter("out_trade_no","$tem_trade");//商户订单号 
+            $unifiedOrder->setParameter("body","$goodsname");//商品描述
+            $unifiedOrder->setParameter("total_fee","$total_fee");//总金额
+            $unifiedOrder->setParameter("notify_url",WxPayConf_pub::NOTIFY_URL);//通知地址 
+            $unifiedOrder->setParameter("trade_type","JSAPI");//交易类型
+            //非必填参数，商户可根据实际情况选填
+            $unifiedOrder->setParameter("attach","$out_trade_no");//订单号  
+            //$unifiedOrder->setParameter("device_info","XXXX");//设备号 
+            //$unifiedOrder->setParameter("attach","XXXX");//附加数据 
+            //$unifiedOrder->setParameter("time_start","XXXX");//交易起始时间
+            //$unifiedOrder->setParameter("time_expire","XXXX");//交易结束时间 
+            //$unifiedOrder->setParameter("goods_tag","XXXX");//商品标记 
+            //$unifiedOrder->setParameter("openid","XXXX");//用户标识
+            //$unifiedOrder->setParameter("product_id","XXXX");//商品ID
+
+            $prepay_id = $unifiedOrder->getPrepayId();
+            
+            //=========步骤3：使用jsapi调起支付============
+            $jsApi->setPrepayId($prepay_id);
+            $jsApiParameters = $jsApi->getParameters();
+             
+         }
+        
+        
         $model = new Model_Member_Order();
         $order = $model->getOrderDetail($orderid);
+        $this->assign('jsApiParameters',$jsApiParameters);
         $this->assign('order',$order);
         $this->display('user/order_detail');
     }

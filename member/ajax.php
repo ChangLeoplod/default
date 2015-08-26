@@ -205,7 +205,7 @@ if($dopost == 'allorder')
                     <div class="od_tit">订单流水号:'.$row['ordersn'].'<span>（下单时间：'.$dingdate.'）</span></div>
                     <a href="/lines/show_'.$row['productaid'].'.html" target="_blank" class="pic"><img src="'.$lineinfo['packpic'].'" /></a>
                     <div class="name">
-                            <a href="#" target="_blank">'.$productname.'</a>	
+                            <a href="/lines/show_'.$row['productaid'].'.html" target="_blank">'.$row['productname'].'</a>	
                     </div>
                     <div class="price">&yen;'.$totalprice.'</div>
                     <dl class="type">
@@ -333,7 +333,7 @@ if($dopost == 'unpay')
                     <div class="od_tit">订单流水号:'.$row['ordersn'].'<span>（下单时间：'.$dingdate.'）</span></div>
                     <a href="/lines/show_'.$row['productaid'].'.html" target="_blank" class="pic"><img src="'.$lineinfo['packpic'].'" /></a>
                     <div class="name">
-                            <a href="/lines/show_'.$row['productaid'].'.html" target="_blank">'.$productname.'</a>	
+                            <a href="/lines/show_'.$row['productaid'].'.html" target="_blank">'.$row['productname'].'</a>	
                     </div>
                     <div class="price">&yen;'.$totalprice.'</div>
                     <dl class="type">
@@ -393,7 +393,7 @@ if($dopost == 'wancheng')
                     <div class="od_tit">订单流水号:'.$row['ordersn'].'<span>（下单时间：'.$dingdate.'）</span></div>
                     <a href="/lines/show_'.$row['productaid'].'.html" target="_blank" class="pic"><img src="'.$lineinfo['packpic'].'" /></a>
                     <div class="name">
-                            <a href="#" target="_blank">'.$productname.'</a>	
+                            <a href="/lines/show_'.$row['productaid'].'.html" target="_blank">'.$row['productname'].'</a>	
                     </div>
                     <div class="price">&yen;'.$totalprice.'</div>
                     <dl class="type">

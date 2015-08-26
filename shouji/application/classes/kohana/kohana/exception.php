@@ -49,7 +49,7 @@ class Kohana_Kohana_Exception extends Exception {
 	{
 		if($code == 404)//如果是404直接跳转到404
         {
-            $url = $GLOBALS['cfg_basehost'].'/shouji/page/404';
+            $url = $GLOBALS['cfg_basehost'].'/page/404';
             header("location:$url");
             exit;
         }

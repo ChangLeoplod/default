@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <title>{sline:global.cfg_indextitle/}</title>
+ <title>确认支付订单 - 积沙旅行</title>
     <meta name="keywords" content="{sline:global.cfg_keywords/}" />
     <meta name="author" content="{sline:global.cfg_webname/}" />
     <meta name="description" content="{sline:global.cfg_description/}" />
@@ -21,7 +21,7 @@
 	
 	{sline:include file='public/header.htm'/}
 	
-	<form id="dingfrm" action="?dopost=savebooking" method="post">
+        <form id="dingfrm" action="?dopost=savebooking" target="_blank" method="post">
 		<div class="pay_page">
 			
 			<div class="pay_step">
@@ -32,29 +32,29 @@
 						<dt class="ico1"></dt>	
 						<dd>填写信息</dd>
 					</dl>
-					<dl>
-						<dt class="ico2"></dt>	
-						<dd>在线支付</dd>
+					<dl class="hover">
+						<dt class="ico5"></dt>	
+						<dd>全程管家服务</dd>
 					</dl>
-					<dl>
-						<dt class="ico3"></dt>	
-						<dd>确认支付</dd>
+					<!--<dl class="hover">
+						<dt class="ico4"></dt>	
+						<dd>赠送纪念册</dd>
 					</dl>
 					<dl>
 						<dt class="ico4"></dt>	
 						<dd>赠送纪念册</dd>
-					</dl>
+					</dl>-->
 					<dl class="end">
-						<dt class="ico5"></dt>	
-						<dd>全程管家服务</dd>
+						<dt class="ico2"></dt>	
+						<dd>在线支付</dd>
 					</dl>
 					
 					<div class="s_line">
 						<div class="oline s1 line_now"></div>
-						<div class="oline"></div>
-						<div class="oline"></div>
-						<div class="oline"></div>
-						<div class="oline"></div>
+						<div class="oline s1 line_now"></div>
+						<div class="oline s1 line_now"></div>
+						<div class="oline s1 line_now"></div>
+						<div class="oline s1 line_now"></div>
 						<div class="oline s6"></div>
 					</div>
 					<div class="step_line"></div>	
@@ -157,9 +157,9 @@
               <input type="hidden" name="roombalance" id="roombalance" value="{sline:field.roombalance/}"/>
 		<div class="pay_sub">
 			<div class="xy chks">
-				<span class="ch ch_hover">我已阅读并接受 《<a href="#" target="_blank">积沙旅行网用户服务条款</a>》<input type="checkbox" class="chk" checked="checked" /></span>				
+				<span class="ch ch_hover">我已阅读并接受 《<a href="/about/user-agreement.php" target="_blank">积沙旅行网用户服务条款</a>》<input type="checkbox" class="chk" checked="checked" /></span>				
 			</div>
-		<a href="javascript:;" class="btnsaveorder sub">提交订单</a>
+		<a href="javascript:;" class="btnsaveorder sub">前往支付</a>
 		</div>
 	</form>
 
@@ -192,7 +192,7 @@
         });
 
       
-       $(".btnsaveorder").click(function(){
+       $(".btnsaveorder").click(function(evt){
             var linkman = $("#linkman").val();
             var linktel = $("#linktel").val();
             var linkemail  = $("#linkemail").val();
@@ -223,7 +223,8 @@
                 alert('请输入正确的邮箱');
                         return false;
             }
-           
+            evt.preventDefault();
+            AlertWin($(".pay_win"));
            
            $("#dingfrm").submit();
         });
@@ -232,6 +233,17 @@
 
 
 
-</script>	
+</script>
+        <div class="pay_win">
+		<div class="win_in">
+			<dl>
+				<dt>支付提示</dt>	
+				<dd>请在新打开的页面进行支付，支付完成后点击“付款完成”</dd>
+			</dl>	
+			<a href="/member/" class="close over">付款完成</a>
+			<a href="/member/" class="close still">付款遇到困难继续支付</a>
+		</div>
+	</div>
+
 {sline:include file='public/footer.htm'/}
 

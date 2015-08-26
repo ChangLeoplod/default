@@ -111,7 +111,7 @@ Cookie::$path = '/';
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-	'base_url'   => '/shouji/',
+	'base_url'   => '/',
     'index_file' => ''
     
 ));
@@ -169,8 +169,8 @@ Route::set('default', '(<controller>(/<action>(/<params>)))', array('params' => 
 
 
 $cfg_basehost = 'http://'.$_SERVER['HTTP_HOST']; //网站域名
-$cfg_cmspath = '/shouji/';
-$cfg_public_url = '/shouji/public/';
+$cfg_cmspath = '/';
+$cfg_public_url = '/public/';
 $cfg_templet = 'mobile';//当前模板
 $webinfo = Common::getWebInfo(0);
 $cfg_deskurl=$webinfo['weburl'];//电脑版域名

@@ -40,7 +40,7 @@ class Controller_Page extends Stourweb_Controller{
             {
 
                 //触发微信返回code码
-                $backurl = 'http://'.$_SERVER["SERVER_NAME"].'/shouji/page/pay/orderid/'.$orderid;
+                $backurl = 'http://'.$_SERVER["SERVER_NAME"].'/page/pay/orderid/'.$orderid;
                 $url = $jsApi->createOauthUrlForCode($backurl);
 
                 Header("Location: $url"); 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <title>{sline:global.cfg_indextitle/}</title>
+ <title>找回密码 - 积沙旅行</title>
     <meta name="keywords" content="{sline:global.cfg_keywords/}" />
     <meta name="author" content="{sline:global.cfg_webname/}" />
     <meta name="description" content="{sline:global.cfg_description/}" />
@@ -48,12 +48,12 @@
                             </div>
 
                             <div class="rin">
-                                    <span class="tit">密码：</span>
+                                    <span class="tit">修改密码：</span>
                                     <input type="password" name="password" id="p_password" class="text" />
                             </div>
 
                             <div class="rin">
-                                    <span class="tit">确认密码：</span>
+                                    <span class="tit">确认修改密码：</span>
                                     <input type="password" name="repassword" id="p_repassword" class="text" />
                             </div>
                             <input type="button" class="reg_sub" id="find" value="修改密码" />
@@ -142,9 +142,9 @@ $('#MobileInvCode').click(function(){
         
  function redirect() {
     
-    var html = '<dl class="reg_success"><dt>密码修改成功!!!</dt><dd>页面跳转中…<span class="reg_seconds">5</span></dd></dl>';
+    var html = '<dl class="reg_success"><dt>密码修改成功!!!</dt><dd>页面跳转中…<span class="reg_seconds">3</span></dd></dl>';
     $('.reg_area').html(html);
-    var regSe=5;
+    var regSe=3;
     setInterval(function(){
         
         if(regSe <= 2){

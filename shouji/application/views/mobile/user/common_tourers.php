@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>{$seotitle}-{$webname}</title>
+<title>常用旅客信息 - {$webname}</title>
     {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
     {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
 </head>
@@ -88,20 +88,24 @@
     });
 
     $(".delete").click(function(){
+        var r=confirm("确定删除？");
         var tourerid = $(this).attr("data-id");
-        $.ajax({
-            type:"post",
-            url:"{$cmsurl}user/deletetourer",
-            data:{"tourerid":tourerid},
-            dataType:'json',
-            success:function(data){
-                perror(data.msg);
-                if(data.status)
-                {
-                    setTimeout("location.href='{$cmsurl}user/commontourers';",700);
+        if(r==true)
+        {
+            $.ajax({
+                type:"post",
+                url:"{$cmsurl}user/deletetourer",
+                data:{"tourerid":tourerid},
+                dataType:'json',
+                success:function(data){
+                    perror(data.msg);
+                    if(data.status)
+                    {
+                        setTimeout("location.href='{$cmsurl}user/commontourers';",700);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
     
     function perror(msg) {

@@ -7,7 +7,7 @@
     <meta name="author" content="{sline:global.cfg_webname/}" />
     <meta name="description" content="{sline:global.cfg_description/}" />
     {sline:php}GetCss('css.css');{/sline:php}
-    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js,order.js');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js');{/sline:php}
 <!--[if IE 6]>
 {sline:php}GetScript('Png_js.js');{/sline:php}
 	<script type="text/javascript">
@@ -56,14 +56,7 @@
                                     </div>
                                     <div class="price">&yen;{sline:field.price/}</div>
                                     {sline:if var='_has_dingjin'}(可支付定金:{sline:field.dingjin/}){/sline:if}
-                                    {sline:field.ispay runphp='yes'}
-                                    if(@me==3)
-                                        @me='<div class="type">订单取消</div><a href="#" class="pay_out">订单取消</a>';                  
-                                    elseif(@me==1)
-                                        @me='<div class="type">完成支付</div><a href="#" class="pay_over">完成支付</a>';
-                                    else
-                                        @me='<div class="type">等待支付</div><a href="/lines/booking.php?dopost=payonline&id='.@me.'&paytype=11" class="pay_btn">马上支付</a>';
-                                    {/sline:field.ispay}
+                                    {sline:field.statusinfo/}
                                     <div class="clear"></div>	
 				</div>
 				

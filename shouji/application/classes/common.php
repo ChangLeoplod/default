@@ -798,6 +798,9 @@ class Common {
             }
             $model->save();
             $flag = $model->saved();
+            //减库存
+            $dingnum = intval($arr['dingnum'])+intval($arr['childnum']);
+            self::minusStorage($arr['usedate'],$arr['typeid'],$arr['suitid'],$arr['productid'],$dingnum);
 
             $memberinfo =self::getMemberInfo($arr['memberid']);
             $mobile = $memberinfo['mobile'];
@@ -1163,5 +1166,43 @@ class Common {
             $result['numberDescript']=$numberDescript;
         }
         return $result;
+    }
+    
+        /*
+     * 库存操作
+     * */
+    public static function minusStorage($dingdate,$typeid,$suitid,$productid,$dingnum)
+    {
+        $day = strtotime($dingdate);
+        $dingnum = $dingnum ? $dingnum : 1;
+        switch($typeid)
+        {
+            case '1':
+
+                $sql = "update sline_line_suit_price set number=number-$dingnum where day='$day' and suitid='$suitid' and number!=0 and number!=-1";
+                DB::query(2, $sql)->execute();
+
+                break;
+            case '2':
+                $sql = "update sline_hotel_room_price set number=number-$dingnum where day='$day' and suitid='$suitid' and number!=0 and number!=-1";
+                DB::query(2, $sql)->execute();
+                break;
+            case '3':
+                $sql = "update sline_car_suit_price set number=number-$dingnum where day='$day' and suitid='$suitid' and number!=0 and number!=-1";
+                DB::query(2, $sql)->execute();
+                break;
+            case '5':
+                //$sql = "update sline_spot_ticket set number=number-1 where spotid='$productid' and suitid='$suitid' and number!=0";
+                //$dsql->ExecNoneQuery($sql);
+                break;
+            case '8':
+                $sql = "update sline_visa set number=number-$dingnum where id='$productid' and number!=0 and number!=-1";
+                DB::query(2, $sql)->execute();
+                break;
+            case '13':
+                //$sql = "update sline_tuan set totalnum=totalnum-1 where id='$productid' and number!=0";
+                ///$dsql->ExecNoneQuery($sql);
+                break;
+        }
     }
 }

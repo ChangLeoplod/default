@@ -30,7 +30,7 @@
               <ul class="m0 p0 white">
                 {st:line  action="getline" row="10" flag="attribute" attrid="162"}
                     {loop $data $k $v}
-                    <li><a href="{$v['url']}" ><img src="{$v['mobilepic']}" alt="{$v['linename']}"></a><div class="posa"><p class="font17 m0 bold"> {$v['linetitle']}</p>{$v['linesubtitle']}</div></li>
+                    <li><a href="{$v['url']}" ><img src="{$v['mobilepic']}" alt="{$v['linename']}"><div class="posa name white"><div class="posa"><p class="font17 m0 bold"> {$v['linetitle']}</p>{$v['linesubtitle']}</div></div></a></li>
                     {/loop}
                 {/st}
               </ul>
@@ -38,16 +38,16 @@
         <script>
           $(".slider").yxMobileSlider({width:640,height:328,during:5000})
         </script>
-		        <!--<div class="bg-white p15 recommend o-hidden bbe3">
+		        <div class="bg-white p15 recommend o-hidden bbe3">
             <ul class="m0 p0 text-center">
-                <a href="{$cmsurl}lines/packages"><li class="w25 pull-left"><img src="public/images/ad/super.png"><span class="block mt5">超级自由行</span></li></a>
-              <a href="{$cmsurl}lines/daytrips"><li class="w25 pull-left"><img src="public/images/ad/mudidi.png"><span class="block mt5">目的地</span></li></a>
-               <a href="{$cmsurl}lines/daytrips"><li class="w25 pull-left"><img src="public/images/ad/brand.png"><span class="block mt5">品牌优势</span></li></a>
-               <a href="{$cmsurl}lines/daytrips"><li class="w25 pull-left"><img src="public/images/ad/help.png"><span class="block mt5">帮助中心</span></li></a>
+                <a href="{$cmsurl}lines/packages"><li class="w25 pull-left"><img src="public/images/super.png"><span class="block mt5 font13 black">超级自由行</span></li></a>
+              <a href="{$cmsurl}lines/daytrips"><li class="w25 pull-left"><img src="public/images/mudidi.png"><span class="block mt5 font13 black">目的地</span></li></a>
+               <a href="{$cmsurl}companyinfo/selectus"><li class="w25 pull-left"><img src="public/images/brand.png"><span class="block mt5 font13 black">服务优势</span></li></a>
+               <a href="{$cmsurl}companyinfo/helpcenter"><li class="w25 pull-left"><img src="public/images/help.png"><span class="block mt5 font13 black">帮助中心</span></li></a>
             </ul>
-        </div> -->
+        </div>
 		
-        <div class="bg-white p15 recommend o-hidden bbe3">
+        <!--<div class="bg-white p15 recommend o-hidden bbe3">
             <ul class="m0 p0 text-center">
                 <a href="{$cmsurl}lines/packages" >
                 <li class="w25 posr pull-left"><img src="public/images/ad/ad_05.jpg"><span class="posa white">套餐</span></li>
@@ -58,7 +58,7 @@
                 <li class="w25 posr pull-left"><img src="public/images/ad/ad_05.jpg"><span class="posa white">吉林岛</span></li>
                 <li class="w25 posr pull-left"><img src="public/images/ad/ad_05.jpg"><span class="posa white">吉林岛</span></li>
             </ul>
-        </div>
+        </div> -->
         
         <div class="select-one p10 bte3 bbe3 mt10 bg-white o-hidden">
              <div class="panel-title posr p5">

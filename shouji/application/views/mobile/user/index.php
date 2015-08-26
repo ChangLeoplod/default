@@ -28,7 +28,7 @@
     <div class="main"> 
         <div class="user-center">
             <div class="user-images text-center white p15"> 
-                <div class="bg-white"><img src="{if empty($user['litpic'])}../public/images/member_default.gif{else}{$user['litpic']}{/if}"></div>
+                <div class="bg-white"><img src="{if empty($user['litpic'])}../public/images/member_default.jpg{else}{$user['litpic']}{/if}"></div>
                 <p>{$user['nickname']}</p>
             </div>
               

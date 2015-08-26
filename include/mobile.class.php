@@ -67,12 +67,12 @@ class Mobile{
                 }
                 else
                 {
-                    $mobileurl = $cfg_basehost.'/shouji/';//首页
+                    $mobileurl = 'http://m.jisha.com';//首页
                 }
             }
             else
             {
-                $mobileurl = $cfg_basehost.'/shouji/';//首页
+                $mobileurl = 'http://m.jisha.com';//首页
             }
 
              return $mobileurl;
