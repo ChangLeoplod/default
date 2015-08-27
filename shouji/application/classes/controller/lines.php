@@ -354,13 +354,13 @@ right\"><div>￥{$price['adultprice']}</div>售馨</div></td>";
         $sql="select a.* from sline_destinations a where a.pid = '0' and a.isopen=1 order by a.displayorder asc ";
         $dest = DB::query(Database::SELECT,$sql)->execute()->as_array();
         
-        $sql="select a.* from sline_line_attr a where a.id<>'161' and a.id<>'162' and a.pid <> '0' and a.isopen=1 order by a.displayorder asc ";
+        $sql="select a.* from sline_line_attr a where a.pid = '146' and a.isopen=1 order by a.displayorder asc ";
         $attr = DB::query(Database::SELECT, $sql)->execute()->as_array();
     
         if ($attr_id) {
             $find = "FIND_IN_SET('{$attr_id}',a.attrid)";
         } else {
-            $find = 'CONCAT(a.attrid,",") not like "%162,%" ';
+            $find = "FIND_IN_SET('146',a.attrid)";
         }
         if ($dest_id) {
             $w .= " and FIND_IN_SET('{$dest_id}',a.kindlist)";

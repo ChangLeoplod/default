@@ -35,7 +35,7 @@ if($dopost=='LoginStatus')
         $out = '<div class="head_login">
 					<a href="/member/reg.php" target="_blank">注册</a>
 					<em>|</em>	
-					<a onclick="loginWin()" href="javascript:;">登陆</a>
+					<a onclick="loginWin()" href="javascript:;">登录</a>
 				</div>';
 		
 		}

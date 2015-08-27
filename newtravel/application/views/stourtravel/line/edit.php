@@ -419,7 +419,7 @@
 
                     <div class="up-pic">
                         <dl>
-                            <dt>PC商品页顶部图（1200*440）:</dt>
+                            <dt>PC商品页顶部图（1920*440）:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn" class="btn-file mt-4" data="linepic">上传图片</div>
@@ -465,7 +465,7 @@
                             </dd>
                         </dl>
                         <dl>
-                            <dt>PC首页封面图（1000*300）:</dt>
+                            <dt>PC首页封面图（1200*300）:</dt>
                             <dd>
                                 <div class="up-file-div">
                                     <div id="pic_btn3" class=" btn-file mt-4" data="bigpic">上传图片</div>

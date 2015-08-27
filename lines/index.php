@@ -28,7 +28,7 @@ else
             $dest[$k]['class'] = '';
         }
     }
-    $sql="select a.* from #@__line_attr a where a.id<>'161' and a.id<>'162' and a.pid <> '0' and a.isopen=1 order by a.displayorder asc ";
+    $sql="select a.* from #@__line_attr a where a.pid = '146' and a.isopen=1 order by a.displayorder asc ";
     
     $attr = $dsql->getall($sql);
     foreach ($attr as $k=>$v) {
@@ -45,7 +45,8 @@ else
     if ($attr_id) {
         $find = "FIND_IN_SET('{$attr_id}',a.attrid)";
     } else {
-        $find = 'CONCAT(a.attrid,",") not like "%162,%" ';
+        //$find = 'CONCAT(a.attrid,",") not like "%162,%" ';
+        $find = "FIND_IN_SET('146',a.attrid)";
     }
     if ($id) {
         $w .= " and FIND_IN_SET('{$id}',a.kindlist)";

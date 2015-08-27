@@ -268,8 +268,13 @@ if($arr['dingnum']%2==1) {
         }
 
 
-        header( "Location:" . $url);
-
+        //header( "Location:" . $url);
+        $arr = array(
+           'result'=>1,
+            'url'=>$url,
+            'orderid'=>$orderid
+        );
+        echo json_encode($arr);
 
 
         //预订送积分(改为支付成功后才实现)

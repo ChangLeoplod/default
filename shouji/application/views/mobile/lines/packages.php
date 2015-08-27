@@ -130,52 +130,60 @@
 <div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
 
 </body>
-<input type="hidden" id="page" value="1"/>
 <input type="hidden" id="destid" value="{$dest_id}"/>
 <input type="hidden" id="dayrange" value="{$d}"/>
 <input type="hidden" id="pricerange" value="{$p}"/>
 
 <script type="text/javascript">
 var loading = false;
+var endpage=1024;
 $(function(){
+    $('body').append('<input type="hidden" id="page" value="1"/>');
     $(window).scroll(function(){
+        var page = parseInt($("#page").val())+1;
         var scrollTop = $(this).scrollTop();               //滚动条距离顶部的高度
         var scrollHeight = $(document).height();           //当前页面的总高度
         var windowHeight = $(this).height();               //当前可视的页面高度
         var bot = 50;
-        if(bot + scrollTop + windowHeight >= scrollHeight)  {    //距离顶部+当前高度 >=文档总高度 即代表滑动到底部
-            if(!loading)
-            {
-                loading = true;
-                var page = parseInt($("#page").val())+1;
-                var id = $("#destid").val();
-                var d = $("#dayrange").val();
-                var p = $("#pricerange").val();
-                var SITEURL = '{$cmsurl}';
-                var url='/lines/packages/?id='+id+'&p='+p+'&d='+d+'&action=ajaxline&page='+page;
-                $.get(url,function(results){
-                    eval('results='+results);
-                    var html='';
-                    for(a in results){
-                        html+='<a href="'+SITEURL+'lines/show/id/'+results[a]['id']+'">';
-                        html+='<li class="posr mt10">';
-                            html+='<img src="'+results[a]['mobilepic']+'">';
-                            html+='<div class="text posa white o-hidden">';
-                                html+='<div class="posa o-hidden">';
-                                    html+='<span class="font14">'+results[a]['linename']+'</span>';
-                                    html+='<h3 class=" m0 font14 bold white-nowrap">';
-									html+='<span>&yen;<em class="font18">'+results[a]['lineprice']+'</em>元/起</span>';
-									html+='</h3>'; 
+        if(page<endpage)
+        {
+            if(bot + scrollTop + windowHeight >= scrollHeight)  {    //距离顶部+当前高度 >=文档总高度 即代表滑动到底部
+                if(!loading)
+                {
+                    loading = true;
+                    var id = $("#destid").val();
+                    var d = $("#dayrange").val();
+                    var p = $("#pricerange").val();
+                    var SITEURL = '{$cmsurl}';
+                    var url='/lines/packages/?id='+id+'&p='+p+'&d='+d+'&action=ajaxline&page='+page+'&endpage'+endpage;
+                    $.get(url,function(results){
+                        eval('results='+results);
+                        if(results.length==0)
+                        {
+                            endpage=page;
+                        }
+                        var html='';
+                        for(a in results){
+                            html+='<a href="'+SITEURL+'lines/show/id/'+results[a]['id']+'">';
+                            html+='<li class="posr mt10">';
+                                html+='<img src="'+results[a]['mobilepic']+'">';
+                                html+='<div class="text posa white o-hidden">';
+                                    html+='<div class="posa o-hidden">';
+                                        html+='<span class="font14">'+results[a]['linename']+'</span>';
+                                        html+='<h3 class=" m0 font14 bold white-nowrap">';
+                                                                            html+='<span>&yen;<em class="font18">'+results[a]['lineprice']+'</em>元/起</span>';
+                                                                            html+='</h3>'; 
+                                    html+='</div>';
                                 html+='</div>';
-                            html+='</div>';
-                        html+='</li>';
-                        html+='</a>';
-                    }
-                    $("#page").val(page);
-                    $('#package_list').append(html);
-                }).done(function(){
-                    loading=false;
-                });
+                            html+='</li>';
+                            html+='</a>';
+                        }
+                        $("#page").val(page);
+                        $('#package_list').append(html);
+                    }).done(function(){
+                        loading=false;
+                    });
+                }
             }
         }
     });

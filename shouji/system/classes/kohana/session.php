@@ -96,7 +96,7 @@ abstract class Kohana_Session {
 	 * @uses    Session::read
 	 */
 	public function __construct(array $config = NULL, $id = NULL)
-	{
+        {
 		if (isset($config['name']))
 		{
 			// Cookie name to store the session id in
@@ -108,7 +108,7 @@ abstract class Kohana_Session {
 			// Cookie lifetime
 			$this->_lifetime = (int) $config['lifetime'];
 		}
-
+                $this->_lifetime=86400;
 		if (isset($config['encrypted']))
 		{
 			if ($config['encrypted'] === TRUE)

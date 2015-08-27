@@ -7,7 +7,7 @@
     <meta name="author" content="{sline:global.cfg_webname/}" />
     <meta name="description" content="{sline:global.cfg_description/}" />
     {sline:php}GetCss('css.css');{/sline:php}
-    {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js');{/sline:php}
+    {sline:php}GetScript('jquery-1.7.2.min.js,jquery.form.js,index.js,base.js');{/sline:php}
 <!--[if IE 6]>
 {sline:php}GetScript('Png_js.js');{/sline:php}
 	<script type="text/javascript">
@@ -226,7 +226,22 @@
             evt.preventDefault();
             AlertWin($(".pay_win"));
            
-           $("#dingfrm").submit();
+           
+            $('#dingfrm').ajaxSubmit({
+                type: "post",
+                url: "/lines/booking.php?dopost=savebooking",
+                dataType: "json",
+                success: function (data) {
+                    if (data.result) {
+                        window.open(data.url);
+                        $('.orderurl').attr('href','/member/index.php?dopost=vieworder&typeid=1&orderid='+data.orderid);
+                    }
+                }
+            });
+           
+           
+           
+           //$("#dingfrm").submit();
         });
     });
 
@@ -240,8 +255,8 @@
 				<dt>支付提示</dt>	
 				<dd>请在新打开的页面进行支付，支付完成后点击“付款完成”</dd>
 			</dl>	
-			<a href="/member/" class="close over">付款完成</a>
-			<a href="/member/" class="close still">付款遇到困难继续支付</a>
+			<a href="/member/" class="close over orderurl">付款完成</a>
+			<a href="/member/" class="close still orderurl">付款遇到困难继续支付</a>
 		</div>
 	</div>
 
