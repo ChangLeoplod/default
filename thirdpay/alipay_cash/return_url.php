@@ -39,7 +39,11 @@ if($verify_result) {//验证成功
 	//商户订单号
 
 	$out_trade_no = $_GET['out_trade_no'];
-	
+	Helper_Archive::loadModule('common');
+        $_model = new CommonModule('#@__member_order');
+        $orderinfo = $_model->getOne("ordersn='$out_trade_no'"); 
+        $orderid = $orderinfo['id'];
+        $ordertypeid = $orderinfo['typeid'];
 
 	//支付宝交易号
 
@@ -70,14 +74,14 @@ if($verify_result) {//验证成功
 		  // header("location:$url");
 
 		}*/
-        $url = $GLOBALS['cfg_basehost'].'/member/';
+        $url = $GLOBALS['cfg_basehost'].'/member/index.php?dopost=vieworder&typeid='.$ordertypeid.'&orderid='.$orderid;
         echo '<script>window.location.href="'.$url.'"</script>';
     }
     else 
 	{
       //echo "trade_status=".$_GET['trade_status'];
     }
-    $url = $GLOBALS['cfg_basehost'].'/member/';
+    $url = $GLOBALS['cfg_basehost'].'/member/index.php?dopost=vieworder&typeid='.$ordertypeid.'&orderid='.$orderid;
    echo '<script>window.location.href="'.$url.'"</script>';
 
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
