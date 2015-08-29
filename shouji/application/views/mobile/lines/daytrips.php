@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Pragma" content="no-cache">
-<title>一日游 - {$webname}</title>
+<title>一日游 - 积沙旅行</title>
     {php echo Common::getCss('bootstrap.min.css,sticky-footer.css,css.css'); }
     {php echo Common::getScript('jquery-1.10.1.min.js,bootstrap.min.js,yxMobileSlider.js'); }
 </head>

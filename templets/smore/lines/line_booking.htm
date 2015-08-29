@@ -226,14 +226,14 @@
             evt.preventDefault();
             AlertWin($(".pay_win"));
            
-           
+           var win = window.open();
             $('#dingfrm').ajaxSubmit({
                 type: "post",
                 url: "/lines/booking.php?dopost=savebooking",
                 dataType: "json",
                 success: function (data) {
                     if (data.result) {
-                        window.open(data.url);
+                        win.document.location.href = data.url;
                         $('.orderurl').attr('href','/member/index.php?dopost=vieworder&typeid=1&orderid='+data.orderid);
                     }
                 }

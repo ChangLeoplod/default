@@ -18,103 +18,24 @@ document.write("<scr"+"ipt src=\"/templets/smore/js/Png_js.js\"></sc"+"ript>") ;
 	DD_belatedPNG.fix('*');
 	</script>
 <![endif]--> 
-
+<style>
+.contact_page h2 {
+  height: 45px;
+  line-height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;}
+</style>
 </head>
 
 <body>
-    <script language="javascript">
-  var siteUrl = 'http://test1.jisha.com/';
-  $(function(){
-      
-	  //导航的选中状态
-		 $(".nav a").each(function(){
-                        var url= window.location.href;
-
-                        
-                        url=url.replace('index.php','');
-                        url=url.replace('index.html','');
-                        var ulink=$(this).attr("href");
-                        if(url==ulink)
-                        {
-                           $(this).addClass('hover');
-                        } else{
-                             $(this).removeClass('hover');
-                        }
-		  });
-	   
-	  //用户登陆状态
-	   $.ajax({
-		type: "POST",
-		url: "/ajax/ajax_login.php",
-		data: "dopost=LoginStatus",
-		success: function(data){
-			$('#userLogin').html(data);
-		}
-	   });
-	  
-   
+    {sline:include file='public/header.htm'/}
     
-
-
-  });
-
-function loginWin(){
-	$(".pop_win").show();
-        showMask();
-	};
-function loginClose(){
-	$(".pop_win").hide();
-        hideMask();
-	};
-
-  
-  
-</script>	<!-- header 开始 -->
-		<div class="header">
-			<div class="container">
-				
-				<a href="/" class="logo"><img src="http://test1.jisha.com/images/logo.png" /></a>
-				
-				<div class="nav">
-     
-      <a href="http://test1.jisha.com/">首页</a>
-      
-        <a href="http://test1.jisha.com/lines"
-          target=_blank 
-         title="超级自由行">
-         
-       超级自由行</a>
-      
-        <a href="http://test1.jisha.com/#"
-          target=_blank 
-         title="目的地旅游">
-         
-       目的地</a>
-      
-        <a href="http://test1.jisha.com/about/us.php"
-          target=_blank 
-         title="关于我们">
-         
-       关于我们</a>
-      
- 
-				</div>
-				
-                                <div id="userLogin">
-
-                                </div>
-				
-			</div>
-		</div>
-		<div class="header_zw"></div>
-	<!-- header 结束 -->	
-
-  
-   <!-- <div class="about_banner"></div>-->
+    <!-- <div class="about_banner"></div>-->
 	
-    <div class="contact_page">
+<div class="contact_page">
 
-            <h3>积沙旅行产品条款</h3>
+<h3>积沙旅行产品条款</h3>
 积沙旅行由武汉市光游网络有限公司运营，我们的营业执照号码是：420111000273869。<a href="/templets/smore/images/business_licence.jpg" target="_blank"><font color="red">点此可查看营业执照。</font></a><br>
 
 在预订开始前，请仔细阅读本协议，本协议及产品页面中的重要条款也做为双方协议的补充内容。当您开始预订旅游度假产品时，已表明您仔细阅读并接受协议的所有条款。<br>
@@ -249,56 +170,4 @@ function loginClose(){
     <!--帮助流程开始-->
     <!--底部开始-->
   
-    <!--footer 底部开始-->
-		<div class="footer">	
-			
-			<div class="footer_copy">
-				<p>
-					<a href="/about/us.php">关于积沙旅游</a>
-					<a href="/about/joinus.php">加入我们</a>
-					<a href="/about/contactus.php">联系我们</a>
-					<a href="#">帮助中心</a>
-					<a href="/about/contactus.php">商务合作</a>
-				</p>	
-				<p>鄂ICP备14009743  © 积沙旅行 2015</p>
-			</div>
-			
-		</div>
-	<!--footer 底部结束-->
-	<!--login 开始-->
-            <div class="pop_win" id="pop_div"> 
-		<div class="pwin_in"> 
-			
-			<div class="pwin_head">
-				<div class="close top_close" title="关闭" onClick="loginClose();"></div>		
-			</div>	
-			<div class="clear"></div>
-			
-			<div class="pwin_area">
-				<form>
-					<div class="pwin_error login_info" style="display: none">你输入的账户名和密码不正确。</div>
-					<dl>
-						<dt>登录名：</dt>	
-						<dd><input type="text" name="loginname" class="text"  id="loginname"/></dd>
-					</dl>
-					<div class="clear"></div>
-					<dl>
-						<dt>登录密码：</dt>	
-						<dd><input type="password" class="text" name="password" id="password"/></dd>
-					</dl>
-					<div class="clear"></div>
-					<input type="button" id="login" class="input-button sub" value="登&nbsp;录" />
-					
-					<div class="pwin_bo">
-						<a href="/member/reg.php" class="lt">免费注册</a>	
-						<a href="/member/findpass.php" class="rt">忘记登录密码</a>	
-					</div>
-					
-				</form>	
-			</div>
-			
-		</div>
-	</div>
-</body>
-</html>
-
+    {sline:include file='public/footer.htm'/}

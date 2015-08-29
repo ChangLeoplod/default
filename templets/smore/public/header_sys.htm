@@ -4,8 +4,7 @@
       
 	  //导航的选中状态
 		 $(".nav a").each(function(){
-                        var url= window.location.href;
-
+                        var url= "http://"+window.location.host+window.location.pathname;
                         
                         url=url.replace('index.php','');
                         url=url.replace('index.html','');

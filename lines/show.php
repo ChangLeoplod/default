@@ -106,7 +106,12 @@ if(is_array($row))
     {
         $GLOBALS['condition']['_hasweixin'] = 1;
     }
-
+     //套餐
+    $ispackage=explode(',',$row['attrid']);
+    if(in_array(156,$ispackage))//套餐
+    {
+        $GLOBALS['condition']['_is_papckage'] = 1;
+    }
 $linecontent = getLineContent($row,$rowext['istemplets']);//线路介绍分类
    foreach($row as $k=>$v)
    {

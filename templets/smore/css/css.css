@@ -1377,14 +1377,14 @@ div.clear{
 	height:45px;	
 	line-height:40px;
 	font-size:18px;
-	font-weight:bold;
+	text-align: center;
 }
-
 .contact_page p{
 	font-size:20px;
 	line-height:40px;
 	color:#757575;	
 	margin: 0 .9375em;
+	text-align: center;
 }
 .clause1{color:#02cec5;}
 .clause2{color:#02cec5;}

@@ -10,175 +10,153 @@
     {sline:php}GetScript('jquery-1.7.2.min.js,index.js,base.js');{/sline:php}
 <!--[if IE 6]>
 {sline:php}GetScript('Png_js.js');{/sline:php}
-	<script type="text/javascript">
-	DD_belatedPNG.fix('*');
-	</script>
+        <script type="text/javascript">
+        DD_belatedPNG.fix('*');
+        </script>
 <![endif]--> 
 
 </head>
 
 <body>	
+    {sline:include file='public/header.htm'/}
 	
-	{sline:include file='public/header.htm'/}
-	
-	<div class="sale_banner" style="background:url('{sline:field.linepic/}') no-repeat top center"></div>
-	
-	<div class="sale_page">
-		
-		<!--sale_base 商品基本情况-->
-			<div class="sale_base">
-				<div class="base_in">
-					
-					<div class="sba_left">
-						
-						<dl class="sba_name">
-							<dt>{sline:field.linename/}{sline:field.iconlist function=Helper_Archive::getLineIcon(@me)/}</dt>	
-							<dd>{sline:field.sellpoint/}</dd>
-						</dl>
-						
-						<div class="sba_tags">
-							{sline:field.features/}
-						</div>
-						
-						<div class="sba_super">
-							
-							<span class="super_tip">积沙优势</span>	
-							<div class="clear"></div>
-							
-							<dl class="sup1">
-								<dt>全程超赞酒店</dt>
-								<dd>入住五星哈利瓦酒店</dd>	
-							</dl>
-							<dl class="sup2">
-								<dt>定制攻略</dt>
-								<dd>专业旅行攻略定制</dd>	
-							</dl>
-							<dl class="sup3">
-								<dt>7x24小时旅行管家</dt>
-								<dd>专业旅行管家服务</dd>	
-							</dl>
-							
-						</div>
-							
-					</div>
-					
-					<div class="sba_right">
-						
-						<div class="sba_price">
-							<span><strong>{sline:field.lineprice/}</strong>/人起</span>
-							<em> 自订价:{sline:field.storeprice runphp='yes'}
-                   if(!is_numeric(@me))
-                     @me='';
-                   else
-                     @me=@me;
-                {/sline:field.storeprice}</em>
-						</div>
-						
-						<div class="sba_from">出发城市：{sline:field.startcity/}</div>
-						
-						<div class="sba_num">
-							<div class="num_in">
-								<span class="tit">套餐类型</span>		
-								
-								<div class="radio tc_class">
-                                                                    {sline:getlinesuit}
-                	<a href="javascript:;" data-suitid="[field:id/]">[field:title/]</a>
-                    {/sline:getlinesuit}
-                                                                    
-                                                                    
-									
-								</div>
-						<div class="num_in">
-                                                    <span class="tit">出行日期</span>
-                                                    <select class="st_select" id="date_list">
-                                                        {sline:field.startdateoption/}
-                                                    </select>
-							</div>
-		
-								<div class="clear"></div>
-							</div>
-							
-							<div class="num_in">
-								<span class="tit">出行人数</span>	
-								<span class="adultcontain" style="display: none">
-                                                                    <strong><s style=" color:#f50">*</s>成人：</strong>
-                                                                    <span class="order_number">
-                                                                      <input type="text" id="adultnum" name="adult" value="1" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-                                                                    </span>
-                                                                </span>
-                                                                 <span class="childcontain" style="display: none;padding-left:5px">
-                                                                    <strong>儿童：</strong>
-                                                                    <span class="order_number">
-                                                                      <input type="text" id="childnum" name="child" value="0" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-                                                                    </span>
-                                                                 </span>
-								
-							</div>
+    <div class="sale_banner" style="background:url('{sline:field.linepic/}') no-repeat top center"></div>
+    <div class="sale_page">
+        <!--sale_base 商品基本情况-->
+        <div class="sale_base">
+        <div class="base_in">
+            <div class="sba_left">
+                <dl class="sba_name">
+                    <dt>{sline:field.linename/}{sline:field.iconlist function=Helper_Archive::getLineIcon(@me)/}</dt>	
+                    <dd>{sline:field.sellpoint/}</dd>
+                </dl>
+                <div class="sba_tags">
+                {sline:field.features/}
+                </div>
 
-
-							
-								
-						</div>
-						
-						<div class="sba_tip">
-							<p>· 此产品为爆款产品，确认后不接受任何退改变更.。</p>
-                                                        <p>· 本起价是按2位成人参加 <span id="id_date"></span> 出发的产品，</p>
-							<p>　并入住同一间房间所核算的单人价格。</p>	
-						</div>
-						
-						<dl class="total_price">
-							<dt>总价：<span id="totalprice">￥0</span></dt>	
-                                                        <dd>房价差：<span id="roomblance">￥0</span></dd>
-						</dl>
-						
-						<a href="javascript:;" class="btn_book buy_btn">立即购买</a>
-							
-					</div>
+                <div class="sba_super">
+                    <span class="super_tip">积沙优势</span>	
+                    <div class="clear"></div>
+                        <dl class="sup1">
+                                <dt>全程超赞酒店</dt>
+                                <dd>挑选目的地精品酒店</dd>	
+                        </dl>
+                        <dl class="sup2">
+                                <dt>定制攻略</dt>
+                                <dd>专业旅行攻略定制</dd>	
+                        </dl>
+                        <dl class="sup3">
+                                <dt>7x24小时旅行管家</dt>
+                                <dd>专业旅行管家服务</dd>	
+                        </dl>
+                </div>
+            </div>
 					
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="clear"></div>
-		<!--sale_base 商品基本情况-->
+            <div class="sba_right">
+                <div class="sba_price">
+                    <span><strong>{sline:field.lineprice/}</strong>/人起</span>
+                    <em> 自订价:{sline:field.storeprice runphp='yes'}
+                        if(!is_numeric(@me))
+                          @me='';
+                        else
+                          @me=@me;
+                        {/sline:field.storeprice}
+                    </em>
+                </div>
+						
+                <div class="sba_from">出发城市：{sline:field.startcity/}</div>
+                
+                <div class="sba_num">
+                    <div class="num_in">
+                        <span class="tit">套餐类型</span>		
+                        <div class="radio tc_class">
+                            {sline:getlinesuit}
+                            <a href="javascript:;" data-suitid="[field:id/]">[field:title/]</a>
+                            {/sline:getlinesuit}
+                        </div>
+                        <div class="num_in">
+                            <span class="tit">出行日期</span>
+                            <select class="st_select" id="date_list">
+                            {sline:field.startdateoption/}
+                            </select>
+                        </div>
 		
-		<!--sale_help 抢购须知-->
-			<div class="sale_help">
-				
-				<h2>抢购须知</h2>
-				<p>◆ 因部份境外产品（如线路、酒店、一日游等）均需要提供本人护照号码，为保障您下单顺畅，请在下单时将护照放在手边，以备下单时需使用。</p>
-				<p>◆ 下单后，请您在1小时内付款，否则订单会被取消。</p>
-				<p>◆ 最快的支付方式是提前给支付宝余额充值，同时积沙旅行还支持支付宝快捷支付、支付宝网银支付以及微信支付等支付方式。</p>
-				<p>◆ 下单时遇到问题，请及时联系官方微信客服：jishacom （搜索该公众号）</p>
-				
-				<div class="clear"></div>	
-			</div>
-		<!--sale_help 抢购须知-->
+                        <div class="clear"></div>
+                    </div>
+							
+                    <div class="num_in">
+                        <span class="tit">出行人数</span>	
+                        <span class="adultcontain" style="display: none">
+                            <strong><s style=" color:#f50">*</s>成人：</strong>
+                            <span class="order_number">
+                                <input type="text" id="adultnum" name="adult" value="1" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                            </span>
+                        </span>
+                        <span class="childcontain" style="display: none;padding-left:5px">
+                            <strong>儿童：</strong>
+                            <span class="order_number">
+                                <input type="text" id="childnum" name="child" value="0" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                            </span>
+                        </span>
+                    </div>
+                </div>
+						
+                <div class="sba_tip">
+                    <p>· 此产品为爆款产品，确认后不接受任何退改变更.。</p>
+                    {sline:if var='_is_papckage'}
+                        <p>· 本起价是按2位成人参加 <span id="id_date"></span> 出发的产品，</p>
+                        <p>　并入住同一间房间所核算的单人价格。</p>
+                    {/sline:if}
+                </div>
+						
+                <dl class="total_price">
+                        <dt>总价：<span id="totalprice">￥0</span></dt>	
+                        {sline:if var='_is_papckage'}
+                        <dd>房价差：<span id="roomblance">￥0</span></dd>
+                        {/sline:if}
+                        
+                </dl>
+                <a href="javascript:;" class="btn_book buy_btn">立即购买</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <!--sale_base 商品基本情况-->
 		
-		<!--sale_content 主体区-->
-			<div class="sale_nav">
-                    {sline:detailcontent typeid='1'}
-                        <a href="#[field:columnname/]" [field:class/]>[field:chinesename/]</a>
-                    {/sline:detailcontent}    
-                            
-                            
-			</div>
-			<div class="clear"></div>
+        <!--sale_help 抢购须知-->
+        <div class="sale_help">
+            <h2>抢购须知</h2>
+            <p>◆ 因部份境外产品（如线路、酒店、一日游等）均需要提供本人护照号码，为保障您下单顺畅，请在下单时将护照放在手边，以备下单时需使用。</p>
+            <p>◆ 下单后，请您在1小时内付款，否则订单会被取消。</p>
+            <p>◆ 最快的支付方式是提前给支付宝余额充值，同时积沙旅行还支持支付宝快捷支付、支付宝网银支付以及微信支付等支付方式。</p>
+            <p>◆ 下单时遇到问题，请及时联系官方微信客服：jishacom （搜索该公众号）</p>
+				
+            <div class="clear"></div>	
+        </div>
+        <!--sale_help 抢购须知-->
+		
+        <!--sale_content 主体区-->
+        <div class="sale_nav">
+            {sline:detailcontent typeid='1'}
+                <a href="#[field:columnname/]" [field:class/]>[field:chinesename/]</a>
+            {/sline:detailcontent}    
+        </div>
+        <div class="clear"></div>
 			
-			<div class="sale_content">
-			{sline:detailcontent typeid='1'}
-                        <div class="sc_head" id="[field:columnname/]"><span>[field:chinesename/]</span></div>
-                        [field:content/]
-                    {/sline:detailcontent}  	
-                            
-					
-			</div>
-		<!--sale_content 主体区-->
+        <div class="sale_content">
+            {sline:detailcontent typeid='1'}
+                <div class="sc_head" id="[field:columnname/]"><span>[field:chinesename/]</span></div>
+                [field:content/]
+            {/sline:detailcontent}  	
+        </div>
+        <!--sale_content 主体区-->
 		
 		
-		<div class="clear"></div>	
-	</div>
+        <div class="clear"></div>	
+    </div>
 	
-  <input type="hidden" id="lineid" value="{sline:field.id/}"/>
+    <input type="hidden" id="lineid" value="{sline:field.id/}"/>
 
 <script language="javascript">
  $(function(){

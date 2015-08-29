@@ -33,9 +33,7 @@
                  <h5 class="font16 m0">{$row['linename']}</h5>
                  <div class="mt10 price"><span>&yen;<em class="font20">{$row['lineprice']}</em>起</span><i class="font12 grey ml10">自订价：{$row['storeprice']}元</i></div>
               </div>
-              {if strpos('s'.$row['attrid'].',','156,')}
-              <input type="hidden" name="suitid" id="suitid" value="{$suit[0]['id']}"/>
-              {else}
+              
               <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
                    <div class="panel-title p5">
                         <h2 class="m0 font16">选择套餐</h2>
@@ -48,7 +46,7 @@
                         
                     </ul>
               </div>
-              {/if}
+              
               <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
                    <div class="panel-title p5">
                         <h2 class="m0 font16">产品亮点</h2>

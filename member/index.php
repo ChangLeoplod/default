@@ -244,7 +244,9 @@ if($dopost == 'vieworder')
     $lineinfo = $_model2->getOne("aid='{$orderinfo['productaid']}'");
     $lineinfo['startcity'] = getStartCityName($lineinfo['startcity']);
     unset($lineinfo['id']);
-
+    global $dsql;
+    $sql = "select * from sline_member_order_tourer where orderid='{$orderid}'";
+    $tourer = $dsql->getall($sql);
     $orderinfo['dingdate'] = Mydate('Y-m-d H:i:s',$orderinfo['addtime']);
     if($orderinfo['status']==0 || $orderinfo['status']==1)
     {
