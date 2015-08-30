@@ -8,8 +8,8 @@ define('GV_WC_MCHID', $GLOBALS['cfg_wxpay_mchid']);
 define('GV_WX_KEY', $GLOBALS['cfg_wxpay_key']);
 define('GV_WX_APPSECRET', $GLOBALS['cfg_wxpay_appsecret']);
 //提交数据接口地址
-define('GV_JS_API_CALL_URL', 'http://'.$_SERVER["SERVER_NAME"].'/shouji/thirdpay/weixinpay');
-define('GV_NOTIFY_URL', 'http://'.$_SERVER["SERVER_NAME"].'/shouji/thirdpay/weixinpay_notifyurl');
+define('GV_JS_API_CALL_URL', 'http://'.$_SERVER["SERVER_NAME"].'/thirdpay/weixinpay');
+define('GV_NOTIFY_URL', 'http://'.$_SERVER["SERVER_NAME"].'/thirdpay/weixinpay_notifyurl');
 class WxPayConf_pub
 {
 	//=======【基本信息设置】=====================================
@@ -32,8 +32,8 @@ class WxPayConf_pub
 	
 	//=======【证书路径设置】=====================================
 	//证书路径,注意应该填写绝对路径
-	const SSLCERT_PATH = '/shouji/public/thirdpay/weixinpay/WxPayPubHelper/cacert/apiclient_cert.pem';
-	const SSLKEY_PATH = '/shouji/public/thirdpay/weixinpay/WxPayPubHelper/cacert/apiclient_key.pem';
+	const SSLCERT_PATH = '/public/thirdpay/weixinpay/WxPayPubHelper/cacert/apiclient_cert.pem';
+	const SSLKEY_PATH = '/public/thirdpay/weixinpay/WxPayPubHelper/cacert/apiclient_key.pem';
 	
 	//=======【异步通知url设置】===================================
 	//异步通知url，商户根据实际开发过程设定

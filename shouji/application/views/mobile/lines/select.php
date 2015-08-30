@@ -50,7 +50,7 @@
               <div class="canshu contact bg-white p10 bte3 bbe3">
                    <table class="table table-striped grey m0">
                         <tr>
-                          <th scope="row" style="vertical-align:top">出行人数：</th>
+                          <th scope="row" style="vertical-align:top">人数：</th>
                           <td align="left">
                             <div class="input-group pull-left" style="width:80px;">
                                 <select name="adult" class="form-control font12" id="adult">
@@ -76,20 +76,20 @@
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row" width="30%">联系人：</th>
-                          <td align="right"  width="70%"><input type="text" name="linkman" id="linkman" class="form-control" value="" /></td>
+                          <th scope="row" width="20%">姓名：</th>
+                          <td align="right"  width="80%"><input type="text" name="linkman" id="linkman" class="form-control" value="" placeholder="请输入姓名"/></td>
                         </tr>
                         <tr>
-                          <th scope="row">联系手机：</th>
-                          <td align="right"><input type="tel" class="form-control" name="linktel" placeholder="" id="linktel" value="" /></td>
+                          <th scope="row">手机：</th>
+                          <td align="right"><input type="tel" class="form-control" name="linktel"  id="linktel" value=""  placeholder="请输入电话"/></td>
                         </tr>
                         <tr>
-                          <th scope="row">联系邮箱：</th>
-                          <td align="right"><input type="email" class="form-control" name="linkemail" id="linkemail" placeholder=""></td>
+                          <th scope="row">邮箱：</th>
+                          <td align="right"><input type="email" class="form-control" name="linkemail" id="linkemail" placeholder="请输入邮箱"></td>
                         </tr>
                         <tr>
                           <th scope="row" valign="top" style="vertical-align:top">留言：</th>
-                          <td align="right"><textarea class="form-control" name="remark" rows="3" placeholder="如果您有其它要求请在这里留言给我们哦~"></textarea></td>
+                          <td align="right"><textarea class="form-control" name="remark" rows="3" placeholder="如果有其它需求请在这里留言给我们哦~"></textarea></td>
                         </tr>
                     </table>    
               </div>

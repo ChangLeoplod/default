@@ -8,12 +8,8 @@ class Controller_Order extends Stourweb_Controller{
     public function action_check() {
         $orderid = Arr::get($_POST,'orderid');
         $info = ORM::factory('member_order',$orderid)->as_array();
-        if($info['ispay'] ==1) {
-            $arr['ispay'] =1;
-        } else {
-            $arr['ispay']=0;
-        }
-        $arr['status']=1;
+        $arr['ispay']=$info['ispay'];
+        $arr['status']=$info['status'];
         echo json_encode($arr);
     }
 

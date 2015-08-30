@@ -72,7 +72,7 @@ $(function(){
             data:{"orderid":{$orderid}},
             dataType:'json',
             success: function(data){
-                if(data.status == '1'){
+                if(data.status==2){
                     if(data.ispay==1) {
                         $('.modal-body').html('恭喜你！支付成功！<input type="hidden" id="ispay" value="1" />');
                     } else{

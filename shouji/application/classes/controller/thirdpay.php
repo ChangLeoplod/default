@@ -492,7 +492,7 @@ _FRM_;
                     else
                     {
                         $ordertype = 'sys';
-                        $updatesql="update sline_member_order set ispay=1,status=2 where ordersn='$ordersn'"; //付款标志置为1,交易成功
+                        $updatesql="update sline_member_order set ispay=1,status=2,paysource='手机-支付宝即时到账' where ordersn='$ordersn'"; //付款标志置为1,交易成功
                     }
                     DB::query(Database::UPDATE,$updatesql)->execute();
 
@@ -817,7 +817,7 @@ _FRM_;
                 else
                 {
                     $ordertype = 'sys';
-                    $updatesql="update sline_member_order set ispay=1,status=2 where ordersn='$ordersn'"; //付款标志置为1,交易成功
+                    $updatesql="update sline_member_order set ispay=1,status=2,paysource='手机-微信支付' where ordersn='$ordersn'"; //付款标志置为1,交易成功
                 }
                 DB::query(Database::UPDATE,$updatesql)->execute()->as_array();
 
