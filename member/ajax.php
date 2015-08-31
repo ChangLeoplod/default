@@ -173,7 +173,7 @@ if($dopost == 'allorder')
 	//getAll($where=null,$order=null,$limit=null,$field=null)
 	if($typeid) $w = " and typeid='{$typeid}'";//添加订单类型判断
 	$offset=($curpage-1)*$pagesize;
-	$arr = $_model->getAll("memberid='$uid' and pid=0 {$w}","ispay asc,addtime desc","$offset,$pagesize");
+	$arr = $_model->getAll("memberid='$uid' and pid=0 {$w}","addtime desc","$offset,$pagesize");
 	foreach($arr as $row)
 	{
         if($row['typeid']!=2)
@@ -515,6 +515,26 @@ if($dopost == 'jifenlog')
 
 }
 
+if ($dopost=='checkorder')
+{
+    $orderid = $_GET['orderid'];
+    Helper_Archive::loadModule('common');
+    $_model = new CommonModule('#@__member_order');
+    $row =$_model->getOne("id='$orderid'");
+    if(isset($row))
+    {
+        if(intval($row['ispay'])==1 && intval($row['status'])==2)
+        {
+            $out['status'] = true;
+        }
+        else
+        {
+            $out['status'] = false;
+        }
+    }
+    echo json_encode($out);
+}
+
 /*
    * 返库存操作
    * */
@@ -702,4 +722,3 @@ if ($do=='edit') {
     }
     echo json_encode($arr);
 }
-

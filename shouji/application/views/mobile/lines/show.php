@@ -102,7 +102,7 @@ $(function(){
 });     
         
 </script>
+<div style="display:none;"><p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256229666'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1256229666' type='text/javascript'%3E%3C/script%3E"));</script></p></div>
 <div class="footer grey font12 text-center" >武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
-
 </body>
 </html>

@@ -118,4 +118,40 @@
             <div class="payment-change"></div>
         </div>
     </div>
+    
+<script>
+    $(function(){
+        CodeTimeOutForQuery(60);
+    });
+    
+    function CodeTimeOutForQuery(v)
+    {
+        if(v>0)
+        {
+            $.ajax({
+            type:'POST',
+            url:'/member/ajax.php?dopost=checkorder&orderid='+{sline:field.id/},
+            dataType:'json',
+            success:function(data){
+                if(data.status){
+                    location.href='/member/index.php?dopost=vieworder&typeid='+{sline:field.typeid/}+'&orderid='+{sline:field.id/};
+                    return true;
+                }
+                else
+                {
+                   --v;
+                    setTimeout(function(){
+                    CodeTimeOutForQuery(v);
+                    },5000);
+                }
+            }
+            })
+        }
+        else
+        {
+            location.href='/member/index.php?dopost=vieworder&typeid='+{sline:field.typeid/}+'&orderid='+{sline:field.id/};
+            return true;
+        }
+    }
+</script>
     {sline:include file='public/footer.htm'/}

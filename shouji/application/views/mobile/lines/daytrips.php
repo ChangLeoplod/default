@@ -105,8 +105,8 @@
                         <img src="{$v['mobilepic']}">
                         <div class="text posa white o-hidden">
                             <div class="posa o-hidden">
-                                <h3 class=" m0 font14 bold white-nowrap">{$v['linename']}</h3>  
-                                <span class="font14">{$v['lineprice']}</span>
+									<span class="font14">{$v['linename']}</span>
+                                    <h3 class=" m0 font14 bold white-nowrap"><span>&yen;<em class="font18">{$v['lineprice']}</em>元/起</span></h3>  
                             </div>
                         </div>
                     </li>

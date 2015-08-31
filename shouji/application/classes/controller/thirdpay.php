@@ -505,13 +505,13 @@ _FRM_;
                     if($ordertype !='dz')
                     {
                         $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
-                        $memberinfo = Common::getMemberInfo($arr['memberid']);
+                        $memberInfo = Common::getMemberInfo($arr['memberid']);
                         $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
                         if(isset($msgInfo['isopen'])) //等待客服处理短信
                         {
                             $content = $msgInfo['msg'];
                             $orderAmount = Common::StatisticalOrderAmount($arr);
-							$content = str_replace('{#MEMBERNAME#}',$memberinfo['nickname'],$content);
+                            $content = str_replace('{#MEMBERNAME#}',$memberInfo['nickname'],$content);
                             $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
                             $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
                             $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
@@ -779,6 +779,9 @@ _FRM_;
     $xml = $GLOBALS['HTTP_RAW_POST_DATA'];  
     $notify->saveData($xml);
     
+    //以log文件形式记录回调信息
+    $log_ = new Log_();
+    $log_->log_result("【接收到的notify通知】:\n".$xml."\n");
     //验证签名，并回应微信。
     //对后台通知交互时，如果微信收到商户的应答不是成功或超时，微信认为通知失败，
     //微信会通过一定的策略（如30分钟共8次）定期重新发起通知，
@@ -787,82 +790,70 @@ _FRM_;
         $notify->setReturnParameter("return_code","FAIL");//返回状态码
         $notify->setReturnParameter("return_msg","签名失败");//返回信息
     }else{
+        if ($notify->data["return_code"] == "SUCCESS") {
+        //此处应该更新一下订单状态，商户自行增删操作
+            $ordersn = $notify->data["attach"];
+            //$sql="select * from sline_member_order where ordersn='$ordersn'";
+            //$arr1=DB::query(1,$sql)->execute()->as_array();
+            //$arr = $arr1[0];
+            $arr = ORM::factory('member_order')->where("ordersn='$ordersn'")->find()->as_array();
+            
+            $order_model = ORM::factory('member_order',$arr['id']);
+            
+            if(substr($ordersn,0,2)=='dz')
+            {
+                $ordertype = 'dz';
+                
+                //$updatesql="update sline_dzorder set status=2 where ordersn='$ordersn'";
+            }
+            else
+            {
+                $ordertype = 'sys';
+                $order_model->ispay = 1;
+                $order_model->status = 2;
+                $order_model->paysource = "手机-微信支付";
+                //$updatesql="update sline_member_order set ispay=1,status=2,paysource='手机-微信支付' where ordersn='$ordersn'"; //付款标志置为1,交易成功
+            }
+            //DB::query(Database::UPDATE,$updatesql)->execute()->as_array();
+            $order_model->update();
+            if($order_model->saved())
+            {
+                //logResult('更新成功');
+                $log_->log_result("更新成功");
+            }
+            //$subject='你成功预订'.$arr['productname'].'产品';
+            //$text="尊敬的{$arr['linkman']},你已经成功在{$GLOBALS['cfg_webname']}预订{$arr['productname']},数量{$arr['dingnum']}.";
+            //sendMsg($subject,$text,$arr['handletel'],$ordersn);
+            if($ordertype !='dz')
+            {
+                
+                $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
+                $memberInfo = Common::getMemberInfo($arr['memberid']);
+                $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
+                if(isset($msgInfo['isopen'])) //等待客服处理短信
+                {
+                    $content = $msgInfo['msg'];
+                    $orderAmount = Common::StatisticalOrderAmount($arr);
+                    $content = str_replace('{#MEMBERNAME#}',$memberInfo['nickname'],$content);
+                    $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
+                    $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
+                    $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
+                    $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
+                    Common::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
+                }
+            }
+        }
+        
         $notify->setReturnParameter("return_code","SUCCESS");//设置返回码
+        $notify->setReturnParameter("return_msg","OK");//返回信息
     }
 
     $returnXml = $notify->returnXml();
-    //echo $returnXml;
+    
     
     //==商户根据实际情况设置相应的处理流程，此处仅作举例=======
-    
-    //以log文件形式记录回调信息
-    $log_ = new Log_();
-    $log_->log_result("【接收到的notify通知】:\n".$xml."\n");
-
-
-        if($notify->checkSign() == TRUE)
-        {
-            if ($notify->data["return_code"] == "SUCCESS") {
-            //此处应该更新一下订单状态，商户自行增删操作
-                $ordersn = $notify->data["attach"];
-                $sql="select * from sline_member_order where ordersn='$ordersn'";
-                $arr1=DB::query(1,$sql)->execute()->as_array();
-                $arr = $arr1[0];
-
-                if(substr($ordersn,0,2)=='dz')
-                {
-                    $ordertype = 'dz';
-                    $updatesql="update sline_dzorder set status=2 where ordersn='$ordersn'";
-                }
-                else
-                {
-                    $ordertype = 'sys';
-                    $updatesql="update sline_member_order set ispay=1,status=2,paysource='手机-微信支付' where ordersn='$ordersn'"; //付款标志置为1,交易成功
-                }
-                DB::query(Database::UPDATE,$updatesql)->execute()->as_array();
-
-                //logResult('更新成功');
-
-                //$subject='你成功预订'.$arr['productname'].'产品';
-                //$text="尊敬的{$arr['linkman']},你已经成功在{$GLOBALS['cfg_webname']}预订{$arr['productname']},数量{$arr['dingnum']}.";
-                //sendMsg($subject,$text,$arr['handletel'],$ordersn);
-
-                if($ordertype !='dz')
-                {
-                    $msgInfo = Common::getDefineMsgInfo($arr['typeid'],3);
-                    $memberinfo = Common::getMemberInfo($arr['memberid']);
-                    $nickname = !empty($memberInfo['nickname']) ? $memberInfo['nickname'] : $memberInfo['mobile'];
-                    if(isset($msgInfo['isopen'])) //等待客服处理短信
-                    {
-                        $content = $msgInfo['msg'];
-                        $orderAmount = Common::StatisticalOrderAmount($arr);
-						$content = str_replace('{#MEMBERNAME#}',$memberinfo['nickname'],$content);
-                        $content = str_replace('{#PRODUCTNAME#}',$arr['productname'],$content);
-                        $content = str_replace('{#PRICE#}',$orderAmount['priceDescript'],$content);
-                        $content = str_replace('{#NUMBER#}',$orderAmount['numberDescript'],$content);
-                        $content = str_replace('{#TOTALPRICE#}',$orderAmount['totalPrice'],$content);
-                        Common::sendMsg($memberInfo['mobile'],$nickname,$content);//发送短信.
-                    }
-                }
-            }
-
-            echo "success";     //请不要修改或删除
-
-
-            //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        }
-        else
-        {
-            //验证失败
-            echo "fail";
-
-            //调试用，写文本函数记录程序运行情况是否正常
-            //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
-        }
-
-
+    $log_->log_result("return:\n".$returnXml."\n");
+    echo $returnXml;
     }
 
    /*

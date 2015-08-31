@@ -26,6 +26,17 @@ $input->SetProduct_id($_POST['ordersn']);
 $result = $notify->GetPayUrl($input);
 $url2 =urlencode($result["code_url"]);
 
+$ordersn = $_POST['ordersn'];
+Helper_Archive::loadModule('common');
+$_model = new CommonModule('#@__member_order');
+$row =$_model->getOne("ordersn='$ordersn'");
+if(isset($row))
+{
+    foreach($row as $k=>$value)
+    {
+        $pv->Fields[$k] = $value;
+    }
+}
 
 $templet=SLINEROOT.'/thirdpay/weixinpay/tpl/native.htm';
 $pv->SetTemplet($templet);
