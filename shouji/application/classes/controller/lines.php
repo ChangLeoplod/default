@@ -242,7 +242,21 @@ class Controller_Lines extends Stourweb_Controller{
 		$this->display('lines/show');
 
 	}
-
+        //获取套餐最低价
+        //
+        public function action_getsuitminprice()
+        {
+            $suitid = Arr::get($_POST,'suitid');
+            $out['status'] = false;
+            if(isset($suitid))
+            {
+                $price = Model_Line_Suit_Price::getMinPrice($suitid);
+                $out['status'] = true;
+                $out['minprice'] = $price;
+            }
+            echo json_encode($out);
+        }
+        
 	//产品预订
 	public function action_create()
 	{
@@ -480,4 +494,6 @@ right\"><div>￥{$price['adultprice']}</div>售馨</div></td>";
         if(empty($this->mid))
          $this->request->redirect('user/login');
     }
+    
+    
 }

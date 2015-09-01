@@ -184,7 +184,7 @@
                   <dl>
                       <dt>库存：</dt>
                       <dd>
-                          <input type="text" class="set-text-xh text_100 mt-2" name="number" value="-1" /> <span style="color:gray;padding-left:10px">-1表示不限</span>
+                          <input type="text" class="set-text-xh text_100 mt-2" name="number" value="1000" /> <span style="color:gray;padding-left:10px">不能是-1</span>
                       </dd>
                   </dl>
                   <dl>

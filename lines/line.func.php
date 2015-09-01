@@ -921,7 +921,21 @@ function getLineContent($row,$istemplets)
 
 
 }
-
+function getSuitMinPrice($id)
+{
+    global $dsql;
+    $sql="select id from #@__line_suit where lineid='$id'";
+    $arr=$dsql->getAll($sql);
+    $minprice=array();
+    foreach($arr as $k)
+    {
+        $suitid = $k['id'];
+        $psql="select min(adultprice) as p from #@__line_suit_price where suitid = $suitid and day > unix_timestamp() and adultprice>0 limit 0,1";
+        $price = $dsql->getOne($psql);
+        $minprice[$suitid]=intval($price['p']);
+    }
+    return $minprice;
+}
 
 //获取线路评论
 

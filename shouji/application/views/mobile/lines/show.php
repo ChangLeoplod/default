@@ -31,7 +31,10 @@
               
               <div class="comm-name bg-white bbe3 p15"> 
                  <h5 class="font16 m0">{$row['linename']}</h5>
-                 <div class="mt10 price"><span>&yen;<em class="font20">{$row['lineprice']}</em>起</span><i class="font12 grey ml10">自订价：{$row['storeprice']}元</i></div>
+                 <div class="mt10 price">
+                    <span id="minprice">&yen;<em class="font20">{$row['lineprice']}</em>起</span>
+                    <i class="font12 grey ml10">自订价：{$row['storeprice']}元</i>
+                 </div>
               </div>
               
               <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
@@ -85,17 +88,39 @@
     
 </div>
 <script>
+var loading = false;
 $(function(){
     $('.choose').click(function(){
         var id = $(this).attr('data-id');
         $('#suitid').val(id);
         $('.choose').removeClass('active');
         $(this).addClass('active');
+        if(!loading)
+        {
+            loading = true;
+            $.ajax({
+                type:"post",
+                url:"{$cmsurl}lines/getsuitminprice",
+                data:{"suitid":id},
+                dataType:'json',
+                success: function(data){
+                    if(data.status==true){
+                        $("#minprice").html("<span>&yen;<em class='font20'>"+data.minprice+"</em>/起</span>");
+                    }   
+                    else
+                    {
+                        $("#minprice").html("<span>&yen;<em class='font20'>"+{$row['lineprice']}+"</em>/起</span>");
+                    }
+                }
+            }).done(function(){
+                loading = false;
+            });
+        }
     });
     
     $('#sumbit').click(function(){
         var id = $('#suitid').val();
-         location.href="{$cmsurl}lines/create/id/"+id;
+        location.href="{$cmsurl}lines/create/id/"+id;
     });
     
     
@@ -104,5 +129,6 @@ $(function(){
 </script>
 <div style="display:none;"><p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256229666'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1256229666' type='text/javascript'%3E%3C/script%3E"));</script></p></div>
 <div class="footer grey font12 text-center" >武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
+
 </body>
 </html>

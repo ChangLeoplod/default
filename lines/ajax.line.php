@@ -174,8 +174,7 @@ if($dopost == 'getoptionlist')
 
     $time = strtotime(date('Y-m-d'));//现在时间
     $sql = "select * from #@__line_suit_price where suitid='$suitid' and day > '$time' and adultprice>0 and `number`!=0 limit 0,30";
-
-
+    
     $arr = $dsql->getAll($sql);
     $monthli = '';
     $suitinfo = getPeopleGroup($suitid);
@@ -219,7 +218,9 @@ if($dopost == 'getoptionlist')
 
     $out['monthli']=$monthli;
     $out['jifen']=$jifenarr;
-
+    $psql="select min(adultprice) as p from #@__line_suit_price where suitid = '$suitid' and day > '$time' and adultprice>0 and `number`!=0 limit 0,1";
+    $price = $dsql->getOne($psql);
+    $out['minprice'] = intval($price['p']);
     echo json_encode($out);
     exit;
 }

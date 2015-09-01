@@ -6,7 +6,7 @@ class Model_Line_Suit_Price extends ORM {
 	public static function getMinPrice($suitid,$field='adultprice')
 	{
 		$time=time();
-		$result=DB::query(Database::SELECT,"select min($field) as minprice from sline_line_suit_price where  day>$time and suitid=$suitid")->execute()->as_array();
+		$result=DB::query(Database::SELECT,"select min($field) as minprice from sline_line_suit_price where adultprice>0 and day>$time and suitid=$suitid limit 0,1")->execute()->as_array();
 		return $result[0]['minprice'];
 	}
 
