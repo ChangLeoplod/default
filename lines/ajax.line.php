@@ -209,7 +209,7 @@ if($dopost == 'getoptionlist')
         }
         //$peopleinfo = $row['number']==0 ? $peopleinfo.'库存:充足' : $peopleinfo.'库存:'.$row['number'];
         $text = $day.'('.$weekday.')'.$peopleinfo;
-        $text .= empty($row['roombalance'])?0:'(单房差:'.$row['roombalance'].'元)';
+        $text .= empty($row['roombalance'])?'':'(单房差:'.$row['roombalance'].'元)';
         $monthli.='<option value="'.$day.'" data-price="'.$adultprice.'" data-childprice="'.$childprice.'" data-roombalance="'.$row['roombalance'].'" data-oldprice="'.$oldprice.'" data-number="'.$row['number'].'">'.$text.'</option>';
 
 
