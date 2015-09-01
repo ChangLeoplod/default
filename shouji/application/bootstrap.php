@@ -89,7 +89,7 @@ if (isset($_SERVER['KOHANA_ENV']))
 }
 Cookie::$salt = 'stourwebcms';
 // 设置cookie 多久过期
-Cookie::$expiration = 86400;
+Cookie::$expiration = 604800;
 // 限制有效的cookie路径
 Cookie::$path = '/';
 // 限制可以访问cookie的域名
