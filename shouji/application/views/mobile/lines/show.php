@@ -50,6 +50,7 @@
                     </ul>
               </div>
               
+              {if $row['features']}
               <div class="comm-col mt10 bg-white bte3 bbe3 p10"> 
                    <div class="panel-title p5">
                         <h2 class="m0 font16">产品亮点</h2>
@@ -58,6 +59,7 @@
                         {$row['features']}
                     </ul>
               </div>
+              {/if}
               
               <div class="comm-col mt10 bg-white bte3 bbe3 p15 mb10">
                     <ul id="myTab" class="nav nav-tabs font12 text-center">
