@@ -2081,12 +2081,18 @@ background-color: #fff;
 	width:276px;	
 }
 .tc_class a{
-float: left;
+/*float: left;
 color: #666;
 height: 24px;
 line-height: 24px;
 padding: 0 10px;
-margin: 0 8px 10px 0;
+margin: 0 8px 10px 0;*/
+float: left;
+color: #666;
+height: 24px;
+line-height: 24px;
+padding: 0 5px;
+margin: 0 7px 10px 0;
 background: #fff;
 border: 1px solid #dcdcdc;
 }

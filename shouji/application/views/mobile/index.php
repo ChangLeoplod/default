@@ -63,7 +63,7 @@
         <div class="select-one p10 bte3 bbe3 mt10 bg-white o-hidden">
              <div class="panel-title posr p5">
                 <a href="{$cmsurl}lines/packages"><h2 class="m0 font16">超级自由行当季热销</h2>
-                <p class="font12 grey mt5">经典线路玩法，一口价全包超省心。</p></a>
+                <p class="font12 grey mt5">经典线路玩法，旅行管家服务超省心。</p></a>
                 <div class="more posa baseicon"></div>
              </div>  
              <ul class="m0 p0">
