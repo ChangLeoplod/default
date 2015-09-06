@@ -93,12 +93,10 @@ div.clear{
 	margin-right:33px;	
 	height:32px;
 	color:#fff;
-	padding:0 4px;
-}
+	padding:0 4px;}
 .nav a:hover,.nav a.hover{
 	border-bottom:2px solid #fff;
-	color:#fff;	
-}
+	color:#fff;}
 .head_login{
 	float:right;
 	font-size:14px;
@@ -2082,7 +2080,8 @@ background-color: #fff;
 	float:left;
 	width:276px;	
 }
-.tc_class a{float: left;
+.tc_class a{
+float: left;
 color: #666;
 height: 24px;
 line-height: 24px;
@@ -2093,7 +2092,7 @@ border: 1px solid #dcdcdc;
 }
 .tc_class a.on {
 border: 1px solid #e4393c;
-background: url(/images/tc_ico.png) right bottom no-repeat #fff;
+background: right bottom no-repeat #fff;
 }
 .sba_num .rak{
 	display:none;	
