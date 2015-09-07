@@ -41,20 +41,21 @@
           <p class="time">{$rolename}</p>
         </div>
         <div class="txt-msg">
-        	<div class="contact-btn">
-          	<a class="fk-btn" href="javascript:;">工单反馈</a>
-          	<a class="kf-btn" href="javascript:;">专属客服</a>
-          </div>
-        	<div class="affiche">
-               <table id="info1" style="display: none">
-                   <tr><td style="padding-bottom: 1px"><div class="tit"><div class="wel">欢迎使用正版思途CMS！</div><div class="version">版本：<span id="myversion"></span></div></div></td><td><div class="up-btn" onclick="ST.Util.addTab('系统升级','{$cmsurl}upgrade/index/parentkey/application/itemid/1')"><a href="javascript:;" class="version-icon"></a><div><img src="{$GLOBALS['cfg_public_url']}images/s4_06.png"/></div><div class="txt">立即升级</div></div></td></tr>
-               </table>
+            <div class="contact-btn">
+                <a class="fk-btn" href="javascript:;">工单反馈</a>
+                <a class="kf-btn" href="javascript:;">专属客服</a>
+            </div>
+            <!--
+            <div class="affiche">
+                <table id="info1" style="display: none">
+                    <tr><td style="padding-bottom: 1px"><div class="tit"><div class="wel">欢迎使用正版思途CMS！</div><div class="version">版本：<span id="myversion"></span></div></div></td><td><div class="up-btn" onclick="ST.Util.addTab('系统升级','{$cmsurl}upgrade/index/parentkey/application/itemid/1')"><a href="javascript:;" class="version-icon"></a><div><img src="{$GLOBALS['cfg_public_url']}images/s4_06.png"/></div><div class="txt">立即升级</div></div></td></tr>
+                </table>
                 <table id="info2" style="display: none">
-                    <tr><td align="right"><div class="tit">非法使用系统面临法律诉讼</div></td></tr>
-                    <tr><td align="right"><a class="btn" target="_blank" href="http://www.stourweb.com"><img src="{$GLOBALS['cfg_public_url']}images/contact_03.png"/></a></td></tr>
+                     <tr><td align="right"><div class="tit">非法使用系统面临法律诉讼</div></td></tr>
+                     <tr><td align="right"><a class="btn" target="_blank" href="http://www.stourweb.com"><img src="{$GLOBALS['cfg_public_url']}images/contact_03.png"/></a></td></tr>
                 </table>
             </div>
-        	</span>
+            -->
         </div>
       </div>
       
