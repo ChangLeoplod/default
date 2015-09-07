@@ -60,6 +60,7 @@
                                     <option value="4">成人4</option>
                                     <option value="5">成人5</option>
                                     <option value="6">成人6</option>
+                                    <option value="0">成人0</option>
                                 </select>
                             </div>
                             <div class="input-group pull-left ml10" style="width:80px;">
@@ -258,16 +259,34 @@ $(function(){
         var a= '';
         var b= '';
         if (number<6) {
-            b='<option value="0">儿童0</option>';
+            if(childprice==0)
+            {
+                b='<option value="0">儿童0</option>';
+            }
+            else
+            {
+                b='<option value="0">儿童0</option>';
+                for (var i=1;i<=number;i++) {
+                    b+='<option value="'+i+'">儿童'+i+'</option>';
+                }
+            }
             for (var i=1;i<=number;i++) {
                 a+='<option value="'+i+'">成人'+i+'</option>';
-                b+='<option value="'+i+'">儿童'+i+'</option>';
             }
+            a='<option value="0">成人0</option>'
             $('#adult').html(a);
             $('#child').html(b);
-        } else {
-            $('#adult').html('<option value="1">成人1</option><option value="2">成人2</option><option value="3">成人3</option><option value="4">成人4</option><option value="5">成人5</option><option value="6">成人6</option>');
-            $('#child').html('<option value="0">儿童0</option><option value="1">儿童1</option><option value="2">儿童2</option><option value="3">儿童3</option><option value="4">儿童4</option><option value="5">儿童5</option><option value="6">儿童6</option>');
+        } 
+        else {
+            if(childprice == 0)
+            {
+                $('#child').html('<option value="0">儿童0</option>');
+            }
+            else
+            {
+                $('#child').html('<option value="0">儿童0</option><option value="1">儿童1</option><option value="2">儿童2</option><option value="3">儿童3</option><option value="4">儿童4</option><option value="5">儿童5</option><option value="6">儿童6</option>');
+            }
+            $('#adult').html('<option value="1">成人1</option><option value="2">成人2</option><option value="3">成人3</option><option value="4">成人4</option><option value="5">成人5</option><option value="6">成人6</option><option value="0">成人0</option>');
         }
         getPrice();
     });
