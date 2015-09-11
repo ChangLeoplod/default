@@ -33,20 +33,28 @@ class Model_Member_Order extends ORM {
         foreach($arr as $key=>$v)
         {
             $expiredtime=3600;
-            if(($v['status']==0 || $v['status']==1)
-                    &&($v['addtime']+$expiredtime) <= time())
-            {
-                $sql = "update sline_member_order set status=3,ispay=3 where id='{$v['id']}'";
-                if(DB::query(1,$sql)->execute()==1)
-                {
-                    //var_dump($v['id']);
-                    $this->refundStorage($v['id'], 'plus');
-                    $arr[$key]['status']=3;
-                    $arr[$key]['ispay']=3;
-                }
-            }
+            //if(($v['status']==0 || $v['status']==1)
+            //        &&($v['addtime']+$expiredtime) <= time())
+            //{
+            //    $sql = "update sline_member_order set status=3,ispay=3 where id='{$v['id']}'";
+            //    if(DB::query(1,$sql)->execute()==1)
+            //    {
+            //        //var_dump($v['id']);
+            //        $this->refundStorage($v['id'], 'plus');
+            //        $arr[$key]['status']=3;
+            //        $arr[$key]['ispay']=3;
+            //    }
+            //}
             $arr[$key]['suitname'] = self::getSuitName($v['suitid'],$v['typeid'],$v['productautoid']);//套餐名
-            $arr[$key]['totalprice'] =  $v['price'] * $v['dingnum']+$v['childnum']*$v['childprice']+$v['oldnum']*$v['oldprice'];
+            $deductprice = 0;
+            if($v['needjifen']!=0 && $v['usejifen']!=0)
+            {
+                $jifeninfo = ORM::factory('member_jifen')->where("id={$v['usejifen']}")->find()->as_array();
+                $deductprice = min($jifeninfo['jifen'], $v['needjifen']);
+            }
+            $arr[$key]['totalprice'] =  $v['price'] * $v['dingnum']+$v['childnum']*$v['childprice']+$v['roombalance']*$v['roombalancenum']-$deductprice;
+            if($arr[$key]['totalprice'] <= 0)
+                $arr[$key]['totalprice'] = 1;
             $tmparr = ORM::factory('line')->where("aid='$v[productaid]'")->find()->as_array();
             $arr[$key]['mobilepic']=$tmparr['mobilepic'];
         }
@@ -84,7 +92,16 @@ class Model_Member_Order extends ORM {
    {
         $arr = $this->where("id={$orderid}")->find()->as_array();
         $arr['suitname'] = self::getSuitName($arr['suitid'],$arr['typeid'],$arr['productautoid']);//套餐名
-        $arr['totalprice'] = $arr['price'] * $arr['dingnum']+$arr['childnum']*$arr['childprice']+$arr['oldnum']*$arr['oldprice'];
+        $deductprice = 0;
+        if($arr['needjifen']!=0 && $arr['usejifen']!=0)
+        {
+            $jifeninfo = ORM::factory('member_jifen')->where("id={$arr['usejifen']}")->find()->as_array();
+            $deductprice = min($jifeninfo['jifen'], $arr['needjifen']);
+            $arr['jifencontent'] = "使用现金券面额为".$jifeninfo['jifen']."元，本产品最高减免".$arr['needjifen']."元";
+        }
+        $arr['totalprice'] = $arr['price'] * $arr['dingnum']+$arr['childnum']*$arr['childprice']+$arr['roombalance']*$arr['roombalancenum']-$deductprice;
+        if($arr['totalprice'] <= 0)
+            $arr['totalprice'] = 1;
         $arr['pinlun'] = $this->getOrderPinlun($orderid);
         $arr['tourers'] = $this->getTourersInfo($orderid);
         if($arr['status'] == 0 || $arr['status'] == 1)

@@ -270,6 +270,7 @@ class Controller_User extends Stourweb_Controller{
     public function action_orderlist()
     {
       self::checkMid();
+      file_put_contents('/tmp/log', 'test file_put_contents');
       $model = new Model_Member_Order();
       $order = $model->getOrderList($this->mid);
       $this->assign('orderlist',$order);
@@ -508,7 +509,15 @@ class Controller_User extends Stourweb_Controller{
             if ($info['roombalance']>0&&$info['dingnum']%2==1) {
                 $roombalance = $info['roombalance'];
             }
-            $total_fee = (intval($info['price']) * intval($info['dingnum']))+(intval($info['childprice'])*intval($info['childnum']))+$roombalance;
+            $deductprice = 0;
+            if($info['needjifen']!=0 && $info['usejifen']!=0)
+            {
+                $jifeninfo = ORM::factory('member_jifen')->where("id={$info['usejifen']}")->find()->as_array();
+                $deductprice = min($jifeninfo['jifen'], $info['needjifen']);
+            }
+            $total_fee = (intval($info['price']) * intval($info['dingnum']))+(intval($info['childprice'])*intval($info['childnum']))+$roombalance-$deductprice;
+            if($total_fee <= 0)
+                $total_fee = 1;
             $total_fee = $total_fee*100;
             
             $unifiedOrder->setParameter("openid","$openid");//商品描述

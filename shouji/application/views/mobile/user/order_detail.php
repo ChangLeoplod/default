@@ -55,6 +55,12 @@
                         <th scope="row">订单金额：</th>
                         <td ><span class="price">¥<em class="font18">{$order['totalprice']}</em></span></td>
                     </tr>
+                    {if $order['jifencontent']}
+                    <tr>
+                        <th scope="row" width="30%">现金券：</th>
+                        <td width="70%">{$order['jifencontent']}</td>
+                    </tr>
+                    {/if}
                 </table>
             </div>
 
@@ -221,7 +227,7 @@
                                     data:{"orderid":{$order['id']}},
                                     dataType:'json',
                                     success: function(data){
-                                        if(data.status == '2'){
+                                        if(data.status == '1'){
                                             if(data.ispay==1) {
                                                location.href = '{$cmsurl}user/order_detail/orderid/{$order['id']}';
                                             } 

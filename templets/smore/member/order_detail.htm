@@ -64,9 +64,15 @@
 				<p>购买商品：{sline:field.productname/}</p>
 				<p>出行日期：{sline:field.usedate/}</p>
 				<p>出行人数：<span class="w_xt">成人&nbsp;&nbsp;<span class="color_f">{sline:field.dingnum/}</span>&nbsp;&nbsp;名</span>
-                  <span class="w_xt childcontain">儿童&nbsp;&nbsp;<span class="color_f">{sline:field.childnum/}</span>&nbsp;&nbsp;名</span></p>
+                                            <span class="w_xt childcontain">儿童&nbsp;&nbsp;<span class="color_f">{sline:field.childnum/}</span>&nbsp;&nbsp;名</span></p>
 				<p>出发城市：{sline:field.startcity/}</p>
 				<p>应付金额：{sline:field.totalprice/}元</p>
+                                {sline:field.jifencontent runphp='yes'}
+                                if(@me)
+                                    @me='<p>现&nbsp&nbsp金&nbsp&nbsp券 : '.@me.'</p>';
+                                else
+                                    @me='';
+                               {/sline:field.jifencontent}
 				
 				<div class="od_tit">联系人信息</div>				
 				<table class="base_tab">
@@ -97,7 +103,7 @@
 						<td>[field:sex/]</td>	
 						<td>[field:passportno/]</td>	
 						<td>[field:cardnumber/]</td>	
-					</tr>
+                                    </tr>
                                     {/sline:vlist}
 				</table>
 				

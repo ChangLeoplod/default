@@ -200,6 +200,15 @@
 		return $arr;
 		
 	}
+        
+        //根据mid获取用户优惠券信息()
+        function getJifenInfoByMid($mid)
+        {
+            $currenttime = time();
+            $sql="select * from sline_member_jifen where memberid='$mid' and isused = 0 and expiredtime>'$currenttime'";
+            $arr=$this->db->getAll($sql);
+            return $arr;
+        }
 	
 	function putLoginInfo($uid, $logintime=0)
     {

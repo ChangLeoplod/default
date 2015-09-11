@@ -109,7 +109,14 @@ class Controller_Page extends Stourweb_Controller{
         if ($info['roombalance']>0&&$info['dingnum']%2==1) {
             $roombalance = $info['roombalance'];
         }
-        $totalprice = $info['price'] * $info['dingnum']+$info['childprice']*$info['childnum']+$roombalance;
+        if($info['usejifen'] != 0)
+        {
+            $jifeninfo = ORM::factory('member_jifen')->where("id={$info['usejifen']}")->find()->as_array();
+            $deductprice = min($jifeninfo['jifen'], $info['needjifen']);
+        }
+        $totalprice = $info['price'] * $info['dingnum']+$info['childprice']*$info['childnum']+$roombalance-$deductprice;
+        if($totalprice <= 0)
+            $totalprice = 1;
         $info['depoist'] = $info['dingjin']*($info['dingnum']+$info['childnum']+$info['oldnum']);
         $info['totalprice'] = $totalprice;
         $cfg_pay_type=Common::getSysPara('cfg_pay_type');

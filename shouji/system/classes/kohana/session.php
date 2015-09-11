@@ -108,7 +108,7 @@ abstract class Kohana_Session {
 			// Cookie lifetime
 			$this->_lifetime = (int) $config['lifetime'];
 		}
-                $this->_lifetime=86400*7;
+                //$this->_lifetime=86400;
 		if (isset($config['encrypted']))
 		{
 			if ($config['encrypted'] === TRUE)

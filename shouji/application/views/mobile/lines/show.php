@@ -43,7 +43,11 @@
                     </div>
                     <ul class="o-hidden mt5 text-center font12">
                         {loop $suit $v}
-                        <li class="w50 pull-left {if $n==1}active{/if} choose" style="cursor:pointer" data-id="{$v['id']}"><div class="p5"><div>{$v['suitname']}</div></div></li>
+                        <li class="w50 pull-left {if $n==1}active{/if} choose" style="cursor:pointer" data-id="{$v['id']}">
+                            <div class="p5">
+                                <div>{$v['suitname']}</div>
+                            </div>
+                        </li>
                         {if $n==1}<input type="hidden" name="suitid" id="suitid" value="{$v['id']}"/>{/if}
                         {/loop}
                         

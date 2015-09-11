@@ -262,9 +262,13 @@ class Controller_Lines extends Stourweb_Controller{
 	{
 		self::checkMid();
 		$suitid=$this->params['id'];
-		
 		$row =ORM::factory('line_suit')->where("id=$suitid")->find()->as_array();
-		        
+                $currenttime = time();
+                if($row['jifentprice']!=0)
+                {
+                    $jifeninfo = ORM::factory('member_jifen')->where("memberid=$this->mid and isused=0 and expiredtime>$currenttime")->get_all();
+                    $this->assign('jifeninfo',$jifeninfo);
+                }
 		$this->assign('row',$row);
 		$this->assign('suitid',$suitid);
 		$this->display('lines/select');

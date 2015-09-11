@@ -26,6 +26,7 @@ class Controller_Order extends Stourweb_Controller{
         $linktel = Arr::get($_POST,'linktel');//手机号
         $linkemail = Arr::get($_POST,'linkemail');
         $remark = Arr::get($_POST,'remark');
+        $jifenid = Arr::get($_POST,'jifenid');
         if(empty($linktel))
         {
             Common::showMsg('手机号不能为空',-1);
@@ -202,6 +203,7 @@ class Controller_Order extends Stourweb_Controller{
             'dingjin'=>$info['dingjin'],
             'usedate'=>$info['usedate'],
             'roombalance'=>$info['roombalance'],
+            'roombalancenum'=>Arr::get($_POST,'roombalancenum'),
             'status'=>$info['status'],
             'addtime'=>time(),
             'memberid'=>$mid,
@@ -214,6 +216,8 @@ class Controller_Order extends Stourweb_Controller{
             'linkemail'=>Arr::get($_POST,'linkemail'),
             'suitid'=> Arr::get($_POST,'suitid'),
             'remark'=> Arr::get($_POST,'remark'),
+            'needjifen'=>Arr::get($_POST,'needjifen'),
+            'usejifen'=>Arr::get($_POST,'jifenid'),
         );
 
         if(Common::addOrder($arr))
@@ -250,7 +254,23 @@ class Controller_Order extends Stourweb_Controller{
 
 
             }*/
-
+            //扣除积分
+            if($jifenid!=0)
+            {
+                $jifen_model = ORM::factory('member_jifen',$jifenid);
+                $jifen_model->isused = 1;
+                $jifen_model->update();
+                if($jifen_model->saved())
+                {
+                    $jifenlog_model = ORM::factory('member_jifen_log');
+                    $jifenlog_model->memberid = $mid;
+                    $jifenlog_model->content = "预订线路{$info['name']}使用了{$jifenid}号优惠券";
+                    $jifenlog_model->addtime = time();
+                    $jifenlog_model->type = 1;
+                    $jifenlog_model->jifen = $jifenid;
+                    $jifenlog_model->save();
+                }
+            }
             //订单邮件提醒
             if($linkemail)
 		$mailto = $linkemail;

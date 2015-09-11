@@ -43,6 +43,7 @@ if(!$User->isLogin())
   if ( $lineinfo['dingnum']<1&&$lineinfo['childnum']<1) {
       $lineinfo['dingnum']=1;
   }
+  
   $lineinfo['oldnum'] = intval($oldnum) ? intval($oldnum) : 0;
   $group = explode(',',$suitinfo['propgroup']);//人群
 
@@ -52,7 +53,7 @@ if(!$User->isLogin())
   if(!empty($suitinfo['jifentprice']))$GLOBALS['condition']['_has_jifentprice']=1;
   if(!empty($suitinfo['jifencomment']))$GLOBALS['condition']['_has_jifencomment']=1;
   if(!empty($suitinfo['jifenbook']))$GLOBALS['condition']['_has_jifenbook']=1;
-  if(!empty($priceinfo['roombalance']))$GLOBALS['condition']['_has_roombalance']=1;
+  if(!empty($priceinfo['roombalance']) && $lineinfo['dingnum']%2==1)$GLOBALS['condition']['_has_roombalance']=1;
 
   if(!empty($lineinfo['insurances']))
   {
@@ -72,62 +73,71 @@ if(!$User->isLogin())
      $lineinfo['jifenbook'] = $suitinfo['jifenbook'];
 
      //如果用户是登陆状态,获取用户信息
-  if($User->uid)
-  {
-	 $userinfo = $User->getInfoByMid($User->uid);//获取用户信息 
-	 $lineinfo['linkman'] = $userinfo['truename'];
-	 $lineinfo['linktel'] = $userinfo['mobile'];
-	 $lineinfo['linkemail'] = $userinfo['linkemail'];
-
-  }
+    if($User->uid)
+    {
+           $userinfo = $User->getInfoByMid($User->uid);//获取用户信息 
+           $lineinfo['linkman'] = $userinfo['truename'];
+           $lineinfo['linktel'] = $userinfo['mobile'];
+           $lineinfo['linkemail'] = $userinfo['linkemail'];
+           $jifeninfo = $User->getJifenInfoByMid($User->uid);//获取用户优惠券（积分）信息
+    }
 
      if($suitinfo['jifentprice'])
      {
-         $needjifen = $cfg_exchange_jifen * $suitinfo['jifentprice']; //所需积分
-         if($User->uid)
-         {
-             if($userinfo['jifen']>=$needjifen)
-             {
-                 $exopen = 1;
-             }
-             else
-             {
-                 $exopen = 0;
-             }
+         $GLOBALS['condition']['_has_jifentprice']=1;
+        //$needjifen = $cfg_exchange_jifen * $suitinfo['jifentprice']; //所需积分
+        $needjifen = 1 * $suitinfo['jifentprice']; //所需积分
+        if($User->uid)
+        {
+            /*
+            if($userinfo['jifen']>=$needjifen)
+            {
+                $exopen = 1;
+            }
+            else
+            {
+                $exopen = 0;
+            }
 
 
-             $userstatus = "(<span style='color:red'>当前积分:{$userinfo['jifen']}</span>)";
-             $islogin=1;
-         }
-         else
-         {
-             $userstatus = "(<span style='color:red'><a style=\"color:red\" href=\"{$GLOBALS['cfg_cmsurl']}/member/login.php\">立即登陆</a></span>)";
-             $exopen = 0;
-             $islogin = 0;
-         }
-
-         $jifenpricemsg = " <span style='color:orange'>使用{$needjifen}积分抵现{$suitinfo['jifentprice']}元</span> ".$userstatus;
-         $lineinfo['jifenpricemsg'] = $jifenpricemsg;
-         $lineinfo['needjifen'] = $needjifen;
-         $lineinfo['exopen'] = $exopen ;//优惠是否开启.
-         $lineinfo['islogin'] = $islogin;
-         $lineinfo['myjifen'] = $userinfo['jifen'];
+            $userstatus = "(<span style='color:red'>当前积分:{$userinfo['jifen']}</span>)";
+            * 
+            */
+            $islogin=1;
+        }
+        else
+        {
+            /*
+            $userstatus = "(<span style='color:red'><a style=\"color:red\" href=\"{$GLOBALS['cfg_cmsurl']}/member/login.php\">立即登陆</a></span>)";
+            $exopen = 0;
+            * 
+            */
+            $islogin = 0;
+        }
+        
+        $exopen = 1;
+        $jifenpricemsg = " <span style='color:orange'>使用{$needjifen}积分抵现{$suitinfo['jifentprice']}元</span> ".$userstatus;
+        $lineinfo['jifenpricemsg'] = $jifenpricemsg;
+        $lineinfo['needjifen'] = $needjifen;
+        $lineinfo['exopen'] = $exopen ;//优惠是否开启.
+        $lineinfo['islogin'] = $islogin;
+        $lineinfo['myjifen'] = $userinfo['jifen'];
      }
 
   
   
-  foreach($lineinfo as $k=>$v) //线路基本信息
-  {
-	  $pv->Fields[$k] = $v;
-  }
- $pkname = get_par_value($lineinfo['kindlist'],$typeid);//上一级
- //获取上级开启了导航的目的地
-  getTopNavDest($lineinfo['kindlist']);
+    foreach($lineinfo as $k=>$v) //线路基本信息
+    {
+            $pv->Fields[$k] = $v;
+    }
+    $pkname = get_par_value($lineinfo['kindlist'],$typeid);//上一级
+    //获取上级开启了导航的目的地
+    getTopNavDest($lineinfo['kindlist']);
 
-  $pv->SetTemplet(SLINETEMPLATE ."/".$cfg_df_style ."/" ."lines/" ."line_booking.htm");
+    $pv->SetTemplet(SLINETEMPLATE ."/".$cfg_df_style ."/" ."lines/" ."line_booking.htm");
 
-  $pv->Display();
-  exit();
+    $pv->Display();
+    exit();
  }
 //保存订单
 else if($dopost=="savebooking")
@@ -146,15 +156,20 @@ else if($dopost=="savebooking")
 
 
     $tourer = Helper_Archive::getTourer($_POST);
-    $needjifen = $usejifen ? Helper_Archive::getNeedJifen($jifentprice) : 0;
+    //$needjifen = $usejifen ? Helper_Archive::getNeedJifen($jifentprice) : 0;
+    $needjifen = $jifentprice;
+
     $userinfo = $User->getInfoByMid($User->uid);//获取用户信息
        //这里再次判断用户积分是否满足条件.
+    /*
        if($userinfo['jifen']<$needjifen)
        {
            $usejifen = 0;
            $needjifen = 0;
 
        }
+     * 
+     */
    $ordersn=get_order_sn('01');//订单号
    $memberid = $User->uid ? $User->uid : 0;
 
@@ -206,7 +221,7 @@ else if($dopost=="savebooking")
 		   'dingjin'=>Helper_Archive::pregReplace($dingjin,2),
            'paytype'=>$suitinfo['paytype'],
            'suitid'=>$suitid,
-           'usejifen'=>$usejifen,
+           'usejifen'=>$jifenid,
            'needjifen'=>$needjifen,
            'roombalance'=>$roombalance,
            'roombalancenum'=>$roombalancenum,
@@ -214,11 +229,9 @@ else if($dopost=="savebooking")
            'remark'=>Helper_Archive::pregReplace($remarkinfo,5),
            'tourer'=>$tourer
    );
-if($arr['dingnum']%2==1) {
-    $price = $roombalance;
-}
-   $price    =  $arr['price'] +$price ;
-   $arr['price'] = $price;
+    if($arr['dingnum']%2==1) {
+        $arr['roombalancenum'] = 1;
+    }
    $remark   = $arr['remark'];
    $dingnum  = $arr['dingnum'];
    $childnum = $arr['childnum'];
@@ -260,11 +273,11 @@ if($arr['dingnum']%2==1) {
 		 $content = $linkman . "预定" . $usedate  . $productname . "(成团报价:".$price.")"."旅游线路,成人数:" . $dingnum . "人" . ";儿童数:" . $childnum . "人;联系电话:".$linktel.";联系邮箱：".$linkemail."留言：".$remark ."-----".$GLOBALS['cfg_webname'];
          if(!empty($mailto))ordermaill($mailto,$title,$content);
         //扣除积分
-        if(!empty($usejifen))
+        if(!empty($jifenid))
         {
-            $sql = "update sline_member set jifen=jifen-{$needjifen} where mid='{$memberid}'";
+            $sql = "update sline_member_jifen set isused=1 where memberid='{$memberid}' and id='{$jifenid}'";
             $dsql->ExecuteNoneQuery($sql);
-            Helper_Archive::addJifenLog($memberid,"预订线路{$productname}消费积分{$needjifen}分",$needjifen,1);
+            Helper_Archive::addJifenLog($memberid,"预订线路{$productname}使用了{$jifenid}号优惠券",$jifenid,1);
         }
 
 

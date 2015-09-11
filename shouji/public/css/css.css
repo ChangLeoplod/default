@@ -150,9 +150,11 @@ header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav
 /*confirmation-order*/
 .confirmation-order .table-striped>tbody>tr:nth-of-type(odd),.modify-common-passenger.sign-in .user-images{ background:none; }
 .confirmation-order .table>tbody>tr>th,.confirmation-order .table>tbody>tr>td{border-top:0px; vertical-align:middle;}
-.confirmation-order .canshu th{text-align:right;}
+.confirmation-order .canshu th,.confirmation-order .discount th{text-align:right;}
 .confirmation-order .canshu td .date{ padding:8px 10px; background:url(../images/icon/right1.png) center right no-repeat; background-size:40%;}
 .confirmation-order .contact .form-control{ background:#f4f4f4; border:0px;}
+.confirmation-order .discount{ line-height:30px;}
+.confirmation-order .discount select{ height:30px;}
 
 
 .date-query .date-hd{ background:#fd7b23; border-radius:5px; border-bottom-left-radius:0px;border-bottom-right-radius:0px;}
@@ -164,6 +166,7 @@ header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav
 .date-query .table>tbody>tr>td.have div div{ color:#8ee7e3;}
 .date-query .table>tbody>tr>td.active{ background:#ececec;}
 .date-query .table>tbody>tr>td.select{ background:#ddf7f6;}
+
  
  
 /*payment*/
@@ -212,3 +215,12 @@ header .li3 .navmenu{width:30px ; height:30px; background:url(../images/icon/nav
 /*error-message*/
 .error-message{ display:none; top:0px; bottom:0px; left:0px; right:0px; background:rgba(0,0,0,0.2)}
 .error-message div{ left:70px; right:70px; top:30%; margin-top:-18px; min-height:20px; line-height:50px; background:#151515;}
+
+/*special*/
+.special{background:url(http://m2.jisha.com/public/images/add/beijing.jpg) top center no-repeat; background-size:100%; }
+.special .title{ padding:5px 0px; background:#ff9900;box-shadow: 0px 0px 5px #eb5902;}
+.cash-coupon{ padding:20px 50px;}
+.cash-coupon-bd{ background:rgba(0,0,0,0.5); border-radius:5px;}
+.cash-coupon-bd .price{ background:url(http://m2.jisha.com/public/images/add/7.png) center no-repeat; width:200px; height:93px; background-size:100%; margin:0 auto}
+.cash-coupon-bd .price h6{ font-size:40px; line-height:83px;}
+.publicist h5{}

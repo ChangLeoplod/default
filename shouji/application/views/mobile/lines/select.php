@@ -49,6 +49,7 @@
          
               <div class="canshu contact bg-white p10 bte3 bbe3">
                    <table class="table table-striped grey m0">
+                        
                         <tr>
                           <th scope="row" style="vertical-align:top">人数：</th>
                           <td align="left">
@@ -94,23 +95,31 @@
                         </tr>
                     </table>    
               </div>
+              {if $row['jifentprice'] != 0}
+              <div class="discount bg-white p15 bte3 bbe3 mt10 o-hidden">
+                   <table class="table m0">
+                       <tr>
+                          <th scope="row" width="20%" align="right" style="padding:0px;"><strong class="font16 grey">代金卷：</strong></th>
+                          <td width="80%">
+                                <select name="jifenid" class="form-control selectid" id="jifenid">
+                                <option value="0" data-price="0">无</option>
+                                {loop $jifeninfo $k}
+                                <option value="{$k['id']}" data-price="{$k['jifen']}">{$k['content']},面额{$k['jifen']}元</option>
+                                {/loop}
+                            </select>
+                          </td>
+                        </tr>
+                        <tr class="discount-info none">
+                          <th scope="row" >&nbsp;</th>
+                          <td >
+                             <div>已减免<strong id="deduct-content" style="color:#F00">0</strong>元,本产品最高可优惠{$row['jifentprice']}元</div>
+                          </td>
+                        </tr>
+                   </table> 
+              </div>
+              {/if}
               
               <div class="canshu bg-white p15 bte3 bbe3 mt10 o-hidden">
-                   <table class="table table-striped grey m0 none">
-                        <tr>
-                          <th scope="row" width="30%">出行人数：</th>
-                        
-                          <td align="right"  width="70%">共3人</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">套餐价格：</th>
-                          <td align="right"><span class="price">¥ <em class="font20">5656</em></span></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">单房差价：</th>
-                          <td align="right"><span class="price">¥ <em class="font20">5656</em></span></td>
-                        </tr>
-                    </table>
                   <input type="hidden" name="day" id="day" value="" />
                   <input type="hidden" name="price" id="price" value="" />
                   <input type="hidden" name="childprice" id="childprice" value="" />
@@ -123,9 +132,14 @@
                   <input type="hidden" id="nextyear" name="nextyear" value="0" />
                   <input type="hidden" id="premonth" name="premonth" value="0" />
                   <input type="hidden" id="preyear" name="preyear" value="0" />
+                  <input type="hidden" id="needjifen" name="needjifen" value="{$row['jifentprice']}" />
+                  <input type="hidden" id="roombalancenum" name="roombalancenum" value="0" />
                     <div class="settle">
-                        <div class="pull-left">总计：<span class="price">¥ <em class="font24" id="totalprice">0</em></span></div>
-                        <div class="pull-right"><input class="btn white" type="button"  onclick="checkform();" value="去结算" style="padding:6px 25px;"></div>
+                        <div class="pull-left">
+                           总计：<span class="price">¥ <em class="font24" id="totalprice">0</em></span>
+                           <p class="grey m0 font12" id = "roombalance1">包含单人差：0元</p>
+                         </div>
+                        <div class="pull-right"><input class="btn white mt10" type="button"  onclick="checkform();" value="去结算" style="padding:6px 25px;"></div>
                     </div>    
               </div>
               
@@ -143,6 +157,11 @@
 <div class="footer grey font12 text-center">武汉市光游网络有限公司<p>鄂ICP备14009743号 © 积沙旅行  2015</p></div>
 <script>
 $(function(){
+    var myDate = new Date();
+    var year = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+    var month = myDate.getMonth()+1; //获取当前月份(0-11,0代表1月)
+    var str = year + '年' + month + '月';
+    $('#month').html(str);
    $.ajax({
         type:"post",
         url:"{$cmsurl}lines/rili",
@@ -297,7 +316,18 @@ $(function(){
     $("#child").change(function(){
           getPrice();
     });
-
+    $("#jifenid").change(function(){
+        var id = $("#jifenid").find("option:selected").val();
+        if(id == 0){
+            $(".discount-info").addClass("none")
+        }else{
+            $(".discount-info").removeClass("none")  
+        }
+        var jifenvalue = $("#jifenid").find("option:selected").attr("data-price");
+        var deductprice = Math.min(jifenvalue, {$row['jifentprice']});
+        $("#deduct-content").html(deductprice);
+    getPrice();
+    });
      
  });
 
@@ -312,8 +342,18 @@ $(function(){
         
         if (data_roombalance>0 && adultnum%2==1) {
             roombalance = parseFloat(data_roombalance);
+            $("#roombalancenum").val(1);
         }
-        price = data_price*adultnum + data_childprice*childnum + roombalance;
+        else
+        {
+            $("#roombalancenum").val(0);
+        }
+        $("#roombalance1").html('包含单人差：'+roombalance+'元');
+        var jifenvalue = $("#jifenid").find("option:selected").attr("data-price");
+        var deductprice = Math.min(jifenvalue, {$row['jifentprice']});
+        price = data_price*adultnum + data_childprice*childnum + roombalance-deductprice;
+        if(price <= 0)
+            price = 1;
         $("#totalprice").html(price);
     }
     
@@ -357,7 +397,6 @@ $(function(){
             perror('请输入正确的邮箱');
                     return false;
         }
-
         $('#form1').submit();
     }        
     

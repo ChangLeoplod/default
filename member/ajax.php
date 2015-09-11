@@ -178,7 +178,7 @@ if($dopost == 'allorder')
 	{
         if($row['typeid']!=2)
         {
-            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice'];
+            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice'] + $row['roombalance']*$row['roombalancenum'];
         }
         else
         {
@@ -194,6 +194,15 @@ if($dopost == 'allorder')
             }
 
         }
+            if($row['usejifen']!=0)
+            {
+                $jifeninfo = getJifenInfo($row['usejifen']);
+                $jifenprice = $jifeninfo['jifen'];
+                $deductprice = min($jifenprice, $row['needjifen']);
+                $totalprice = $totalprice-$deductprice;
+                if($totalprice <= 0)
+                    $totalprice = 1;
+            }
 		$productname = getProductName($row['productautoid'],$row['typeid'],$row['productname']);//预订产品名称
 
 		$dingdate = Mydate('Y-m-d H:i:s',$row['addtime']);
@@ -253,7 +262,7 @@ if($dopost == 'unpinlun')
 	{
         if($row['typeid']!=2)
         {
-            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice'];
+            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice'] + $row['roombalance']*$row['roombalancenum'];
         }
         else
         {
@@ -269,6 +278,15 @@ if($dopost == 'unpinlun')
             }
 
         }
+            if($row['usejifen']!=0)
+            {
+                $jifeninfo = getJifenInfo($row['usejifen']);
+                $jifenprice = $jifeninfo['jifen'];
+                $deductprice = min($jifenprice, $row['needjifen']);
+                $totalprice = $totalprice-$deductprice;
+                if($totalprice <= 0)
+                    $totalprice = 1;
+            }
 		$productname = getProductName($row['productautoid'],$row['typeid'],$row['productname']);//预订产品名称
 		//$totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'];
 		$dingdate = Mydate('Y-m-d H:i:s',$row['addtime']);
@@ -306,7 +324,7 @@ if($dopost == 'unpay')
 	{
         if($row['typeid']!=2)
         {
-            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice'];
+            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice']+ $row['roombalance']*$row['roombalancenum'];
         }
         else
         {
@@ -322,6 +340,15 @@ if($dopost == 'unpay')
             }
 
         }
+            if($row['usejifen']!=0)
+            {
+                $jifeninfo = getJifenInfo($row['usejifen']);
+                $jifenprice = $jifeninfo['jifen'];
+                $deductprice = min($jifenprice, $row['needjifen']);
+                $totalprice = $totalprice-$deductprice;
+                if($totalprice <= 0)
+                    $totalprice = 1;
+            }
 		$productname = getProductName($row['productautoid'],$row['typeid'],$row['productname']);//预订产品名称
 		//$totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'];
 		$dingdate = Mydate('Y-m-d H:i:s',$row['addtime']);
@@ -367,7 +394,7 @@ if($dopost == 'wancheng')
     {
         if($row['typeid']!=2)
         {
-            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice'];
+            $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'] + $row['oldnum'] * $row['oldprice']+ $row['roombalance']*$row['roombalancenum'];
         }
         else
         {
@@ -382,6 +409,15 @@ if($dopost == 'wancheng')
                 }
             }
 
+        }
+        if($row['usejifen']!=0)
+        {
+            $jifeninfo = getJifenInfo($row['usejifen']);
+            $jifenprice = $jifeninfo['jifen'];
+            $deductprice = min($jifenprice, $row['needjifen']);
+            $totalprice = $totalprice-$deductprice;
+            if($totalprice <= 0)
+                $totalprice = 1;
         }
         $productname = getProductName($row['productautoid'],$row['typeid'],$row['productname']);//预订产品名称
        // $totalprice = $row['dingnum'] * $row['price'] + $row['childnum'] * $row['childprice'];
@@ -682,6 +718,15 @@ function getChildOrderInfo($orderid)
     $sql = "select * from sline_member_order where pid='$orderid'";
     $arr = $dsql->getAll($sql);
     return $arr;
+}
+
+//获取优惠券信息
+function getJifenInfo($id)
+{
+    global $dsql;
+    $sql = "select * from sline_member_jifen where id = '$id'";
+    $row = $dsql->getOne($sql);
+    return $row;
 }
 
 

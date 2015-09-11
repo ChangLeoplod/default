@@ -274,7 +274,16 @@ if($dopost == 'vieworder')
     {
         $orderinfo['totalprice'] = $orderinfo['dingnum'] * $orderinfo['price'] + $orderinfo['childnum'] *   $orderinfo['childprice']+$orderinfo['oldnum']*$orderinfo['oldprice'];//总价格
     }
-
+    if($orderinfo['usejifen']!=0)
+    {
+        global $dsql;
+        $sql = "select * from sline_member_jifen where id = '" . $orderinfo['usejifen'] . "'";
+        $jifeninfo = $dsql->getOne($sql);
+        $jifenprice = $jifeninfo['jifen'];
+        $deductprice = min($jifenprice, $orderinfo['needjifen']);
+        $orderinfo['totalprice'] = $orderinfo['totalprice']-$deductprice;
+        $orderinfo['jifencontent'] = "使用现金券面额为".$jifenprice."元，本产品最高减免".$orderinfo['needjifen']."元";
+    }
     $orderinfo['insuranceprice']=0;
     if($orderinfo['typeid']==1)
     {
@@ -288,6 +297,8 @@ if($dopost == 'vieworder')
         }
         $orderinfo['totalprice']+=$orderinfo['roombalance']*$orderinfo['roombalancenum'];
     }
+    if($orderinfo['totalprice']<=0)
+            $orderinfo['totalprice'] = 1;
     
     $userinfo = $User->getInfoByMid($uid);// 会员相关信息
 

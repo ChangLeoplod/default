@@ -94,18 +94,17 @@
                                                 {/sline:field.childnum}
 					</div>
 					
-					
-					
+					{sline:if var='_has_roombalance'}
 					<div class="item_li">
-						<span class="tit">单房差价： </span>	
-						<p>{sline:field.roombalance/}元</p>
+                                            <span class="tit">单房差价： </span>	
+                                            <p>{sline:field.roombalance/}元</p>
 					</div>	
-					
+                                        {/sline:if}
 				</div>
 				<textarea class="msg_area" name="remarkinfo" cols="" rows="">如果你有其它需求，在这里留言给我们喔</textarea>
 				<div class="clear"></div>
 			</div>
-			
+                        
 			<div class="pay_contact">
 				<h2>联系人信息：</h2>	
 				<div class="cin">
@@ -122,39 +121,48 @@
 				</div>
 			</div>
 			
-			<div class="pay_more">
-				<h2>付款方式：</h2>	
+                <div class="pay_more">
+                    <h2>
+                    <div style="float:left">付款方式：</div>
+                    {sline:if var='_has_jifentprice'}
+                    <div  style="float:left; font-size:12px; margin-left:20px;">
+                        使用优惠卷：
+                        <select name="jifenid" class="form-control selectid" id="jifenid" style="width: 150px;">
+                            <option value="0" data-price="0">无</option>
+                            {sline:vlist name="jifeninfo"}
+                            <option value="[field:id/]" data-price="[field:jifen/]">[field:content/],面额[field:jifen/]元</option>
+                            {/sline:vlist}
+                        </select>
+                        <span class="discount-info none1">合计：已减免<strong id="deduct-content" style="color:#F00">0</strong>元,本产品最高可优惠{sline:field.needjifen/}元</span>
+                        <style>.none1{display:none}</style>
+                    </div>
+                    </h2>	
+                    {/sline:if}    
+                    {sline:field.id function="Helper_Archive::getPayTypeList()"/}
+                    <div class="pay_price">合计: &yen;<span class="totalprice"></span>元</div>
 				
-				
-				{sline:field.id function="Helper_Archive::getPayTypeList()"/}
-				
+                </div>
 			
-			
-				
-			<div class="pay_price">合计: &yen;<span class="totalprice"></span>元</div>
-				
-			</div>
-			
-			<div class="clear"></div>	
-		</div>
-		<input type="hidden" id="adultprice" value="{sline:field.price/}"/>
-              <input type="hidden" id="childprice" value="{sline:field.childprice/}"/>
-              <input type="hidden" id="oldprice" value="{sline:field.oldprice/}"/>
-              <input type="hidden" name="jifentprice" id="jifentprice" value="{sline:field.jifentprice/}"/>
-              <input type="hidden" name="jifenbook" value="{sline:field.jifenbook/}"/>
-              <input type="hidden" name="jifencomment" value="{sline:field.jifencomment/}"/>
-              <input type="hidden" name="dingjin"  id="dingjin_new" value="{sline:field.dingjin/}"/>
-              <input type="hidden" name="productautoid" value="{sline:field.id/}"/>
-              <input type="hidden" name="productaid" value="{sline:field.aid/}"/>
-              <input type="hidden" name="webid" value="{sline:field.webid/}"/>
-              <input type="hidden" name="productname" value="{sline:field.title/}"/>
-              <input type="hidden" name="paytype" value="{sline:field.paytype/}"/>
-              <input type="hidden" name="suitid" id="suitid" value="{sline:global.suitid/}"/>
-              <input type="hidden" name="usedate" value="{sline:field.usedate/}">
-              <input type="hidden" name="lineday" id="lineday_num" value="{sline:field.lineday/}"/>
-              <input type="hidden" name="usejifen" id="usejifen" value="0">
-              <input type="hidden" name="dj" id="dingjin" value="{sline:field.dingjin/}">
-              <input type="hidden" name="roombalance" id="roombalance" value="{sline:field.roombalance/}"/>
+                <div class="clear"></div>
+            </div>
+                <input type="hidden" id="adultprice" value="{sline:field.price/}"/>
+                <input type="hidden" id="childprice" value="{sline:field.childprice/}"/>
+                <input type="hidden" id="oldprice" value="{sline:field.oldprice/}"/>
+                <input type="hidden" name="jifentprice" id="jifentprice" value="{sline:field.jifentprice/}"/>
+                <input type="hidden" name="jifenbook" value="{sline:field.jifenbook/}"/>
+                <input type="hidden" name="jifencomment" value="{sline:field.jifencomment/}"/>
+                <input type="hidden" name="dingjin"  id="dingjin_new" value="{sline:field.dingjin/}"/>
+                <input type="hidden" name="productautoid" value="{sline:field.id/}"/>
+                <input type="hidden" name="productaid" value="{sline:field.aid/}"/>
+                <input type="hidden" name="webid" value="{sline:field.webid/}"/>
+                <input type="hidden" name="productname" value="{sline:field.title/}"/>
+                <input type="hidden" name="paytype" value="{sline:field.paytype/}"/>
+                <input type="hidden" name="suitid" id="suitid" value="{sline:global.suitid/}"/>
+                <input type="hidden" name="usedate" value="{sline:field.usedate/}">
+                <input type="hidden" name="lineday" id="lineday_num" value="{sline:field.lineday/}"/>
+                <input type="hidden" name="usejifen" id="usejifen" value="{sline:field.jifentprice/}">
+                <input type="hidden" name="dj" id="dingjin" value="{sline:field.dingjin/}">
+                <input type="hidden" name="roombalance" id="roombalance" value="{sline:field.roombalance/}"/>
 		<div class="pay_sub">
 			<div class="xy chks">
 				<span class="ch ch_hover">我已阅读并接受 《<a href="/about/user-agreement.php" target="_blank">积沙旅行网用户服务条款</a>》<input type="checkbox" class="chk" checked="checked" /></span>				
@@ -165,25 +173,7 @@
 
 <script>
    $(function(){
-           
-        var data_price = Number($('#adultprice').val());
-        var data_childprice = Number($('#childprice').val());
-        var data_roombalance = Number($('#roombalance').val());
-        var adultnum = Number($('#adultnum').val());
-        var childnum = $('#childnum').val();
-        if (typeof(childnum) == "undefined") {
-            childnum=0;
-        }
-        var roombalance=0;
-        var price;
-        if (data_roombalance>0 && adultnum%2==1) {
-            roombalance = data_roombalance;
-        }
-        price = data_price*adultnum + data_childprice*childnum + roombalance;
-
-        $(".totalprice").html(price);
-
-
+        getPrice();
         $(".pay_bank").click(function(){
             $(".pay_bank").removeClass('bank_hover');
             $(this).addClass('bank_hover');
@@ -191,7 +181,19 @@
             $(this).find(".raw").attr("checked","checked");
         });
 
-      
+        $("#jifenid").change(function(){
+            var id = $("#jifenid").find("option:selected").val();
+            if(id == 0){
+                $(".discount-info").addClass("none1")
+            }else{
+                $(".discount-info").removeClass("none1")  
+            }
+            var jifenvalue = $("#jifenid").find("option:selected").attr("data-price");
+            var deductprice = Math.min(jifenvalue, {sline:field.needjifen/});
+            $("#deduct-content").html(deductprice);
+            getPrice();
+        });
+        
        $(".btnsaveorder").click(function(evt){
             var linkman = $("#linkman").val();
             var linktel = $("#linktel").val();
@@ -238,13 +240,30 @@
                     }
                 }
             });
-           
-           
-           
-           //$("#dingfrm").submit();
         });
     });
-
+function getPrice()
+{
+    var data_price = Number($('#adultprice').val());
+    var data_childprice = Number($('#childprice').val());
+    var data_roombalance = Number($('#roombalance').val());
+    var adultnum = Number($('#adultnum').val());
+    var childnum = $('#childnum').val();
+    if (typeof(childnum) == "undefined") {
+        childnum=0;
+    }
+    var roombalance=0;
+    var price;
+    if (data_roombalance>0 && adultnum%2==1) {
+        roombalance = data_roombalance;
+    }
+    var jifenvalue = $("#jifenid").find("option:selected").attr("data-price");
+    var deductprice = Math.min(jifenvalue, {sline:field.needjifen/});
+    price = data_price*adultnum + data_childprice*childnum + roombalance-deductprice;
+    if(price <= 0)
+        price = 1;
+    $(".totalprice").html(price);
+}
 
 
 
